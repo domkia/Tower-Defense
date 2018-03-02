@@ -61,7 +61,10 @@ public class Tower : MonoBehaviour {
     /// </summary>
     private void Shoot()
     {
-        Debug.Log("Fire!");
+        GameObject bulletGO = Instantiate(BulletPrefab, transform.position, Quaternion.identity);
+        Bullet bullet = bulletGO.GetComponent<Bullet>();
+        if (bullet != null)
+            bullet.Seek(target);
     }
 
     private void OnDrawGizmosSelected()

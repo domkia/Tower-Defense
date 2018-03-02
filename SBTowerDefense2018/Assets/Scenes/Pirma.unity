@@ -238,6 +238,12 @@ Prefab:
       propertyPath: Range
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114528552430810856, guid: 9a9b70d5c7ea13746b9dc00ab1b3bb00,
+        type: 2}
+      propertyPath: BulletPrefab
+      value: 
+      objectReference: {fileID: 1871370763936802, guid: bd51cd5a0d6dadf449ce7728f0ee1ec6,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9a9b70d5c7ea13746b9dc00ab1b3bb00, type: 2}
   m_IsPrefabParent: 0
