@@ -62,6 +62,11 @@ public class Tower : MonoBehaviour {
     private void Shoot()
     {
         GameObject bulletGO = Instantiate(BulletPrefab, transform.position, Quaternion.identity);
+
+        // For organizational purposes
+        bulletGO.transform.parent = this.transform;
+        bulletGO.name = "Bullet";
+
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
             bullet.Seek(target);
