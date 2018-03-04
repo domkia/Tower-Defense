@@ -29,22 +29,20 @@ public class Bullet : MonoBehaviour {
         Vector3 dir = target.position - transform.position;
         float distanceThisFrame = Speed * Time.deltaTime;
 
-        // If the bullet is closer to the target than the distance it travelled, it hit the target.
-        if (dir.magnitude <= distanceThisFrame)
-        {
-            HitTarget();
-            Destroy(gameObject);
-            return;
-        }
-
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
 
     /// <summary>
-    /// Right now it just prints out 'Hit!' to the console when the bullet hits the target.
+    /// This method gets called when the bullet collides with something.
     /// </summary>
-    private void HitTarget()
+    /// <param name="other">Other object's collider</param>
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit!");
+        if(other.CompareTag("Enemy"))
+        {
+            // The bullet hit an enemy
+            Debug.Log("Hit!");
+            Destroy(gameObject);
+        }
     }
 }
