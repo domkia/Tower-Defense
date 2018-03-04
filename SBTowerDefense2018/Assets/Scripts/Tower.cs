@@ -69,7 +69,7 @@ public class Tower : MonoBehaviour {
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
-            bullet.Seek(target);
+            bullet.Seek(target, EnemyTag);
     }
 
     private void OnDrawGizmosSelected()
