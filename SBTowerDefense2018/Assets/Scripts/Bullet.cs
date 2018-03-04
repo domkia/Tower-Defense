@@ -7,14 +7,18 @@ public class Bullet : MonoBehaviour {
     private Transform target;
     // Speed of the bullet
     public float Speed = 0.5f;
+    // Tag of enemy (passed in by tower)
+    private string enemyTag;
 
     /// <summary>
     /// Sets the bullet's target.
     /// </summary>
     /// <param name="_target">Enemy target</param>
-    public void Seek(Transform _target)
+    /// <param name="_enemyTag">Tag of enemy</param>
+    public void Seek(Transform _target, string _enemyTag)
     {
         target = _target;
+        enemyTag = _enemyTag;
     }
 
     private void Update()
@@ -38,7 +42,7 @@ public class Bullet : MonoBehaviour {
     /// <param name="other">Other object's collider</param>
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy"))
+        if(other.CompareTag(enemyTag))
         {
             // The bullet hit an enemy
             Debug.Log("Hit!");
