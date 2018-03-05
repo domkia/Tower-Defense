@@ -22,6 +22,9 @@ public class Grid : MonoBehaviour
         CreateFromFile(path);
     }
   
+    /// <summary>
+    /// Calculates starting position
+    /// </summary>
     void CalcStartPos()
     {
         float offset = 0;
@@ -34,6 +37,11 @@ public class Grid : MonoBehaviour
         startPos = new Vector3(x, 0, z);
     }
  
+    /// <summary>
+    /// Calculates position on map
+    /// </summary>
+    /// <param name="gridPos">grid position</param>
+    /// <returns></returns>
     Vector3 CalcWorldPos(Vector2 gridPos)
     {
         float offset = 0;
@@ -62,7 +70,6 @@ public class Grid : MonoBehaviour
                 int xCord = int.Parse(parts[0]);
                 int yCord = int.Parse(parts[1]);
                 char type = char.Parse(parts[2]);
-                grid[y, x] = new Tile(x, y, type);
                 Transform hex = Instantiate(hexPrefab) as Transform;
                 Renderer thisRend;
                 thisRend = hex.GetComponent<Renderer>(); //Gets hex renderer component
@@ -71,6 +78,7 @@ public class Grid : MonoBehaviour
                 thisRend.material.SetColor("_Color", tileColor);
                 Vector2 gridPos = new Vector2(x, y);
                 hex.position = CalcWorldPos(gridPos);
+                grid[y, x] = new Tile(hex.position.x, hex.position.y, type);
                 hex.parent = this.transform;
                 hex.name = "Hexagon" + x + "|" + y;
             }

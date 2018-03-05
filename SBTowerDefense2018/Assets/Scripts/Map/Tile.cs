@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile {
-    public int x { get; set; }
-    public int y { get; set; }
-    public string type { get; set; }
-    public bool canBuild { get; set; }
+    public float x { get; set; } //x coordinates on the world
+    public float y { get; set; } //y coordinates on the world
+    public string type { get; set; } //Type of tile
+    public bool canBuild { get; set; } //State if towers can be bult on that tile
 
-    public Tile(int xCord, int yCord, char tileType)
+    public Tile(float xCord, float yCord, char tileType)
     {
         this.x = xCord;
         this.y = yCord;
@@ -17,7 +17,7 @@ public class Tile {
         choose(tileType, ref canBuild, ref tilType);
         this.type = tilType;
         string text = string.Format("{0};{1} type: {2}", x, y, tilType);
-        Debug.Log(text);
+        //Debug.Log(text); //Debug to see coordinates on map and type of that tile
 
     }
     /// <summary>
