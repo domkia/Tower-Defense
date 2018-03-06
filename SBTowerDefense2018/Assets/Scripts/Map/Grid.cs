@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using System.IO;
  
 public class Grid : MonoBehaviour
 {
+    public string path = "Assets/MapData/TestMap.txt";
     public Transform hexPrefab;
  
-    public int gridWidth = 11;
-    public int gridHeight = 11;
- 
+    public int gridWidth = 16;
+    public int gridHeight = 9;
+    
 
     //Prefab size
     float hexWidth = 1.732f;
@@ -17,9 +19,12 @@ public class Grid : MonoBehaviour
     void Start()
     {
         CalcStartPos();
-        CreateGrid();
+        CreateFromFile(path);
     }
   
+    /// <summary>
+    /// Calculates starting position
+    /// </summary>
     void CalcStartPos()
     {
         float offset = 0;
@@ -32,6 +37,11 @@ public class Grid : MonoBehaviour
         startPos = new Vector3(x, 0, z);
     }
  
+    /// <summary>
+    /// Calculates position on map
+    /// </summary>
+    /// <param name="gridPos">grid position</param>
+    /// <returns></returns>
     Vector3 CalcWorldPos(Vector2 gridPos)
     {
         float offset = 0;
@@ -43,30 +53,72 @@ public class Grid : MonoBehaviour
  
         return new Vector3(x, 0, z);
     }
-
-    void CreateGrid()
+    /// <summary>
+    /// Read from file and generate grid
+    /// </summary>
+    /// <param name="filePath">File path</param>
+    void CreateFromFile(string filePath)
     {
+        StreamReader reader = new StreamReader(filePath);
+        Tile[,] grid = new Tile[gridHeight,gridWidth];
         for (int y = 0; y < gridHeight; y++)
         {
             for (int x = 0; x < gridWidth; x++)
             {
-                int col = Random.Range(0, 2);  
+                string line = reader.ReadLine();
+                string[] parts = line.Split(';');
+                int xCord = int.Parse(parts[0]);
+                int yCord = int.Parse(parts[1]);
+                char type = char.Parse(parts[2]);
                 Transform hex = Instantiate(hexPrefab) as Transform;
                 Renderer thisRend;
                 thisRend = hex.GetComponent<Renderer>(); //Gets hex renderer component
-                if (col == 0)
-                {
-                    thisRend.material.SetColor("_Color", Color.black);
-                }
-                if (col == 1)
-                {
-                    thisRend.material.SetColor("_Color", Color.white);
-                }
+                Color tileColor = Color.white;
+                Pick(type, ref tileColor);
+                thisRend.material.SetColor("_Color", tileColor);
                 Vector2 gridPos = new Vector2(x, y);
                 hex.position = CalcWorldPos(gridPos);
+                grid[y, x] = new Tile(hex.position.x, hex.position.y, type);
                 hex.parent = this.transform;
                 hex.name = "Hexagon" + x + "|" + y;
             }
+        }
+     }
+    /// <summary>
+    /// Picks color for object depending on type from file
+    /// </summary>
+    /// <param name="type">Char that describes type of tile</param>
+    /// <returns>Returns color, white by default</returns>
+    void Pick(char type, ref Color tileColor)
+    {
+        switch (type)
+        {
+            case 'B': //Tile on which you can build towers
+                {
+
+                    tileColor = Color.green;
+                    break;
+                }
+            case 'P': //Path tile
+                {
+                    tileColor = Color.yellow;
+                    break;
+                }
+            case 'S': //Start tile
+                {
+                    tileColor = Color.magenta;
+                    break;
+                }
+            case 'E': //End tile
+                {
+                    tileColor = Color.red;
+                    break;
+                }
+            default:
+                {
+                    tileColor = Color.white;
+                    break;
+                }
         }
     }
 }
