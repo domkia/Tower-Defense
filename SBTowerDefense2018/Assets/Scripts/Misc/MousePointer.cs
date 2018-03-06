@@ -8,7 +8,6 @@ public class MousePointer : MonoBehaviour
 {
     [SerializeField] private Texture2D normal;
     [SerializeField] private Texture2D click;
-    private Vector2 _pivot;
 
 	void Start ()
     {
@@ -25,6 +24,6 @@ public class MousePointer : MonoBehaviour
 
     private void SetCursor(Texture2D tex)
     {
-        Cursor.SetCursor(tex, _pivot, CursorMode.ForceSoftware);
+        Cursor.SetCursor(tex, Vector2.zero, CursorMode.ForceSoftware);
     }
 }
