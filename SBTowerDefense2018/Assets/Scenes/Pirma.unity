@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 277464658}
   - component: {fileID: 277464657}
   - component: {fileID: 277464656}
+  - component: {fileID: 277464660}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -194,6 +195,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!114 &277464660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277464655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298cd4a961570a040a9be19578456781, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 20, y: 0, z: 20}
+  zoomMultiplier: 1
+  angleLow: 45
+  angleHigh: 90
+  minZoom: 4
+  maxZoom: 20
 --- !u!1001 &292951593
 Prefab:
   m_ObjectHideFlags: 0
@@ -472,6 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f669ef0bfc8061b429f4c0550068c0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: Assets/MapData/TestMap.txt
   hexPrefab: {fileID: 400000, guid: b2b4904bd39732f42adf63c2317a45fd, type: 3}
   gridWidth: 16
   gridHeight: 9
