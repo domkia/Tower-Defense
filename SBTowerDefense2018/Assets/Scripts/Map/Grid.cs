@@ -8,7 +8,8 @@ public class Grid : MonoBehaviour
  
     public int gridWidth = 16;
     public int gridHeight = 9;
-    
+
+    public Transform WaypointsParent;
 
     //Prefab size
     float hexWidth = 1.732f;
@@ -61,6 +62,7 @@ public class Grid : MonoBehaviour
     {
         StreamReader reader = new StreamReader(filePath);
         Tile[,] grid = new Tile[gridHeight,gridWidth];
+        Path path = new Path();
         for (int y = 0; y < gridHeight; y++)
         {
             for (int x = 0; x < gridWidth; x++)
@@ -79,10 +81,14 @@ public class Grid : MonoBehaviour
                 Vector2 gridPos = new Vector2(x, y);
                 hex.position = CalcWorldPos(gridPos);
                 grid[y, x] = new Tile(hex.position.x, hex.position.y, type);
+                // TEMPORARY
+                if (type == 'P' || type == 'S' || type == 'E')
+                    path.AddWaypoint(hex.position);
                 hex.parent = this.transform;
                 hex.name = "Hexagon" + x + "|" + y;
             }
         }
+        path.InstantiatePath(WaypointsParent);
      }
     /// <summary>
     /// Picks color for object depending on type from file
