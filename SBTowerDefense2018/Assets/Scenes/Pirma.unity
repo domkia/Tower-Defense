@@ -338,7 +338,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4123075174540314, guid: 18cdd6ae526c2b048a7f910918b9594d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.464102
+      value: 2.165
       objectReference: {fileID: 0}
     - target: {fileID: 4123075174540314, guid: 18cdd6ae526c2b048a7f910918b9594d, type: 2}
       propertyPath: m_LocalPosition.y
@@ -346,7 +346,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4123075174540314, guid: 18cdd6ae526c2b048a7f910918b9594d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 4123075174540314, guid: 18cdd6ae526c2b048a7f910918b9594d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -492,10 +492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f669ef0bfc8061b429f4c0550068c0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: Assets/MapData/TestMap.txt
-  hexPrefab: {fileID: 400000, guid: b2b4904bd39732f42adf63c2317a45fd, type: 3}
-  gridWidth: 16
-  gridHeight: 9
+  hexPrefab: {fileID: 4404046453141896, guid: 91de3e912e5691c42929994b13a7126e, type: 2}
+  map_radius: 8
 --- !u!4 &1471865825
 Transform:
   m_ObjectHideFlags: 0

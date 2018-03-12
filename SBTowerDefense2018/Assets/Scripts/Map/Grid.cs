@@ -1,124 +1,78 @@
 ﻿using UnityEngine;
 using System.IO;
- 
+using System;
+using System.Collections.Generic;
+
 public class Grid : MonoBehaviour
 {
-    public string path = "Assets/MapData/TestMap.txt";
-    public Transform hexPrefab;
- 
-    public int gridWidth = 16;
-    public int gridHeight = 9;
-    
+    public  Transform hexPrefab;
 
     //Prefab size
-    float hexWidth = 1.732f;
-    float hexHeight = 2.0f;
- 
-    Vector3 startPos;
+    float hexWidth = 0.866f;
+    float hexHeight = 1.0f;
+
+    public int map_radius = 3; //map radius
+
+    public List<Tile> map = new List<Tile>(); //list of all tiles
+
+    Vector3 startPos = new Vector3(0,0,0); //map center position
  
     void Start()
     {
-        CalcStartPos();
-        CreateFromFile(path);
+        map = generateList(map_radius);
+        generateMap(map);
     }
-  
+
     /// <summary>
-    /// Calculates starting position
+    /// Generates map of grid tile list
     /// </summary>
-    void CalcStartPos()
+    /// <param name="map">List of tiles</param>
+    void generateMap(List<Tile> map)
     {
-        float offset = 0;
-        if (gridHeight / 2 % 2 != 0)
-            offset = hexWidth / 2;
- 
-        float x = -hexWidth * (gridWidth / 2) - offset;
-        float z = hexHeight * 0.75f * (gridHeight / 2);
- 
-        startPos = new Vector3(x, 0, z);
+        foreach(Tile tile in map)
+        {
+            Transform hex = Instantiate(hexPrefab) as Transform;
+            Vector2 gridPos = new Vector2(tile.x, tile.y);
+            hex.position = tile.worldPos;
+            hex.parent = this.transform;
+            hex.name = "Hexagon" + tile.x + "|" + tile.y;
+        }
     }
- 
+
     /// <summary>
-    /// Calculates position on map
+    /// Generates list of tiles
     /// </summary>
-    /// <param name="gridPos">grid position</param>
-    /// <returns></returns>
+    /// <param name="map_radius">Radius of hexagon</param>
+    /// <returns>return list</returns>
+    List<Tile> generateList(int map_radius) { 
+        List<Tile> map = new List<Tile>();
+        for (int q = -map_radius; q <= map_radius; q++)
+        {
+            int r1 = Math.Max(-map_radius, -q - map_radius);
+            int r2 = Math.Min(map_radius, -q + map_radius);
+            for (int r = r1; r <= r2; r++)
+            {
+                Tile test = new Tile(q, r, CalcWorldPos(new Vector2(q, r)));
+                Debug.Log(q + " " + r);
+                map.Add(test);
+            }
+        }
+        return map;
+    }
+
+    /// <summary>
+    /// Calculates coordinates of hexagon on map, based of their coordinates in grid
+    /// </summary>
+    /// <param name="gridPos">Position in grid vector</param>
+    /// <returns>return vector with coordinates on map</returns>
     Vector3 CalcWorldPos(Vector2 gridPos)
     {
         float offset = 0;
-        if (gridPos.y % 2 != 0)
-            offset = hexWidth / 2;
- 
-        float x = startPos.x + gridPos.x * hexWidth + offset;
-        float z = startPos.z - gridPos.y * hexHeight * 0.75f;
- 
-        return new Vector3(x, 0, z);
-    }
-    /// <summary>
-    /// Read from file and generate grid
-    /// </summary>
-    /// <param name="filePath">File path</param>
-    void CreateFromFile(string filePath)
-    {
-        StreamReader reader = new StreamReader(filePath);
-        Tile[,] grid = new Tile[gridHeight,gridWidth];
-        for (int y = 0; y < gridHeight; y++)
-        {
-            for (int x = 0; x < gridWidth; x++)
-            {
-                string line = reader.ReadLine();
-                string[] parts = line.Split(';');
-                int xCord = int.Parse(parts[0]);
-                int yCord = int.Parse(parts[1]);
-                char type = char.Parse(parts[2]);
-                Transform hex = Instantiate(hexPrefab) as Transform;
-                Renderer thisRend;
-                thisRend = hex.GetComponent<Renderer>(); //Gets hex renderer component
-                Color tileColor = Color.white;
-                Pick(type, ref tileColor);
-                thisRend.material.SetColor("_Color", tileColor);
-                Vector2 gridPos = new Vector2(x, y);
-                hex.position = CalcWorldPos(gridPos);
-                grid[y, x] = new Tile(hex.position.x, hex.position.y, type);
-                hex.parent = this.transform;
-                hex.name = "Hexagon" + x + "|" + y;
-            }
-        }
-     }
-    /// <summary>
-    /// Picks color for object depending on type from file
-    /// </summary>
-    /// <param name="type">Char that describes type of tile</param>
-    /// <returns>Returns color, white by default</returns>
-    void Pick(char type, ref Color tileColor)
-    {
-        switch (type)
-        {
-            case 'B': //Tile on which you can build towers
-                {
+        offset = hexWidth / 2;
+        float x = startPos.x + gridPos.x * hexWidth;
+            x = x + offset * gridPos.y;
+        float z = startPos.z + gridPos.y * hexHeight * 0.75f;
 
-                    tileColor = Color.green;
-                    break;
-                }
-            case 'P': //Path tile
-                {
-                    tileColor = Color.yellow;
-                    break;
-                }
-            case 'S': //Start tile
-                {
-                    tileColor = Color.magenta;
-                    break;
-                }
-            case 'E': //End tile
-                {
-                    tileColor = Color.red;
-                    break;
-                }
-            default:
-                {
-                    tileColor = Color.white;
-                    break;
-                }
-        }
+        return new Vector3(x, 0, z);
     }
 }
