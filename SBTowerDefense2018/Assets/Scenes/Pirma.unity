@@ -761,6 +761,7 @@ MonoBehaviour:
   EnemyTag: Enemy
   BulletPrefab: {fileID: 1871370763936802, guid: bd51cd5a0d6dadf449ce7728f0ee1ec6,
     type: 2}
+  AmmoCapacity: 0
 --- !u!1 &1268463322
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,6 +944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexPrefab: {fileID: 4404046453141896, guid: 91de3e912e5691c42929994b13a7126e, type: 2}
+  forest: {fileID: 4087367710462966, guid: 9371f552236a3d6429206785cbdeee04, type: 2}
+  rock: {fileID: 4886652765494824, guid: 803529d168a1fab4ea5b2b03507a9512, type: 2}
   map_radius: 8
 --- !u!4 &1471865825
 Transform:

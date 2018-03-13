@@ -5,7 +5,9 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour
 {
-    public  Transform hexPrefab;
+    public Transform hexPrefab;
+    public Transform forest;
+    public Transform rock;
 
     //Prefab size
     float hexWidth = 0.866f;
@@ -31,8 +33,16 @@ public class Grid : MonoBehaviour
     {
         foreach(Tile tile in map)
         {
-            Transform hex = Instantiate(hexPrefab) as Transform;
+            Transform temp = hexPrefab;
+            float rand = UnityEngine.Random.Range(0, 3);
             Vector2 gridPos = new Vector2(tile.x, tile.y);
+            if (gridPos == Vector2.zero || rand == 0)
+                temp = hexPrefab;
+            if (rand == 1)
+                temp = forest;
+            if (rand <1)
+                temp = rock;
+            Transform hex = Instantiate(temp) as Transform;
             hex.position = tile.worldPos;
             hex.parent = this.transform;
             hex.name = "Hexagon" + tile.x + "|" + tile.y;
@@ -53,7 +63,6 @@ public class Grid : MonoBehaviour
             for (int r = r1; r <= r2; r++)
             {
                 Tile test = new Tile(q, r, CalcWorldPos(new Vector2(q, r)));
-                Debug.Log(q + " " + r);
                 map.Add(test);
             }
         }
