@@ -12,11 +12,16 @@ public class Tower : MonoBehaviour {
     public string EnemyTag = "Enemy";
     // Prefab of bullets to shoot.
     public GameObject BulletPrefab;
+    // Ammo capacity
+    public int AmmoCapacity;
     // When this countdown goes to zero, a bullet is fired.
     private float fireCountdown = 0.0f;
+    // Current amount of bullets left in the tower.
+    private int bulletsLeft;
 
     private void Start()
     {
+        bulletsLeft = AmmoCapacity;
         // Right now, the tower will update targets every half a second.
         InvokeRepeating("UpdateTarget", 0.0f, 0.5f);
     }
@@ -25,7 +30,7 @@ public class Tower : MonoBehaviour {
     {
         if(target != null)
         {
-            if(fireCountdown <= 0.0f)
+            if(fireCountdown <= 0.0f && bulletsLeft > 0)
             {
                 Shoot();
                 fireCountdown = 1.0f / FireRate;
@@ -67,9 +72,22 @@ public class Tower : MonoBehaviour {
         bulletGO.transform.parent = this.transform;
         bulletGO.name = "Bullet";
 
+        // Decrement the amount of bullets left
+        bulletsLeft--;
+
+        Debug.Log(string.Format("Fire! Number of bullets left: {0}", bulletsLeft));
+
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
             bullet.Seek(target, EnemyTag);
+    }
+
+    /// <summary>
+    /// Reloads the gun, setting the amount of bullets left to the tower's ammo capacity.
+    /// </summary>
+    public void Reload()
+    {
+        bulletsLeft = AmmoCapacity;
     }
 
     private void OnDrawGizmosSelected()
