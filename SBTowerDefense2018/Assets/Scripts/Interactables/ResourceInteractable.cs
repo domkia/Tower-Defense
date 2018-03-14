@@ -4,7 +4,7 @@ using UnityEngine;
 public class ResourceInteractable : MonoBehaviour, IInteractable
 {
     public int maxTier = 3;           //How many times you can collect this resource until it's gone
-    public int amountPerTier;         //How much you get
+    public int amountPerTier;         //How much you get for every tier
     public float timeToCollect;       //Time it takes to collect it once
     public Resource resource;         //Info about the resource
 

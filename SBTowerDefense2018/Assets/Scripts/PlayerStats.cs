@@ -5,10 +5,28 @@
 public class PlayerStats
 {
 
-    public static PlayerStats Instance { get; private set; }
+    // I feel like this design is better: we don't even need to construct an instance of this in a game manager
+    // or something for this work. If anyone disagrees, they may improve on it.
+    private static PlayerStats instance = null;
 
-    // Amount of money that the player currently has, which can later be used to buy and upgrade towers.
-    // *** THIS WILL PROBABLY CHANGE LATER. ***
+    public static PlayerStats Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = new PlayerStats();
+            return instance;
+        }
+    }
+
+    private PlayerStats()
+    {
+    }
+
+    // Resources (wood, stone, iron, etc.) and their amounts.
+    public Resource[] Resources { get; set; }
+
+    // Amount of money the player has, which he earns from killing enemies.
     public int Money { get; private set; }
 
     // How many enemies the player has killed.
@@ -19,11 +37,6 @@ public class PlayerStats
 
     // How many seconds the player has survived in the current playing session.
     public int TimeSurvivedInSeconds { get; private set; }
-
-    public PlayerStats()
-    {
-        Instance = this;
-    }
 
     /// <summary>
     /// Changes the player's money by some amount.
