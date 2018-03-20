@@ -4,21 +4,16 @@ using UnityEngine.UI;
 /// <summary>
 /// Base Enemy class
 /// </summary>
-abstract class Enemy
+public abstract class Enemy : MonoBehaviour
 {
-    public abstract event Action OnEnemyDied;
-    public abstract void TakeDamage();
+    public abstract event Action<Enemy> OnDeath;
 
+    public abstract void TakeDamage(int amount);
 
-    public float health = 100;
+    public int Health { get; protected set; }
+    // Speed
+    public float Speed { get; protected set; }
+
     [Header("HealthBar")]
     public Image healthBar;
-
-    public void TakeDamage(float amount)
-    {
-        health -= amount;
-        healthBar.fillAmount = health / 100f;
-        //if(health <= 0)
-        
-    }
 }

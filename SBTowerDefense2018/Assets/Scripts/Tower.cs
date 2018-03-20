@@ -1,15 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Tower : MonoBehaviour {
-    // Stores the current target's position
-    private Transform target;
+    // Stores the current target enemy
+    private Enemy target;
     // Range of tower (in map units). Any potential targets, further away than this range, cannot be fired at.
     [Header("Properties")]
     public float Range = 5.0f;
     // Fire rate of tower (times per second)
     public float FireRate = 0.5f;
-    // All objects with this tag are considered enemies.
-    public string EnemyTag = "Enemy";
     // Prefab of bullets to shoot.
     public GameObject BulletPrefab;
     // Ammo capacity
@@ -19,18 +18,19 @@ public class Tower : MonoBehaviour {
     // Current amount of bullets left in the tower.
     private int bulletsLeft;
 
+    private LinkedList<Enemy> enemyList;
+
     private void Start()
     {
         bulletsLeft = AmmoCapacity;
-        // Right now, the tower will update targets every half a second.
-        InvokeRepeating("UpdateTarget", 0.0f, 0.5f);
+        enemyList = new LinkedList<Enemy>();
     }
 
     private void Update()
     {
-        if(target != null)
+        if (target != null)
         {
-            if(fireCountdown <= 0.0f && bulletsLeft > 0)
+            if (fireCountdown <= 0.0f && bulletsLeft > 0)
             {
                 Shoot();
                 fireCountdown = 1.0f / FireRate;
@@ -38,6 +38,28 @@ public class Tower : MonoBehaviour {
 
             fireCountdown -= Time.deltaTime;
         }
+        else
+            UpdateTarget();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Enemy e = other.GetComponent<Enemy>();
+        if (e == null)
+            return;
+        AddEnemyToQueue(e);
+        e.OnDeath += RemoveEnemyFromQueue;
+        Debug.Log("Enemy added to list!");
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Enemy e = other.GetComponent<Enemy>();
+        if (e == null)
+            return;
+        e.OnDeath -= RemoveEnemyFromQueue;
+        RemoveEnemyFromQueue(e);
+        Debug.Log("Enemy removed from list!");
     }
 
     /// <summary>
@@ -46,19 +68,7 @@ public class Tower : MonoBehaviour {
     /// </summary>
     private void UpdateTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(EnemyTag);
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
-        foreach(var enemy in enemies)
-        {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if(distance <= shortestDistance)
-            {
-                shortestDistance = distance;
-                nearestEnemy = enemy;
-            }
-        }
-        target = ((nearestEnemy != null) && (shortestDistance <= Range)) ? nearestEnemy.transform : null;
+        target = (enemyList.Count != 0) ? enemyList.First.Value : null;
     }
 
     /// <summary>
@@ -79,7 +89,7 @@ public class Tower : MonoBehaviour {
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
-            bullet.Seek(target, EnemyTag);
+            bullet.Seek(target);
     }
 
     /// <summary>
@@ -94,5 +104,16 @@ public class Tower : MonoBehaviour {
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, Range);
+    }
+
+    private void AddEnemyToQueue(Enemy enemy)
+    {
+        enemyList.AddLast(enemy);
+    }
+
+    private void RemoveEnemyFromQueue(Enemy enemy)
+    {
+        enemyList.Remove(enemy);
+        UpdateTarget();
     }
 }
