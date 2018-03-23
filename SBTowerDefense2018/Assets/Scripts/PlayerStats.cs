@@ -1,7 +1,11 @@
-﻿/// <summary>
+﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
+/// <summary>
 /// This will hold the information (stats) for our player.
 /// </summary>
-[System.Serializable]
+[Serializable]
 public class PlayerStats
 {
 
@@ -69,5 +73,39 @@ public class PlayerStats
     public void IncrementSurvivalTimer()
     {
         TimeSurvivedInSeconds++;
+    }
+
+    private static readonly string filePath = Application.persistentDataPath + "/playerStats.dat";
+
+    /// <summary>
+    /// Saves the player's stats to a file.
+    /// </summary>
+    public void Save()
+    {
+        using (var file = File.Create(filePath))
+        {
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(file, this);
+        }
+    }
+
+    /// <summary>
+    /// Loads the player's stats from a file.
+    /// </summary>
+    public void Load()
+    {
+        if(File.Exists(filePath))
+        {
+            using (var file = File.Open(filePath, FileMode.Open))
+            {
+                var formatter = new BinaryFormatter();
+                var savedStats = (PlayerStats) formatter.Deserialize(file);
+                Resources = savedStats.Resources;
+                Money = savedStats.Money;
+                EnemiesKilled = savedStats.EnemiesKilled;
+                TowersBuilt = savedStats.TowersBuilt;
+                TimeSurvivedInSeconds = savedStats.TimeSurvivedInSeconds;
+            }
+        }
     }
 }
