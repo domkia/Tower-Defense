@@ -18,6 +18,12 @@ public class Tower : MonoBehaviour {
     private float fireCountdown = 0.0f;
     // Current amount of bullets left in the tower.
     public int BulletsLeft { get; private set; }
+    // Ammo indicator game object.
+    private GameObject ammoIndicator;
+    // Sprite to be drawn when a tower has no ammo left.
+    public Sprite NoAmmoIndicator;
+    // Sprite to be drawn when a tower has low ammo.
+    public Sprite LowAmmoIndicator;
 
     private LinkedList<Enemy> enemyList;
 
@@ -25,6 +31,16 @@ public class Tower : MonoBehaviour {
     {
         BulletsLeft = AmmoCapacity;
         enemyList = new LinkedList<Enemy>();
+
+        ammoIndicator = new GameObject("Ammo Indicator");
+
+        ammoIndicator.transform.parent = this.transform;
+        // We add an offset in the positive Y direction, so we can see the sprite clearly.
+        // If we didn't add an offset, the sprite would be embedded in the tower.
+        ammoIndicator.transform.position = this.transform.position + new Vector3(0, 2f, 0);
+        // We add a SpriteRenderer component as we will need to render sprites.
+        ammoIndicator.AddComponent<SpriteRenderer>();
+        ammoIndicator.SetActive(false);
     }
 
     private void Update()
@@ -35,20 +51,13 @@ public class Tower : MonoBehaviour {
             {
                 Shoot();
                 fireCountdown = 1.0f / FireRate;
+                UpdateIndicator();
             }
 
             fireCountdown -= Time.deltaTime;
         }
         else
             UpdateTarget();
-    }
-
-    /// <summary>
-    /// Returns the amount of bullets left in the tower.
-    /// </summary>
-    public int AmmoLeft()
-    {
-        return BulletsLeft;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -107,6 +116,7 @@ public class Tower : MonoBehaviour {
     public void Reload()
     {
         BulletsLeft = AmmoCapacity;
+        UpdateIndicator();
     }
 
     private void OnDrawGizmosSelected()
@@ -124,5 +134,28 @@ public class Tower : MonoBehaviour {
     {
         enemyList.Remove(enemy);
         UpdateTarget();
+    }
+
+    /// <summary>
+    /// Updates the ammo warning indicator.
+    /// </summary>
+    private void UpdateIndicator()
+    {
+        SpriteRenderer renderer = ammoIndicator.GetComponent<SpriteRenderer>();
+        // No ammo case.
+        if (BulletsLeft == 0)
+        {
+            renderer.sprite = NoAmmoIndicator;
+            ammoIndicator.SetActive(true);
+        }
+        // Low ammo case.
+        else if (BulletsLeft <= AmmoCapacity / 4)
+        {
+            renderer.sprite = LowAmmoIndicator;
+            ammoIndicator.SetActive(true);
+        }
+        // Otherwise, the tower has plenty of ammo and we can stop drawing the sprite.
+        else
+            ammoIndicator.SetActive(false);
     }
 }
