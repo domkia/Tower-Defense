@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour {
@@ -16,13 +17,13 @@ public class Tower : MonoBehaviour {
     // When this countdown goes to zero, a bullet is fired.
     private float fireCountdown = 0.0f;
     // Current amount of bullets left in the tower.
-    private int bulletsLeft;
+    public int BulletsLeft { get; private set; }
 
     private LinkedList<Enemy> enemyList;
 
     private void Start()
     {
-        bulletsLeft = AmmoCapacity;
+        BulletsLeft = AmmoCapacity;
         enemyList = new LinkedList<Enemy>();
     }
 
@@ -30,7 +31,7 @@ public class Tower : MonoBehaviour {
     {
         if (target != null)
         {
-            if (fireCountdown <= 0.0f && bulletsLeft > 0)
+            if (fireCountdown <= 0.0f && BulletsLeft > 0)
             {
                 Shoot();
                 fireCountdown = 1.0f / FireRate;
@@ -40,6 +41,14 @@ public class Tower : MonoBehaviour {
         }
         else
             UpdateTarget();
+    }
+
+    /// <summary>
+    /// Returns the amount of bullets left in the tower.
+    /// </summary>
+    public int AmmoLeft()
+    {
+        return BulletsLeft;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,9 +92,9 @@ public class Tower : MonoBehaviour {
         bulletGO.name = "Bullet";
 
         // Decrement the amount of bullets left
-        bulletsLeft--;
+        BulletsLeft--;
 
-        Debug.Log(string.Format("Fire! Number of bullets left: {0}", bulletsLeft));
+        Debug.Log(string.Format("Fire! Number of bullets left: {0}", BulletsLeft));
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
@@ -97,7 +106,7 @@ public class Tower : MonoBehaviour {
     /// </summary>
     public void Reload()
     {
-        bulletsLeft = AmmoCapacity;
+        BulletsLeft = AmmoCapacity;
     }
 
     private void OnDrawGizmosSelected()
