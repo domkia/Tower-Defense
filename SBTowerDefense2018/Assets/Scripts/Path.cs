@@ -2,25 +2,25 @@
 
 public class Path
 {
-    public List<Tile> Waypoints { get; private set; }
+    public List<HexTile> Waypoints { get; private set; }
 
-    public Tile Destination { get; private set; }
+    public HexTile Destination { get; private set; }
 
     /// <summary>
     /// Constructs an empty path with no waypoints.
     /// </summary>
     public Path()
     {
-        Waypoints = new List<Tile>();
+        Waypoints = new List<HexTile>();
     }
 
     /// <summary>
     /// Constructs a path from given waypoints
     /// </summary>
     /// <param name="waypoints">Collection of waypoints</param>
-    public Path(IEnumerable<Tile> waypoints)
+    public Path(IEnumerable<HexTile> waypoints)
     {
-        Waypoints = new List<Tile>(waypoints);
+        Waypoints = new List<HexTile>(waypoints);
         Destination = Waypoints[Waypoints.Count - 1];
     }
 
@@ -28,7 +28,7 @@ public class Path
     /// Appends a new waypoint to the path.
     /// </summary>
     /// <param name="waypoint">Waypoint to be added</param>
-    public void AddWaypoint(Tile waypoint)
+    public void AddWaypoint(HexTile waypoint)
     {
         Waypoints.Add(waypoint);
         Destination = Waypoints[Waypoints.Count - 1];
