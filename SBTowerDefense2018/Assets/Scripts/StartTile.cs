@@ -8,7 +8,7 @@ public class StartTile : MonoBehaviour {
     //public float z { get; set; } //y coordinates on the world
 
     public Transform enemyPrefab;
-
+    public static bool spawning = true;
     public Transform spawnPoint;
 
     //public GameObject spawnPoint;
@@ -32,10 +32,13 @@ public class StartTile : MonoBehaviour {
 
     IEnumerator SpawnWave()
     {
-        for (int i = 0; i < monsterCount; i++)
+        if (spawning)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(0.5f);
+            for (int i = 0; i < monsterCount; i++)
+            {
+                SpawnEnemy();
+                yield return new WaitForSeconds(0.5f);
+            }
         }
     }
 
@@ -43,6 +46,9 @@ public class StartTile : MonoBehaviour {
     {
         Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
     }
-
+    public static void Spawningstop()
+    {
+        spawning = false;
+    }
 
 }

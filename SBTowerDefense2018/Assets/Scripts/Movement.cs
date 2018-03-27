@@ -30,9 +30,13 @@ public class Movement : MonoBehaviour {
 
     void GetNextWayPoint()
     {
+        
         if (waypointIndex >= WayPoints.points.Length - 1)
         {
+            LivesINFO.Lives--;
+            
             Destroy(gameObject);
+
         }
 
         if (waypointIndex < WayPoints.points.Length - 1)
