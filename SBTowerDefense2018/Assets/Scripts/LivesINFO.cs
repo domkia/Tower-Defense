@@ -9,7 +9,8 @@ public class LivesINFO : MonoBehaviour {
 
     public GameObject gameOverPanel;
     public Text gameOverText;
-    
+    public MonsterSpawner monsterSpawner;
+
     void Start()
     {
        // Debug.Log(Lives);
@@ -28,9 +29,8 @@ public class LivesINFO : MonoBehaviour {
             return;
         if (LivesINFO.Lives <= 0)
         {
-            
             EndGame();
-            StartTile.spawning = false;
+            //monsterSpawner.waveCount = monsterSpawner.waves + 1;
         }
     }
     /// <summary>
