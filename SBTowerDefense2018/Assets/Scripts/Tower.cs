@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tower : MonoBehaviour {
     // Stores the current target enemy
@@ -161,4 +162,14 @@ public class Tower : MonoBehaviour {
         else
             ammoIndicator.SetActive(false);
     }
+    [Header("Healthbar")]
+    public Image healthBar;
+    public float health = 100;
+    public void takeTowerdmg()
+    {
+        healthBar.fillAmount = health / 100f;
+        
+    }
+
+    
 }
