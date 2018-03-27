@@ -42,6 +42,7 @@ public class Tower : MonoBehaviour {
         // We add a SpriteRenderer component as we will need to render sprites.
         ammoIndicator.AddComponent<SpriteRenderer>();
         ammoIndicator.SetActive(false);
+        
     }
 
     private void Update()
@@ -59,6 +60,8 @@ public class Tower : MonoBehaviour {
         }
         else
             UpdateTarget();
+        Tlives = LivesINFO.Lives;
+        Tdmg();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -159,14 +162,21 @@ public class Tower : MonoBehaviour {
         else
             ammoIndicator.SetActive(false);
     }
-    [Header("Healthbar")]
+    /// <summary>
+    /// All main tower health syste,
+    /// </summary>
+    private float Tlives;
+    // same health amount as lives
+    public int health = 12;
+    // header
+    [Header("HealthBar")]
     public Image healthBar;
-    public float health = 100;
-    public void takeTowerdmg()
+    /// <summary>
+    /// Healthbar filling
+    /// </summary>
+    public void Tdmg()
     {
-        healthBar.fillAmount = health / 100f;
-        
+        healthBar.fillAmount = Tlives / health;
     }
-
     
 }
