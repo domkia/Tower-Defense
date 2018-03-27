@@ -21,6 +21,8 @@ public class Tower : MonoBehaviour {
     public int BulletsLeft { get; private set; }
     // Ammo indicator game object.
     private GameObject ammoIndicator;
+    // Reference to sprite renderer for the ammo indicator.
+    private SpriteRenderer spriteRenderer;
     // Sprite to be drawn when a tower has no ammo left.
     public Sprite NoAmmoIndicator;
     // Sprite to be drawn when a tower has low ammo.
@@ -40,9 +42,10 @@ public class Tower : MonoBehaviour {
         // If we didn't add an offset, the sprite would be embedded in the tower.
         ammoIndicator.transform.position = this.transform.position + new Vector3(0, 2f, 0);
         // We add a SpriteRenderer component as we will need to render sprites.
-        ammoIndicator.AddComponent<SpriteRenderer>();
+        spriteRenderer = ammoIndicator.AddComponent<SpriteRenderer>();
         ammoIndicator.SetActive(false);
-        
+      
+        GetComponent<SphereCollider>().radius = Range;
     }
 
     private void Update()
@@ -145,17 +148,16 @@ public class Tower : MonoBehaviour {
     /// </summary>
     private void UpdateIndicator()
     {
-        SpriteRenderer renderer = ammoIndicator.GetComponent<SpriteRenderer>();
         // No ammo case.
         if (BulletsLeft == 0)
         {
-            renderer.sprite = NoAmmoIndicator;
+            spriteRenderer.sprite = NoAmmoIndicator;
             ammoIndicator.SetActive(true);
         }
         // Low ammo case.
         else if (BulletsLeft <= AmmoCapacity / 4)
         {
-            renderer.sprite = LowAmmoIndicator;
+            spriteRenderer.sprite = LowAmmoIndicator;
             ammoIndicator.SetActive(true);
         }
         // Otherwise, the tower has plenty of ammo and we can stop drawing the sprite.
