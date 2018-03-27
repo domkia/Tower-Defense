@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Pathfinding
 {
@@ -13,6 +12,10 @@ public class Pathfinding
 
     public List<HexTile> GetPath(HexTile fromTile, HexTile toTile)
     {
+        foreach (HexTile tile in grid)
+            if(tile != null)
+                tile.Reset();
+
         if (fromTile == null || toTile == null)
             throw new Exception("fromTile or toTile null in Pathfinding class");
 
