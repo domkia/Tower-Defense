@@ -32,6 +32,7 @@ public class Tower : MonoBehaviour {
 
     private void Start()
     {
+        Debug.Log("Noriu mirt");
         BulletsLeft = AmmoCapacity;
         enemyList = new LinkedList<Enemy>();
 
@@ -110,7 +111,7 @@ public class Tower : MonoBehaviour {
         // Decrement the amount of bullets left
         BulletsLeft--;
 
-        Debug.Log(string.Format("Fire! Number of bullets left: {0}", BulletsLeft));
+        //Debug.Log(string.Format("Fire! Number of bullets left: {0}", BulletsLeft));
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
