@@ -43,6 +43,8 @@ public class Tower : MonoBehaviour {
         // We add a SpriteRenderer component as we will need to render sprites.
         spriteRenderer = ammoIndicator.AddComponent<SpriteRenderer>();
         ammoIndicator.SetActive(false);
+
+        GetComponent<SphereCollider>().radius = Range;
     }
 
     private void Update()

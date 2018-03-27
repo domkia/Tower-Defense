@@ -36,6 +36,12 @@ public class HexTile
     }
     public HexTile prev;            //Node we came from
 
+    public void Reset()
+    {
+        gCost = hCost = 0;
+        prev = null;
+    }
+
     public override string ToString()
     {
         return string.Format("{0} {1}", x, y);
