@@ -69,7 +69,7 @@ public class Tower : MonoBehaviour {
             return;
         AddEnemyToQueue(e);
         e.OnDeath += RemoveEnemyFromQueue;
-        Debug.Log("Enemy added to list!");
+        //Debug.Log("Enemy added to list!");
     }
 
     private void OnTriggerExit(Collider other)
@@ -79,7 +79,7 @@ public class Tower : MonoBehaviour {
             return;
         e.OnDeath -= RemoveEnemyFromQueue;
         RemoveEnemyFromQueue(e);
-        Debug.Log("Enemy removed from list!");
+        //Debug.Log("Enemy removed from list!");
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ public class Tower : MonoBehaviour {
         // Decrement the amount of bullets left
         BulletsLeft--;
 
-        Debug.Log(string.Format("Fire! Number of bullets left: {0}", BulletsLeft));
+        //Debug.Log(string.Format("Fire! Number of bullets left: {0}", BulletsLeft));
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameLost : MonoBehaviour {
     private bool gameEnded = false;
-	// Update is called once per frame
+         
 	void Update () {
         if (gameEnded)
             return;
@@ -13,7 +13,7 @@ public class GameLost : MonoBehaviour {
             EndGame();
         }
 	}
-    
+
     void EndGame()
     {
         gameEnded = true;

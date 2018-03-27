@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour {
     public void Seek(Enemy enemy)
     {
         this.enemy = enemy;
+
     }
 
     private void Update()
