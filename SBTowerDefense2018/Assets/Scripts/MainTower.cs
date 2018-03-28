@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tower : MonoBehaviour {
+public class MainTower : MonoBehaviour
+{
     // Stores the current target enemy
     private Enemy target;
     // Range of tower (in map units). Any potential targets, further away than this range, cannot be fired at.
@@ -27,6 +28,18 @@ public class Tower : MonoBehaviour {
     public Sprite NoAmmoIndicator;
     // Sprite to be drawn when a tower has low ammo.
     public Sprite LowAmmoIndicator;
+    /// <summary>
+    /// All main tower health syste,
+    /// </summary>
+    private float Tlives;
+    // same health amount as lives
+    private int health;
+    // header
+    [Header("HealthBar")]
+    public Image healthBar;
+    /// <summary>
+    /// Healthbar filling
+    /// </summary>
 
     private LinkedList<Enemy> enemyList;
 
@@ -44,8 +57,9 @@ public class Tower : MonoBehaviour {
         // We add a SpriteRenderer component as we will need to render sprites.
         spriteRenderer = ammoIndicator.AddComponent<SpriteRenderer>();
         ammoIndicator.SetActive(false);
-      
+
         GetComponent<SphereCollider>().radius = Range;
+        health = LivesINFO.startLives;
     }
 
     private void Update()
@@ -57,13 +71,16 @@ public class Tower : MonoBehaviour {
                 Shoot();
                 fireCountdown = 1.0f / FireRate;
                 UpdateIndicator();
-                Debug.Log(string.Format("Bullets left: {0}", BulletsLeft));
+                //Debug.Log(string.Format("Bullets left: {0}", BulletsLeft));
             }
 
             fireCountdown -= Time.deltaTime;
         }
         else
             UpdateTarget();
+
+        Tlives = LivesINFO.Lives;
+        Tdmg();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -73,7 +90,7 @@ public class Tower : MonoBehaviour {
             return;
         AddEnemyToQueue(e);
         e.OnDeath += RemoveEnemyFromQueue;
-        Debug.Log("Enemy added to list!");
+        //Debug.Log("Enemy added to list!");
     }
 
     private void OnTriggerExit(Collider other)
@@ -83,7 +100,7 @@ public class Tower : MonoBehaviour {
             return;
         e.OnDeath -= RemoveEnemyFromQueue;
         RemoveEnemyFromQueue(e);
-        Debug.Log("Enemy removed from list!");
+        //Debug.Log("Enemy removed from list!");
     }
 
     /// <summary>
@@ -162,5 +179,11 @@ public class Tower : MonoBehaviour {
         // Otherwise, the tower has plenty of ammo and we can stop drawing the sprite.
         else
             ammoIndicator.SetActive(false);
-    }    
+    }
+
+    public void Tdmg()
+    {
+        healthBar.fillAmount = Tlives / health;
+    }
+
 }

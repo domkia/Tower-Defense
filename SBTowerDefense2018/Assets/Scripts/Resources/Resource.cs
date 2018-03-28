@@ -1,7 +1,5 @@
-﻿using System;
-using System.Reflection;
-using System.Runtime.Serialization;
-using UnityEditor;
+﻿using System.Runtime.Serialization;
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "new Resource", menuName = "Resource", order = 0)]

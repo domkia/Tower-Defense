@@ -8,15 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: 657c988a10051a549bb1cac7a237f334
-  - enabled: 0
-    path: Assets/Scenes/InteractablesTest.unity
-    guid: 0e5c94a1c82b05f4b979bb3ad3f9cabc
-  - enabled: 0
-    path: Assets/Scenes/MAP9.unity
-    guid: ad934ea9df2c8ed43ad2b50a18cf6c02
-  - enabled: 1
-    path: Assets/Scenes/SaveLoadTest.unity
-    guid: ebbd099df874ba942a0809b274df90ed
   - enabled: 1
     path: Assets/Scenes/Pirma.unity
     guid: a31e1e6323e5d0c45839005ed37750ec
+  - enabled: 1
+    path: Assets/Scenes/SaveLoadTest.unity
+    guid: ebbd099df874ba942a0809b274df90ed
