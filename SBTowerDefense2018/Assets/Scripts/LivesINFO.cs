@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class LivesINFO : MonoBehaviour {
     public static int Lives;
-    public int startLives = 12;
+    public static int startLives = 12;
     private bool gameEnded = false;
 
     public GameObject gameOverPanel;

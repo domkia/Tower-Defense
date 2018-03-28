@@ -19,10 +19,11 @@ public class Swordsman : Enemy {
         Health -= amount;
         if (Health <= 0 && OnDeath != null)
         {
-            Debug.Log("Died!");
+            //Debug.Log("Died!");
             OnDeath(this);
             Destroy(gameObject);
         }
+        
     }
 
 }

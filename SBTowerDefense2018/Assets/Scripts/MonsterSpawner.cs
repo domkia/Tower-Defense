@@ -33,7 +33,7 @@ public class MonsterSpawner : MonoBehaviour {
         while(waveCount < waves)
         {
             yield return SpawnWave();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(countdown);
             waveCount++;
         }
 

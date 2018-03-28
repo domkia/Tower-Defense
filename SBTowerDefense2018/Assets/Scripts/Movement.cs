@@ -34,9 +34,8 @@ public class Movement : MonoBehaviour {
         if (waypointIndex >= WayPoints.points.Length - 1)
         {
             LivesINFO.Lives--;
-            
-            Destroy(gameObject);
 
+            GetComponent<Enemy>().TakeDamage(1000000);
         }
 
         if (waypointIndex < WayPoints.points.Length - 1)
