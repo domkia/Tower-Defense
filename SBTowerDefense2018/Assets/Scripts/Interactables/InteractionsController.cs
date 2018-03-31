@@ -25,7 +25,7 @@ public class InteractionsController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100f, interactionLayer))
             {
                 IInteractable inter = hit.collider.GetComponent<IInteractable>();
-                if (inter != null)                              
+                if (inter != null && inter.IsCurrentlyInteractive())                              
                 {
                     currentInteractable = inter;
                     inter.OnCompleted += RemoveInteractable;    //We need to set currentInteractable to null when interaction has completed

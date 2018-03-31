@@ -28,4 +28,10 @@ public class TestInteractable : MonoBehaviour, IInteractable
         if (OnCancelled != null)
             OnCancelled();
     }
+
+    // This test interactable is always interactive.
+    public bool IsCurrentlyInteractive()
+    {
+        return true;
+    }
 }
