@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -21,7 +20,7 @@ public class HexGrid : MonoBehaviour, IEnumerable
 
     void Start()
     {
-        hexRadius = 0.5f;      
+        hexRadius = 0.5f;
         hexWidth = Mathf.Cos(30f * Mathf.Deg2Rad) * hexRadius * 2f; //Set constants
 
         int size = mapRadius * 2 + 1;                               //Array size
@@ -30,6 +29,11 @@ public class HexGrid : MonoBehaviour, IEnumerable
             this.tiles[i] = new HexTile[size];
 
         InitializeTiles(tileVisualPrefab);                          //Populate array with tiles
+    }
+
+    public HexTile CenterTile
+    {
+        get{ return tiles[mapRadius][mapRadius]; }
     }
 
     /// <summary>
@@ -52,7 +56,7 @@ public class HexGrid : MonoBehaviour, IEnumerable
     /// <returns></returns>
     private HexTile GetTileAxial(Vector2Int axial)
     {
-        int remapX = axial.x + mapRadius;       
+        int remapX = axial.x + mapRadius;
         int remapY = axial.y + mapRadius;
         return GetTile(remapX, remapY);
     }
@@ -117,14 +121,60 @@ public class HexGrid : MonoBehaviour, IEnumerable
 
     public int GetDistance(HexTile fromTile, HexTile toTile)
     {
-        //Conver from axial to cube coordinates
+        //Convert from axial to cube coordinates
         int x = Mathf.Abs(fromTile.x - toTile.x);
         int y = Mathf.Abs(fromTile.x + fromTile.y - toTile.x - toTile.y);
         int z = Mathf.Abs(fromTile.y - toTile.y);
         return (x + y + z) / 2;
     }
 
-    /*
+    public List<HexTile> GetTilesInRange(HexTile fromTile, int range)
+    {
+        //Debug.Log("Range: " + range);
+        if (range <= 0 || range > mapRadius)
+            throw new System.Exception("range is out of bounds. GetTilesInRange()");
+
+        List<HexTile> tilesInRange = new List<HexTile>();
+        for (int x = -range; x <= range; x++)
+            for (int y = Mathf.Max(-range, -x-range); y <= Mathf.Min(range, -x+range); y++)
+            {
+                if (x == fromTile.x && y == fromTile.y)
+                    continue;
+                var z = -x - y;
+                Vector3Int coords = AxialToCube(fromTile.GetAxialCoords()) + new Vector3Int(x, z, y);
+                HexTile tileInRange = GetTileAxial(CubeToAxial(coords));
+                if(tileInRange != null)
+                    tilesInRange.Add(tileInRange);
+                //Debug.Log("tile: " + neighbour);
+            }
+        return tilesInRange;
+    }
+
+    public List<HexTile> GetTilesRing(HexTile fromTile, int range)
+    {
+        if (range <= 0 || range > mapRadius)
+            throw new System.Exception("range is out of bounds. GetTilesAtRing()");
+
+        List<HexTile> ring = new List<HexTile>();
+        Vector3Int coord = AxialToCube(fromTile.GetAxialCoords()) + AxialToCube(axialDirections[4]) * range;
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < range; j++)
+            {
+                HexTile ringTile = GetTileAxial(CubeToAxial(coord));
+                //Debug.Log("Tile: " + ringTile);
+                //if(ringTile != null)
+                ring.Add(ringTile);
+                coord = AxialToCube(ringTile.GetAxialCoords()) + AxialToCube(axialDirections[i]);
+            }
+        return ring;
+    }
+
+    private HexTile GetNeighbour(HexTile fromTile, int dir)
+    {
+        HexTile tile = GetTileAxial(fromTile.GetAxialCoords() + axialDirections[dir]);
+        return tile;
+    }
+
     private Vector3Int AxialToCube(Vector2Int axial)
     {
         Vector3Int cube = new Vector3Int();
@@ -140,7 +190,7 @@ public class HexGrid : MonoBehaviour, IEnumerable
         axial.x = cube.x;
         axial.y = cube.z;
         return axial;
-    }*/
+    }
 
     public void DebugPrintGrid()
     {
