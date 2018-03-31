@@ -15,6 +15,8 @@ public class Tower : MonoBehaviour {
     public GameObject BulletPrefab;
     // Ammo capacity
     public int AmmoCapacity;
+    // Time needed to reload the tower.
+    public float ReloadTime;
     // When this countdown goes to zero, a bullet is fired.
     private float fireCountdown = 0.0f;
     // Current amount of bullets left in the tower.
@@ -23,6 +25,8 @@ public class Tower : MonoBehaviour {
     private GameObject ammoIndicator;
     // Reference to sprite renderer for the ammo indicator.
     private SpriteRenderer spriteRenderer;
+    // Reference to TowerInteractable component.
+    private TowerInteractable towerInteractable;
     // Sprite to be drawn when a tower has no ammo left.
     public Sprite NoAmmoIndicator;
     // Sprite to be drawn when a tower has low ammo.
@@ -46,6 +50,9 @@ public class Tower : MonoBehaviour {
         ammoIndicator.SetActive(false);
       
         GetComponent<SphereCollider>().radius = Range;
+
+        towerInteractable = GetComponentInChildren<TowerInteractable>();
+        towerInteractable.SetParent(this);
     }
 
     private void Update()
@@ -117,7 +124,7 @@ public class Tower : MonoBehaviour {
     }
 
     /// <summary>
-    /// Reloads the gun, setting the amount of bullets left to the tower's ammo capacity.
+    /// Reloads the tower, setting the amount of bullets left to the tower's ammo capacity.
     /// </summary>
     public void Reload()
     {
@@ -152,6 +159,8 @@ public class Tower : MonoBehaviour {
         {
             spriteRenderer.sprite = NoAmmoIndicator;
             ammoIndicator.SetActive(true);
+            // Since the tower has no bullets left, it can now be interacted with.
+            towerInteractable.SetToInteractive();
         }
         // Low ammo case.
         else if (BulletsLeft <= AmmoCapacity / 4)

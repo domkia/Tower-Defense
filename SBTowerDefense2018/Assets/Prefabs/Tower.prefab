@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33973132300754426}
   - component: {fileID: 23539987974339428}
   - component: {fileID: 65745364319291194}
+  - component: {fileID: 114905337844817070}
   m_Layer: 8
   m_Name: CastleMesh
   m_TagString: Untagged
@@ -142,8 +143,20 @@ MonoBehaviour:
   BulletPrefab: {fileID: 1871370763936802, guid: bd51cd5a0d6dadf449ce7728f0ee1ec6,
     type: 2}
   AmmoCapacity: 10
+  ReloadTime: 2
   NoAmmoIndicator: {fileID: 21300000, guid: 2f1c0793b5f92e14099d5410f805147c, type: 3}
   LowAmmoIndicator: {fileID: 21300000, guid: 4481b2338d1aba845988a41206a7020c, type: 3}
+--- !u!114 &114905337844817070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1064097366571316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e5c9f50d3591d4bab669091c47c46a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135040316651324036
 SphereCollider:
   m_ObjectHideFlags: 1

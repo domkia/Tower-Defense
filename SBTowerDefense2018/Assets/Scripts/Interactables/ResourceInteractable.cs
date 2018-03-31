@@ -55,4 +55,10 @@ public class ResourceInteractable : MonoBehaviour, IInteractable
         //TODO: Add particle effects, sounds etc.
         Destroy(this.gameObject);
     }
+
+    // As long as the resource exists on the map, it is always interactive.
+    public bool IsCurrentlyInteractive()
+    {
+        return true;
+    }
 }
