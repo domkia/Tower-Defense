@@ -35,6 +35,11 @@ public class Path
         Destination = Waypoints[Waypoints.Count - 1];
     }
 
+    public HexTile this[int index]
+    {
+        get{ return Waypoints[index]; }
+    }
+
     /// <summary>
     /// For Testing purposes
     /// </summary>

@@ -20,8 +20,8 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
 
     void Awake()
     {
-        hexRadius = 0.5f;
-        hexWidth = Mathf.Cos(30f * Mathf.Deg2Rad) * hexRadius * 2f; //Set constants
+        hexWidth = 1f;
+        hexRadius = hexWidth / Mathf.Cos(30f * Mathf.Deg2Rad) / 2f; //2 x hexRadius === hexHeight
 
         int size = mapRadius * 2 + 1;                               //Array size
         this.tiles = new HexTile[size][];                           //Initialize two dimensional array
@@ -95,12 +95,13 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
             {
                 int axialX = x - mapRadius;
                 int axialY = y - mapRadius;
-                tiles[y][x] = new HexTile(axialX, axialY, TileType.Empty);
+                Vector3 worldPosition = TileCoordToWorldPosition(axialX, axialY);
+                tiles[y][x] = new HexTile(axialX, axialY, worldPosition, TileType.Empty);
 
                 //Setup physical tile
                 TileVisual tv = GameObject.Instantiate(tileVisual).GetComponent<TileVisual>();
-                tv.SetTile(tiles[y][x]);                                             
-                tv.transform.position = TileCoordToWorldPosition(axialX, axialY);   
+                tv.SetTile(tiles[y][x]);
+                tv.transform.position = worldPosition;
                 tv.transform.parent = this.transform;
             }
         }
@@ -119,7 +120,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     /// <param name="q">column</param>
     /// <param name="r">row</param>
     /// <returns></returns>
-    public static Vector3 TileCoordToWorldPosition(int x, int y)
+    private Vector3 TileCoordToWorldPosition(int x, int y)
     {
         Vector3 worldPos = new Vector3();
         worldPos.z = hexRadius * 3f / 2f * -y;

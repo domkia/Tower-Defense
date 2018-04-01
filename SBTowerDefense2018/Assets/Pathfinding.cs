@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public static class Pathfinding
 {
-    public static List<HexTile> GetPath(HexTile fromTile, HexTile toTile)
+    public static Path GetPath(HexTile fromTile, HexTile toTile)
     {
         HexGrid grid = HexGrid.Instance;
         foreach (HexTile tile in grid)
@@ -43,13 +43,14 @@ public static class Pathfinding
                 }
                 path.Reverse();
                 path.Add(toTile);
-                return path;
+                return new Path(path);
             }
 
             foreach (HexTile neighbour in grid.GetNeighbours(current))
             {
                 if (neighbour.type != TileType.Empty || closed.Contains(neighbour))
-                    continue;
+                    if(neighbour != toTile)
+                        continue;
 
                 int cost = current.gCost + grid.GetDistance(current, neighbour);
                 //Debug.Log("cost from: " + current + " to " + neighbour + " is " + cost);

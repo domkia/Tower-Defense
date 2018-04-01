@@ -6,11 +6,13 @@ public class HexTile
     public readonly int x;              //x coordinate on axial grid
     public readonly int y;              //y coordinate on axial grid
     public TileType type { get; private set; }
+    public Vector3 worldPos { get; private set; }
 
-    public HexTile(int xCord, int yCord, TileType tileType = TileType.Empty)
+    public HexTile(int xCord, int yCord, Vector3 worldPosition, TileType tileType = TileType.Empty)
     {
         this.x = xCord;
         this.y = yCord;
+        this.worldPos = worldPosition;
         this.type = tileType;
     }
 
