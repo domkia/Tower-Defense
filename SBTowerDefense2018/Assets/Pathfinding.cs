@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Pathfinding
+public static class Pathfinding
 {
-    private HexGrid grid;
-
-    public Pathfinding(HexGrid grid)
+    public static List<HexTile> GetPath(HexTile fromTile, HexTile toTile)
     {
-        this.grid = grid;
-    }
-
-    public List<HexTile> GetPath(HexTile fromTile, HexTile toTile)
-    {
+        HexGrid grid = HexGrid.Instance;
         foreach (HexTile tile in grid)
             if(tile != null)
                 tile.Reset();

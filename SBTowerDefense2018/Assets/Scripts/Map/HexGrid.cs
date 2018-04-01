@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class HexGrid : MonoBehaviour, IEnumerable
+public class HexGrid : Singleton<HexGrid>, IEnumerable
 {
     //Six directions to neighbours in axial coordinate space
     static Vector2Int[] axialDirections =
@@ -18,7 +18,7 @@ public class HexGrid : MonoBehaviour, IEnumerable
     private static float hexWidth;
     private static float hexRadius;
 
-    void Start()
+    void Awake()
     {
         hexRadius = 0.5f;
         hexWidth = Mathf.Cos(30f * Mathf.Deg2Rad) * hexRadius * 2f; //Set constants
@@ -93,15 +93,23 @@ public class HexGrid : MonoBehaviour, IEnumerable
             int startIndex = Mathf.Max(mapRadius - y, 0);                           //Starting collumn in 2d array
             for (int x = startIndex; x < startIndex + count; x++)
             {
-                TileVisual tv = GameObject.Instantiate(tileVisual).GetComponent<TileVisual>();
                 int axialX = x - mapRadius;
                 int axialY = y - mapRadius;
-                tiles[y][x] = new HexTile(axialX, axialY, TileType.Empty);//(x == 0 && y == 0)? TileType.Tower : TileType.Empty); //The very center tile is our base
-                tv.SetTile(tiles[y][x]);                                            //Set tile 
-                tv.transform.position = TileCoordToWorldPosition(axialX, axialY);   //Position physical tile in the world
+                tiles[y][x] = new HexTile(axialX, axialY, TileType.Empty);
+
+                //Setup physical tile
+                TileVisual tv = GameObject.Instantiate(tileVisual).GetComponent<TileVisual>();
+                tv.SetTile(tiles[y][x]);                                             
+                tv.transform.position = TileCoordToWorldPosition(axialX, axialY);   
                 tv.transform.parent = this.transform;
             }
         }
+
+        //Set corner / center tile types
+        CenterTile.SetType(TileType.Tower);
+        for (int i = 0; i < 6; i++)
+            GetCornerTile(i).SetType(TileType.Blocked);
+
         DebugPrintGrid();
     }
 
@@ -169,10 +177,34 @@ public class HexGrid : MonoBehaviour, IEnumerable
         return ring;
     }
 
-    private HexTile GetNeighbour(HexTile fromTile, int dir)
+    public List<HexTile> GetEdgeTiles(int direction)
     {
-        HexTile tile = GetTileAxial(fromTile.GetAxialCoords() + axialDirections[dir]);
-        return tile;
+        if (direction < 0 || direction > 5)
+            throw new System.Exception("direction is not valid. GetEdgeTiles()");
+
+        List <HexTile> edgeTiles = new List<HexTile>();
+        Vector2Int coord = axialDirections[direction] * mapRadius;       //Start coordinate
+        //Debug.Log("start coord: " + coord);
+        direction = (direction + 2) % 6;                                 //Direction in which we look for tiles
+        for (int i = 0; i < mapRadius - 1; i++)
+        {
+            coord += axialDirections[direction];
+            //Debug.Log("edge tile coord: " + coord);
+            HexTile edgeTile = GetTileAxial(coord);
+            //TODO: Check if its not null??
+            edgeTiles.Add(edgeTile);
+            //Debug.Log(coord);
+        }
+        return edgeTiles;
+    }
+
+    private HexTile GetCornerTile(int direction)
+    {
+        if (direction < 0 || direction > 5)
+            throw new System.Exception("direction is not valid. GetCornerTile()");
+
+        Vector2Int coord = axialDirections[direction] * mapRadius;
+        return GetTileAxial(coord);
     }
 
     private Vector3Int AxialToCube(Vector2Int axial)

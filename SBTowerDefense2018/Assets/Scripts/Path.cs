@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 public class Path
 {
@@ -34,4 +35,14 @@ public class Path
         Destination = Waypoints[Waypoints.Count - 1];
     }
 
+    /// <summary>
+    /// For Testing purposes
+    /// </summary>
+    public override string ToString()
+    {
+        StringBuilder s = new StringBuilder(string.Format("Path: ({0}, {1})", this.Waypoints[0].x, this.Waypoints[0].y));
+        for (int i = 1; i < this.Waypoints.Count; i++)
+            s.AppendFormat("->({0}, {1})", this.Waypoints[i].x, this.Waypoints[i].y);
+        return s.ToString();
+    }
 }
