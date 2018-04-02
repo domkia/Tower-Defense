@@ -41,6 +41,7 @@ public class MonsterSpawner : MonoBehaviour
         Vector3 worldPosition = spawners[0].spawnTiles[0].worldPos;
         Enemy enemy = Instantiate(enemyPrefab, worldPosition, Quaternion.identity).GetComponent<Enemy>();
         Path path = Pathfinding.GetPath(spawners[0].spawnTiles[0], HexGrid.Instance.CenterTile);
+        Debug.Log(path);
         if (path == null)
             Debug.LogError("path is null");
         yield return new WaitForSeconds(1f);

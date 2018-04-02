@@ -25,17 +25,16 @@ public class Swordsman : Enemy
         
     }
 
+    //Called once
     public override void Idle()
     {
         currentState = new EnemyIdleState();
     }
-
     public override void Move(Path path)
     {
-        currentState = new EnemyMovingState(this, path);
+        currentState = new EnemyMovingState(path);
     }
-
-    public override void Attack(Tower tower)
+    public override void Attack(HexTile target)
     {
         currentState = new EnemyAttackState();
     }

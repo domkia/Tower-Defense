@@ -37,14 +37,14 @@ public class TowerInteractable : MonoBehaviour, IInteractable
 
     public float UpdateProgress()
     {
-        currentProgress += (1f / parent.ReloadTime) * Time.deltaTime;
+        currentProgress += (1f / parent.InteractionDuration) * Time.deltaTime;
         if(currentProgress >= 1f)
         {
             currentProgress = 0f;
-            parent.Reload();
+            //parent.Reload();                  // What if tower does something else instead of reloading?
             isCurrentlyInteractive = false;
             if (OnCompleted != null)
-                OnCompleted(this);
+                OnCompleted(this);              // call Reload() or any other method from DERIVED classes
         }
         return currentProgress;
     }

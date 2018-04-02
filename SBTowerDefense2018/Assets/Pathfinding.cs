@@ -53,7 +53,6 @@ public static class Pathfinding
                         continue;
 
                 int cost = current.gCost + grid.GetDistance(current, neighbour);
-                //Debug.Log("cost from: " + current + " to " + neighbour + " is " + cost);
                 if (cost < neighbour.gCost || !open.Contains(neighbour))
                 {
                     neighbour.gCost = cost;
@@ -66,6 +65,7 @@ public static class Pathfinding
             }
         }
 
+        //TODO: if path was not found (blocked by towers), find path to nearest tower instead (to attack it)
         return null;
     }
 }

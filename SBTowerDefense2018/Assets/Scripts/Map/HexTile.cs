@@ -8,16 +8,24 @@ public class HexTile
     public TileType type { get; private set; }
     public Vector3 worldPos { get; private set; }
 
+    //These can be invoked from outside the class
+    public System.Action<Enemy> OnEnemyEnter = delegate { };
+    public System.Action<Enemy> OnEnemyExit = delegate { };
+
     public HexTile(int xCord, int yCord, Vector3 worldPosition, TileType tileType = TileType.Empty)
     {
         this.x = xCord;
         this.y = yCord;
         this.worldPos = worldPosition;
-        this.type = tileType;
+        SetType(tileType);
     }
 
     public void SetType(TileType tileType)
     {
+        if (tileType == TileType.Tower)
+        {
+            //TODO: get reference to AbstractTower
+        }
         this.type = tileType;
     }
 
@@ -26,6 +34,7 @@ public class HexTile
         return new Vector2Int(x, y);
     }
 
+    //TODO: Move this out of the way
     //Pathfinding
     public int gCost { get; set; }
     public int hCost { get; set; }
@@ -37,7 +46,6 @@ public class HexTile
         }
     }
     public HexTile prev;            //Node we came from
-
     public void Reset()
     {
         gCost = hCost = 0;

@@ -3,7 +3,7 @@
 class EnemyAttackState : IEnemyState
 {
     private float cooldown = 1f;
-    private float t = 0f;
+    private float t = 1f;
 
     public void UpdateState(Enemy enemy)
     {
