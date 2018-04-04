@@ -1,22 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GameLost : MonoBehaviour {
-    private bool gameEnded = false;
-	// Update is called once per frame
-	void Update () {
-        if (gameEnded)
-            return;
-		if (LivesINFO.Lives <= 0)
-        {
-            EndGame();
-        }
-	}
-    
+public class GameLost : MonoBehaviour
+{
+    public GameObject gameOverPanel;
+
+    void Start()
+    {
+        gameOverPanel.SetActive(false);
+        GameManager.OnGameOver += EndGame;
+    }
+
     void EndGame()
     {
-        gameEnded = true;
+        GameManager.OnGameOver -= EndGame;
         Debug.Log("GAME OVER!");
+        gameOverPanel.SetActive(true);
     }
 }

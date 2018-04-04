@@ -18,12 +18,9 @@ public class ArcherTower : Tower
     // When this countdown goes to zero, a bullet is fired.
     private float fireCountdown = 0.0f;
 
-    protected override void Start()
+    public override void Setup(HexTile builtOn)
     {
-        //TEMPORARY
-        BuiltOn = HexGrid.Instance.CenterTile;
-
-        base.Start();
+        base.Setup(builtOn);
 
         SetupIndicator();
         Reload(null);
@@ -75,7 +72,6 @@ public class ArcherTower : Tower
     protected override void GetRangeTiles()
     {
         rangeTiles = HexGrid.Instance.GetTilesInRange(BuiltOn, range);
-        base.SetupEnemyCallbacks();
     }
 
     //Clean up
@@ -84,7 +80,8 @@ public class ArcherTower : Tower
         towerInteractable.OnCompleted -= Reload;
     }
 
-//--------- Move this to separate class -----------------
+    //TODO: ammo indicators
+    //--------- Move this to separate class -----------------
 
     public float lowAmmoPercentage = 0.25f;
     public Sprite LowAmmoIndicator;         // Sprite to be drawn when a tower has low ammo.

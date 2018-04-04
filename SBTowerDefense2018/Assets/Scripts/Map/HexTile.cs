@@ -10,7 +10,7 @@ public class HexTile
 
     //These can be invoked from outside the class
     public System.Action<Enemy> OnEnemyEnter = delegate { };
-    public System.Action<Enemy> OnEnemyExit = delegate { };
+    public System.Action<Enemy, HexTile> OnEnemyExit = delegate { };
 
     public HexTile(int xCord, int yCord, Vector3 worldPosition, TileType tileType = TileType.Empty)
     {
@@ -22,10 +22,6 @@ public class HexTile
 
     public void SetType(TileType tileType)
     {
-        if (tileType == TileType.Tower)
-        {
-            //TODO: get reference to AbstractTower
-        }
         this.type = tileType;
     }
 

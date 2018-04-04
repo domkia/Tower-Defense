@@ -7,30 +7,32 @@ public class EnemyMovingState : IEnemyState
     private HexTile currentlyOn;            //Tile enemy is currently standing on
     private float moveProgress;             //0.0 -- 1.0
 
-    public EnemyMovingState(Path path)
+    public EnemyMovingState(Path path, Enemy parent)
     {
         this.path = path;
         this.targetWaypoint = 1;
         this.currentlyOn = path[0];
+        currentlyOn.OnEnemyEnter.Invoke(parent);            //Enemy have just spawned on this tile
         this.moveProgress = 0;
     }
 
-    public void UpdateState(Enemy enemy)
+    public void UpdateState(Enemy parent)
     {
         //Update position
-        moveProgress += enemy.Speed * Time.deltaTime;
-        enemy.transform.position = Vector3.Lerp(path[targetWaypoint - 1].worldPos, path[targetWaypoint].worldPos, moveProgress);
+        moveProgress += parent.Speed * Time.deltaTime;
+        parent.transform.position = Vector3.Lerp(path[targetWaypoint - 1].worldPos, path[targetWaypoint].worldPos, moveProgress);
 
         //Calculate when this enemy enters / leaves current tile
         if (moveProgress >= 0.5f && path[targetWaypoint] != currentlyOn)
         {
-            currentlyOn.OnEnemyExit.Invoke(enemy);         //Exit last visited tile
-            currentlyOn = path[targetWaypoint];
-            currentlyOn.OnEnemyEnter.Invoke(enemy);        //Enter new tile
+            HexTile next = path[targetWaypoint];
+            currentlyOn.OnEnemyExit.Invoke(parent, next);    //Exit last visited tile
+            currentlyOn.OnEnemyEnter.Invoke(parent);         //Enter new tile
+            currentlyOn = next;
 
             //Finally attack the base / other tower
             if (currentlyOn == path.Destination)
-                enemy.Attack(currentlyOn);
+                parent.Attack(currentlyOn);
         }
 
         //Change to the next waypoint / destination
@@ -42,7 +44,7 @@ public class EnemyMovingState : IEnemyState
             //TODO: this may be useful later
             //This doesn't get called, unless enemy is not supposed to be attacking at all.
             if (targetWaypoint > path.Waypoints.Count - 1)
-                enemy.Idle();               //For now, just chill in that spot
+                parent.Idle();               //For now, just chill in that spot
         }
     }
 }

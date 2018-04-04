@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    public static System.Action onAllEnemiesKilled;
-    public static System.Action onWaveCompleted;
+    public static event System.Action OnAllEnemiesKilled;
+    public static event System.Action OnWaveCompleted;
 
     public GameObject enemyPrefab;
     public float prepareTime = 10f;
@@ -26,22 +26,33 @@ public class MonsterSpawner : MonoBehaviour
     IEnumerator Spawn()
     {
         yield return new WaitForSeconds(prepareTime);
+
         while(currentWave < waves)
         {
             currentWave++;
             yield return SpawnWave();
             yield return new WaitForSeconds(prepareTime);
         }
+
+        //Finished spawning, now wait for all enemies to die
+        while (transform.childCount > 0)
+            yield return null;              //TODO: Maybe check every half a seconds or so, not every frame
+        if (OnAllEnemiesKilled != null)
+            OnAllEnemiesKilled();
     }
 
+    int i = 0;
     IEnumerator SpawnWave()
     {
         //TESTING
 
         Vector3 worldPosition = spawners[0].spawnTiles[0].worldPos;
         Enemy enemy = Instantiate(enemyPrefab, worldPosition, Quaternion.identity).GetComponent<Enemy>();
+        enemy.transform.parent = this.transform;
+        enemy.gameObject.name = "Enemy_" + i.ToString();
+        i++;
         Path path = Pathfinding.GetPath(spawners[0].spawnTiles[0], HexGrid.Instance.CenterTile);
-        Debug.Log(path);
+        //Debug.Log(path);
         if (path == null)
             Debug.LogError("path is null");
         yield return new WaitForSeconds(1f);

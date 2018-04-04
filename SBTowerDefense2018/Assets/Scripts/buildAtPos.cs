@@ -1,28 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class buildAtPos : MonoBehaviour {
+public class buildAtPos : MonoBehaviour
+{
+    public LayerMask layer;
     public bool isBuilding = false;
-    public Transform towerPrefab;
-    public GameManager gManager;
+    public GameObject towerPrefab;
 
     public void startBuilding()
     {
         isBuilding = !isBuilding;
     }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && isBuilding)
         {
-            TileVisual tile = gManager.GetTileAtClick();
+            TileVisual tile = GetTileAtClick();
             if (tile != null)
             {
-
-                Transform tower = (Transform)Instantiate(towerPrefab, tile.transform.position, tile.transform.rotation);
-                tile.ChangeTileType(TileType.Tower);
+                if (TowerManager.Instance.CanBuildAt(tile.tile) == false)
+                {
+                    Debug.LogError("Can't build here");
+                    return;
+                }
+                TowerManager.Instance.BuildTowerAt(tile.tile, towerPrefab);
                 isBuilding = !isBuilding;
             }
         }
+    }
+
+    public TileVisual GetTileAtClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100f, layer))
+        {
+            TileVisual tile = hit.collider.GetComponent<TileVisual>();
+            return tile;
+        }
+        return null;
     }
 }

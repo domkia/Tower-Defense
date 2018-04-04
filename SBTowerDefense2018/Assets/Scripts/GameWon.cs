@@ -8,11 +8,12 @@ public class GameWon : MonoBehaviour
     private void Start()
     {
         text.gameObject.SetActive(false);
-        MonsterSpawner.onAllEnemiesKilled += Won;
+        GameManager.OnGameWon += Won;
     }
 
     void Won()
     {
         text.gameObject.SetActive(true);
+        GameManager.OnGameWon -= Won;
     }
 }

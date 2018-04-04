@@ -28,7 +28,8 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
         for (int i = 0; i < size; i++)
             this.tiles[i] = new HexTile[size];
 
-        InitializeTiles(tileVisualPrefab);                          //Populate array with tiles
+        InitializeTiles();                                          //Populate array with tiles
+        SpawnPhysicalTiles();                                       //create TileVisual for every tile
     }
 
     public HexTile CenterTile
@@ -84,7 +85,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     /// <summary>
     /// Create all the tiles and calculate their axial and world coordinates
     /// </summary>
-    private void InitializeTiles(GameObject tileVisual)
+    private void InitializeTiles()
     {
         int diameter = tiles[0].Length;
         for (int y = 0; y < diameter; y++)
@@ -97,21 +98,27 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
                 int axialY = y - mapRadius;
                 Vector3 worldPosition = TileCoordToWorldPosition(axialX, axialY);
                 tiles[y][x] = new HexTile(axialX, axialY, worldPosition, TileType.Empty);
-
-                //Setup physical tile
-                TileVisual tv = GameObject.Instantiate(tileVisual).GetComponent<TileVisual>();
-                tv.SetTile(tiles[y][x]);
-                tv.transform.position = worldPosition;
-                tv.transform.parent = this.transform;
             }
         }
 
         //Set corner / center tile types
-        CenterTile.SetType(TileType.Tower);
         for (int i = 0; i < 6; i++)
             GetCornerTile(i).SetType(TileType.Blocked);
 
         DebugPrintGrid();
+    }
+
+    //TODO: move this to visual map spawner or something
+    private void SpawnPhysicalTiles()
+    {
+        foreach (HexTile tile in this)
+        {
+            //Setup physical tile
+            TileVisual tv = GameObject.Instantiate(tileVisualPrefab).GetComponent<TileVisual>();
+            tv.SetTile(tile);
+            tv.transform.position = tile.worldPos;
+            tv.transform.parent = this.transform;
+        }
     }
 
     /// <summary>
@@ -243,7 +250,11 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     public IEnumerator GetEnumerator()
     {
         for (int y = 0; y < tiles.Length; y++)
-            for(int x = 0; x < tiles[0].Length; x++)
+            for (int x = 0; x < tiles[0].Length; x++)
+            {
+                if (tiles[y][x] == null)
+                    continue;
                 yield return tiles[y][x];
+            }
     }
 }
