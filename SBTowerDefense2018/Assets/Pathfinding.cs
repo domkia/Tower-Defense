@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public static class Pathfinding
 {
-    public static Path GetPath(HexTile fromTile, HexTile toTile)
+    private static Path CalculatePath(HexTile fromTile, HexTile toTile)
     {
         HexGrid grid = HexGrid.Instance;
         foreach (HexTile tile in grid)
@@ -48,9 +48,14 @@ public static class Pathfinding
 
             foreach (HexTile neighbour in grid.GetNeighbours(current))
             {
-                if (neighbour.type != TileType.Empty || closed.Contains(neighbour))
-                    if(neighbour != toTile)
-                        continue;
+                if (closed.Contains(neighbour))
+                    continue;
+                if (neighbour.type != TileType.Empty && neighbour != toTile)
+                {
+                    if (neighbour.type == TileType.Tower && lastKnownTower == null)
+                        lastKnownTower = neighbour;
+                    continue;
+                }
 
                 int cost = current.gCost + grid.GetDistance(current, neighbour);
                 if (cost < neighbour.gCost || !open.Contains(neighbour))
@@ -67,5 +72,23 @@ public static class Pathfinding
 
         //TODO: if path was not found (blocked by towers), find path to nearest tower instead (to attack it)
         return null;
+    }
+
+    private static HexTile lastKnownTower;
+
+    public static Path GetPath(HexTile fromTile, HexTile toTile)
+    {
+        lastKnownTower = null;
+
+        //Try to get path to the base
+        Path path = CalculatePath(fromTile, toTile);
+        if (path != null)
+            return path;
+
+        //Get path to the nearest? / last known tower
+        if(lastKnownTower != null && path == null)
+            path = CalculatePath(fromTile, lastKnownTower);
+
+        return path; 
     }
 }

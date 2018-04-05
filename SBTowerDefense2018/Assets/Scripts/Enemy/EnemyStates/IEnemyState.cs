@@ -1,5 +1,5 @@
 ﻿
 public interface IEnemyState
 {
-    void UpdateState(Enemy enemy);
+    void UpdateState();
 }

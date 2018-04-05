@@ -28,11 +28,13 @@ public class ArcherTower : Tower
         towerInteractable.OnCompleted += Reload;
     }
 
+    protected override void GetRangeTiles()
+    {
+        rangeTiles = HexGrid.Instance.GetTilesInRange(BuiltOn, range);
+    }
+
     public override void Attack()
     {
-        if (enemyList.Count == 0)
-            return;
-
         if (fireCountdown <= 0.0f && AmmoLeft > 0)
         {
             Shoot();
@@ -57,7 +59,7 @@ public class ArcherTower : Tower
 
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
-            bullet.Seek(enemyList.First.Value);
+            bullet.Seek(currentTarget);
     }
 
     /// <summary>
@@ -67,11 +69,6 @@ public class ArcherTower : Tower
     {
         AmmoLeft = ammoCapacity;
         UpdateIndicator();
-    }
-
-    protected override void GetRangeTiles()
-    {
-        rangeTiles = HexGrid.Instance.GetTilesInRange(BuiltOn, range);
     }
 
     //Clean up

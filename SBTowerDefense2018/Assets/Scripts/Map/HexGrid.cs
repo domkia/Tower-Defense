@@ -14,7 +14,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     public int mapRadius = 3;
     public GameObject tileVisualPrefab;
 
-    private HexTile[][] tiles;
+    public HexTile[][] tiles;
     private static float hexWidth;
     private static float hexRadius;
 
@@ -22,11 +22,6 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     {
         hexWidth = 1f;
         hexRadius = hexWidth / Mathf.Cos(30f * Mathf.Deg2Rad) / 2f; //2 x hexRadius === hexHeight
-
-        int size = mapRadius * 2 + 1;                               //Array size
-        this.tiles = new HexTile[size][];                           //Initialize two dimensional array
-        for (int i = 0; i < size; i++)
-            this.tiles[i] = new HexTile[size];
 
         InitializeTiles();                                          //Populate array with tiles
         SpawnPhysicalTiles();                                       //create TileVisual for every tile
@@ -87,6 +82,11 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     /// </summary>
     private void InitializeTiles()
     {
+        int size = mapRadius * 2 + 1;                               //Array size
+        this.tiles = new HexTile[size][];                           //Initialize two dimensional array
+        for (int i = 0; i < size; i++)
+            this.tiles[i] = new HexTile[size];
+
         int diameter = tiles[0].Length;
         for (int y = 0; y < diameter; y++)
         {

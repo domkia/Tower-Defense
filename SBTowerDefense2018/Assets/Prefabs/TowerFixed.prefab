@@ -293,12 +293,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 10
+  healthbar: {fileID: 114590552478496970}
   ammoCapacity: 12
   reloadTime: 2
   archersCount: 1
-  fireRate: 2
-  range: 3
-  arrowPrefab: {fileID: 1381981589977544, guid: 686bd7fd6b3262443830df6b3c750cd6,
+  fireRate: 1.5
+  range: 2
+  arrowPrefab: {fileID: 1871370763936802, guid: bd51cd5a0d6dadf449ce7728f0ee1ec6,
     type: 2}
   lowAmmoPercentage: 0.25
   LowAmmoIndicator: {fileID: 21300000, guid: 4481b2338d1aba845988a41206a7020c, type: 3}

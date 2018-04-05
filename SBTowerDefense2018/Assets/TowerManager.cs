@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 class TowerManager : Singleton<TowerManager>
 {
+    public MonsterSpawner spawner;
     public GameObject basePrefab = null;                // Our castle
     private Dictionary<HexTile, Tower> towers;          // Already built towers
 
@@ -22,6 +24,8 @@ class TowerManager : Singleton<TowerManager>
     {
         Tower tower;
         towers.TryGetValue(tile, out tower);
+        if (tower == null)
+            Debug.LogError("tower is null at: " + tile);
         return tower;
     }
 
@@ -55,7 +59,16 @@ class TowerManager : Singleton<TowerManager>
 
     public bool CanBuildAt(HexTile atTile)
     {
-        //TODO: ALSO Check if there are no enemies on this tile
+        //Check if there are no enemies on this tile
+        if (atTile.enemies.Count > 0)
+            return false;
+
+        //Check if towers are not close together
+        List<HexTile> neighbours = HexGrid.Instance.GetNeighbours(atTile);
+        for (int i = 0; i < neighbours.Count; i++)
+            if (neighbours[i].type == TileType.Tower)
+                return false;
+
         return atTile.type == TileType.Empty;
     }
 }

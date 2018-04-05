@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class MonsterSpawner : MonoBehaviour
 {
     public static event System.Action OnAllEnemiesKilled;
-    public static event System.Action OnWaveCompleted;
 
     public GameObject enemyPrefab;
     public float prepareTime = 10f;
@@ -16,11 +15,17 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Start()
     {
+        SetupSpawnDirections();
+        currentWave = 0;
+        GameManager.OnGameOver += () => StopAllCoroutines();
+        StartCoroutine(Spawn());
+    }
+
+    private void SetupSpawnDirections()
+    {
         spawners = new SpawnDirection[6];
         for (int i = 0; i < 6; i++)
             spawners[i] = new SpawnDirection(i);
-        currentWave = 0;
-        StartCoroutine(Spawn());
     }
 
     IEnumerator Spawn()
@@ -36,36 +41,22 @@ public class MonsterSpawner : MonoBehaviour
 
         //Finished spawning, now wait for all enemies to die
         while (transform.childCount > 0)
-            yield return null;              //TODO: Maybe check every half a seconds or so, not every frame
+            yield return null;              //TODO: Maybe check every half a second or so, not every frame
+
         if (OnAllEnemiesKilled != null)
             OnAllEnemiesKilled();
     }
 
-    int i = 0;
     IEnumerator SpawnWave()
     {
         //TESTING
-
-        Vector3 worldPosition = spawners[0].spawnTiles[0].worldPos;
-        Enemy enemy = Instantiate(enemyPrefab, worldPosition, Quaternion.identity).GetComponent<Enemy>();
+        HexTile spawnTile = spawners[0].spawnTiles[0];
+        Enemy enemy = Instantiate(enemyPrefab).GetComponent<Enemy>();
         enemy.transform.parent = this.transform;
-        enemy.gameObject.name = "Enemy_" + i.ToString();
-        i++;
-        Path path = Pathfinding.GetPath(spawners[0].spawnTiles[0], HexGrid.Instance.CenterTile);
-        //Debug.Log(path);
-        if (path == null)
-            Debug.LogError("path is null");
         yield return new WaitForSeconds(1f);
-        enemy.Move(path);
+        enemy.Move(spawnTile);
         yield return new WaitForSeconds(0.5f);
     }
-
-    /*
-    void SpawnEnemy()
-    {
-        Transform e = (Transform)Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-        e.parent = this.transform;
-    }*/
 
     class SpawnDirection
     {

@@ -206,7 +206,7 @@ MonoBehaviour:
   healthBar: {fileID: 114369778562506620}
   damage: 2
   maxHealth: 8
-  maxSpeed: 0.5
+  maxSpeed: 0.75
 --- !u!114 &114420076311919650
 MonoBehaviour:
   m_ObjectHideFlags: 1

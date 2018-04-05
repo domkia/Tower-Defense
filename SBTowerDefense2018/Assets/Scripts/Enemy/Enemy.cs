@@ -7,17 +7,18 @@ using UnityEngine.UI;
 /// </summary>
 public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>
 {
+    public HexTile currentlyOn { get; set; }                    //Tile this enemy is currently on
     public int Damage { get; set; }                             //Every enemy has damage?
 
     //IDamagable implementation
-    public abstract event Action<Enemy> OnDeath;
+    public event Action<Enemy> OnDeath;
     public abstract void TakeDamage(int amount);
     public int Health { get; set; }
 
     //Enemy states
     public abstract void Idle();                                //Do nothing
-    public abstract void Move(Path path);                       //Just move along given path
-    public abstract void Attack(HexTile targetTile);
+    public abstract void Move(HexTile startTile);               //Just move along given path
+    public abstract void Attack();
 
     protected IEnemyState currentState;
     public float Speed { get; protected set; }
@@ -25,13 +26,20 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>
     protected void Awake()
     {
         GameManager.OnGameOver += Idle;
-        Idle();                 //Initial state is Idle
+        Idle();                                                 //Initial state is Idle
     }
 
     protected void Update()
     {
         if (currentState != null)
-            currentState.UpdateState(this);
+            currentState.UpdateState();
+    }
+
+    protected void Die()
+    {
+        if (OnDeath != null)
+            OnDeath(this);
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

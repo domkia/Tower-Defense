@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class HexTile
 {
@@ -8,26 +9,42 @@ public class HexTile
     public TileType type { get; private set; }
     public Vector3 worldPos { get; private set; }
 
-    //These can be invoked from outside the class
-    public System.Action<Enemy> OnEnemyEnter = delegate { };
-    public System.Action<Enemy, HexTile> OnEnemyExit = delegate { };
+    //Called when type changes
+    public static event System.Action<HexTile> OnTileTypeChanged = delegate { };
+
+    //Enemies that are within this tile
+    public List<Enemy> enemies { get; private set; }
 
     public HexTile(int xCord, int yCord, Vector3 worldPosition, TileType tileType = TileType.Empty)
     {
         this.x = xCord;
         this.y = yCord;
         this.worldPos = worldPosition;
+        enemies = new List<Enemy>();
         SetType(tileType);
     }
 
     public void SetType(TileType tileType)
     {
         this.type = tileType;
+        OnTileTypeChanged(this);
     }
 
     public Vector2Int GetAxialCoords()
     {
         return new Vector2Int(x, y);
+    }
+
+    public void EnemyExit(Enemy enemy)
+    {
+        enemy.OnDeath -= EnemyExit;
+        enemies.Remove(enemy);
+    }
+
+    public void EnemyEnter(Enemy enemy)
+    {
+        enemies.Insert(enemies.Count, enemy);
+        enemy.OnDeath += EnemyExit;
     }
 
     //TODO: Move this out of the way

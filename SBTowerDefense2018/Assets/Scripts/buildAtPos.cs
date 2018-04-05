@@ -20,7 +20,7 @@ public class buildAtPos : MonoBehaviour
             {
                 if (TowerManager.Instance.CanBuildAt(tile.tile) == false)
                 {
-                    Debug.LogError("Can't build here");
+                    Debug.Log("Can't build here");
                     return;
                 }
                 TowerManager.Instance.BuildTowerAt(tile.tile, towerPrefab);

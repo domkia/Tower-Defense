@@ -12,8 +12,8 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
 
     protected TowerInteractable towerInteractable;      // Reference to TowerInteractable component.
     public HexTile BuiltOn { get; protected set; }      // Tile this tower is built on
-    protected List<HexTile> rangeTiles;                 // If enemy is within one of those tiles, it is added to the enemyList
-    protected LinkedList<Enemy> enemyList;              // Enemies that are in range
+    public List<HexTile> rangeTiles { get; protected set; } // If enemy is within one of those tiles, it is added to the enemyList
+    protected Enemy currentTarget = null;
 
     //IDamagable
     public event Action<HexTile> OnDeath;
@@ -35,7 +35,7 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
     protected void Awake()
     {
         Health = MaxHealth;
-        enemyList = new LinkedList<Enemy>();
+        //enemyList = new LinkedList<Enemy>();
         towerInteractable = GetComponentInChildren<TowerInteractable>();
     }
 
@@ -45,67 +45,51 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
         GetRangeTiles();                
         rangeTiles.Add(BuiltOn);        //Also don't forget to add tile tower is standing on
 
-        SetupEnemyCallbacks();
+        //SetupEnemyCallbacks();
+    }
+
+    /// <summary>
+    /// Finds nearest enemy in range and updates target. If there is no viable enemy, target is set to null
+    /// (indicating no target)
+    /// </summary>
+    protected virtual void UpdateTarget()
+    {
+        int index = -1;
+        float nearDist = float.MaxValue;
+        for (int i = 0; i < rangeTiles.Count; i++)
+            if (rangeTiles[i].enemies.Count > 0)
+            {
+                float dist = (BuiltOn.worldPos - rangeTiles[i].enemies[0].transform.position).sqrMagnitude;
+                if (dist < nearDist)
+                {
+                    nearDist = dist;
+                    index = i;
+                }
+            }
+        if (index < 0)
+            currentTarget = null;
+        else
+            currentTarget = rangeTiles[index].enemies[0];
     }
 
     protected virtual void Update()
     {
-        Attack();
-    }
-
-    protected void SetupEnemyCallbacks()
-    {
-        if (rangeTiles == null || rangeTiles.Count == 0)
-            Debug.LogError("This tower has no range tiles");
-        for (int i = 0; i < rangeTiles.Count; i++)
-        {
-            rangeTiles[i].OnEnemyEnter += AddEnemyToQueue;
-            rangeTiles[i].OnEnemyExit += RemoveEnemyFromQueue;
-        }
-    }
-
-    /// <summary>
-    /// Called when enemy finally goes out of range
-    /// </summary>
-    private void RemoveEnemyFromQueue(Enemy enemy, HexTile toTile)
-    {
-        if (!rangeTiles.Contains(toTile))
-            enemyList.Remove(enemy);
-    }
-
-    private void RemoveEnemyOnDeath(Enemy enemy)
-    {
-        enemy.OnDeath -= RemoveEnemyOnDeath;
-        enemyList.Remove(enemy);
-    }
-
-    private void AddEnemyToQueue(Enemy enemy)
-    {
-        if (enemyList.Contains(enemy))
-            return;
-        enemyList.AddLast(enemy);
-        enemy.OnDeath += RemoveEnemyOnDeath;
+        if (currentTarget == null)
+            UpdateTarget();
+        if(currentTarget != null)
+            Attack();
     }
 
     //IDamagable
     public virtual void TakeDamage(int damage)
     {
         Health -= damage;
+        healthbar.fillAmount = (float)Health / (float)MaxHealth;
         if (Health <= 0)
         {
             Debug.Log("Tower destroyed!");
             if (OnDeath != null)
                 OnDeath(BuiltOn);
-        }
-    }
-
-    //Clean up
-    private void OnDestroy()
-    {
-        for (int i = 0; i < rangeTiles.Count; i++)
-        {
-            rangeTiles[i].OnEnemyEnter -= AddEnemyToQueue;
-            rangeTiles[i].OnEnemyExit -= RemoveEnemyFromQueue;
         }
     }
 
@@ -122,4 +106,8 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
         foreach(Enemy e in enemyList)
             GUILayout.Label(e.name);
     }*/
+
+    //Temporary
+    //TODO: move this
+    public UnityEngine.UI.Image healthbar;
 }
