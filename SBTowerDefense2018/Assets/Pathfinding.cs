@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Pathfinding
+public static class Pathfinding
 {
-    private HexGrid grid;
-
-    public Pathfinding(HexGrid grid)
+    private static Path CalculatePath(HexTile fromTile, HexTile toTile)
     {
-        this.grid = grid;
-    }
-
-    public List<HexTile> GetPath(HexTile fromTile, HexTile toTile)
-    {
+        HexGrid grid = HexGrid.Instance;
         foreach (HexTile tile in grid)
             if(tile != null)
                 tile.Reset();
@@ -49,16 +43,21 @@ public class Pathfinding
                 }
                 path.Reverse();
                 path.Add(toTile);
-                return path;
+                return new Path(path);
             }
 
             foreach (HexTile neighbour in grid.GetNeighbours(current))
             {
-                if (neighbour.type != TileType.Empty || closed.Contains(neighbour))
+                if (closed.Contains(neighbour))
                     continue;
+                if (neighbour.type != TileType.Empty && neighbour != toTile)
+                {
+                    if (neighbour.type == TileType.Tower && lastKnownTower == null)
+                        lastKnownTower = neighbour;
+                    continue;
+                }
 
                 int cost = current.gCost + grid.GetDistance(current, neighbour);
-                //Debug.Log("cost from: " + current + " to " + neighbour + " is " + cost);
                 if (cost < neighbour.gCost || !open.Contains(neighbour))
                 {
                     neighbour.gCost = cost;
@@ -70,7 +69,24 @@ public class Pathfinding
                 }
             }
         }
-
         return null;
+    }
+
+    private static HexTile lastKnownTower;
+
+    public static Path GetPath(HexTile fromTile, HexTile toTile)
+    {
+        lastKnownTower = null;
+
+        //Try to get path to the base
+        Path path = CalculatePath(fromTile, toTile);
+        if (path != null)
+            return path;
+
+        //Get path to the nearest? / last known tower
+        if(lastKnownTower != null && path == null)
+            path = CalculatePath(fromTile, lastKnownTower);
+
+        return path; 
     }
 }

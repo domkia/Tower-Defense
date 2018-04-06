@@ -26,7 +26,7 @@ public class HexPathVisual : MonoBehaviour
         lineRend.positionCount = count;
         for(int i = 0; i < count; i++)
         {
-            lineRend.SetPosition(i, HexGrid.TileCoordToWorldPosition(path[i].x, path[i].y) + Vector3.up * yOffset);
+            lineRend.SetPosition(i, path[i].worldPos + Vector3.up * yOffset);
         }
     }
 }

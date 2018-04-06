@@ -1,175 +1,113 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Tower : MonoBehaviour {
-    // Stores the current target enemy
-    private Enemy target;
-    // Range of tower (in map units). Any potential targets, further away than this range, cannot be fired at.
-    [Header("Properties")]
-    public float Range = 5.0f;
-    // Fire rate of tower (times per second)
-    public float FireRate = 0.5f;
-    // Prefab of bullets to shoot.
-    public GameObject BulletPrefab;
-    // Ammo capacity
-    public int AmmoCapacity;
-    // Time needed to reload the tower.
-    public float ReloadTime;
-    // When this countdown goes to zero, a bullet is fired.
-    private float fireCountdown = 0.0f;
-    // Current amount of bullets left in the tower.
-    public int BulletsLeft { get; private set; }
-    // Ammo indicator game object.
-    private GameObject ammoIndicator;
-    // Reference to sprite renderer for the ammo indicator.
-    private SpriteRenderer spriteRenderer;
-    // Reference to TowerInteractable component.
-    private TowerInteractable towerInteractable;
-    // Sprite to be drawn when a tower has no ammo left.
-    public Sprite NoAmmoIndicator;
-    // Sprite to be drawn when a tower has low ammo.
-    public Sprite LowAmmoIndicator;
+/// <summary>
+/// Abstract tower class
+/// </summary>
+public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
+{
+    [SerializeField]
+    private int MaxHealth = 10;
 
-    private LinkedList<Enemy> enemyList;
+    protected TowerInteractable towerInteractable;      // Reference to TowerInteractable component.
+    public HexTile BuiltOn { get; protected set; }      // Tile this tower is built on
+    public List<HexTile> rangeTiles { get; protected set; } // If enemy is within one of those tiles, it is added to the enemyList
+    protected Enemy currentTarget = null;
 
-    private void Start()
+    //IDamagable
+    public event Action<HexTile> OnDeath;
+    public int Health { get; set; }
+
+    //TODO: Rename this method to Act or something else
+    public abstract void Attack();
+    public abstract float InteractionDuration { get; }
+
+    //Protected stuff
+    protected virtual void GetRangeTiles()
     {
-        BulletsLeft = AmmoCapacity;
-        enemyList = new LinkedList<Enemy>();
+        //Range tiles can be anything, for ex:
+        rangeTiles = HexGrid.Instance.GetNeighbours(BuiltOn);           //By default range is 1
+        //rangeTiles = HexGrid.Instance.GetTilesInRange(builtOn, 3);    //Get tiles of specific range
+        //rangeTiles = HexGrid.Instance.GetTilesRing(builtOn, 2);       //Get ring of tiles
+    }
 
-        ammoIndicator = new GameObject("Ammo Indicator");
-
-        ammoIndicator.transform.parent = this.transform;
-        // We add an offset in the positive Y direction, so we can see the sprite clearly.
-        // If we didn't add an offset, the sprite would be embedded in the tower.
-        ammoIndicator.transform.position = this.transform.position + new Vector3(0, 2f, 0);
-        // We add a SpriteRenderer component as we will need to render sprites.
-        spriteRenderer = ammoIndicator.AddComponent<SpriteRenderer>();
-        ammoIndicator.SetActive(false);
-      
-        GetComponent<SphereCollider>().radius = Range;
-
+    protected void Awake()
+    {
+        Health = MaxHealth;
+        //enemyList = new LinkedList<Enemy>();
         towerInteractable = GetComponentInChildren<TowerInteractable>();
-        towerInteractable.SetParent(this);
     }
 
-    private void Update()
+    public virtual void Setup(HexTile builtOn)
     {
-        if (target != null)
-        {
-            if (fireCountdown <= 0.0f && BulletsLeft > 0)
-            {
-                Shoot();
-                fireCountdown = 1.0f / FireRate;
-                UpdateIndicator();
-                Debug.Log(string.Format("Bullets left: {0}", BulletsLeft));
-            }
+        BuiltOn = builtOn;
+        GetRangeTiles();                
+        rangeTiles.Add(BuiltOn);        //Also don't forget to add tile tower is standing on
 
-            fireCountdown -= Time.deltaTime;
-        }
-        else
-            UpdateTarget();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Enemy e = other.GetComponent<Enemy>();
-        if (e == null)
-            return;
-        AddEnemyToQueue(e);
-        e.OnDeath += RemoveEnemyFromQueue;
-        Debug.Log("Enemy added to list!");
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Enemy e = other.GetComponent<Enemy>();
-        if (e == null)
-            return;
-        e.OnDeath -= RemoveEnemyFromQueue;
-        RemoveEnemyFromQueue(e);
-        Debug.Log("Enemy removed from list!");
+        //SetupEnemyCallbacks();
     }
 
     /// <summary>
     /// Finds nearest enemy in range and updates target. If there is no viable enemy, target is set to null
     /// (indicating no target)
     /// </summary>
-    private void UpdateTarget()
+    protected virtual void UpdateTarget()
     {
-        target = (enemyList.Count != 0) ? enemyList.First.Value : null;
-    }
-
-    /// <summary>
-    /// Shoots a bullet at the target.
-    /// </summary>
-    private void Shoot()
-    {
-        GameObject bulletGO = Instantiate(BulletPrefab, transform.position, Quaternion.identity);
-
-        // For organizational purposes
-        bulletGO.transform.parent = this.transform;
-        bulletGO.name = "Bullet";
-
-        // Decrement the amount of bullets left
-        BulletsLeft--;
-
-        //Debug.Log(string.Format("Fire! Number of bullets left: {0}", BulletsLeft));
-
-        Bullet bullet = bulletGO.GetComponent<Bullet>();
-        if (bullet != null)
-            bullet.Seek(target);
-    }
-
-    /// <summary>
-    /// Reloads the tower, setting the amount of bullets left to the tower's ammo capacity.
-    /// </summary>
-    public void Reload()
-    {
-        BulletsLeft = AmmoCapacity;
-        UpdateIndicator();
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Range);
-    }
-
-    private void AddEnemyToQueue(Enemy enemy)
-    {
-        enemyList.AddLast(enemy);
-    }
-
-    private void RemoveEnemyFromQueue(Enemy enemy)
-    {
-        enemyList.Remove(enemy);
-        UpdateTarget();
-    }
-
-    /// <summary>
-    /// Updates the ammo warning indicator.
-    /// </summary>
-    private void UpdateIndicator()
-    {
-        // No ammo case.
-        if (BulletsLeft == 0)
-        {
-            spriteRenderer.sprite = NoAmmoIndicator;
-            ammoIndicator.SetActive(true);
-            // Since the tower has no bullets left, it can now be interacted with.
-            towerInteractable.SetToInteractive();
-        }
-        // Low ammo case.
-        else if (BulletsLeft <= AmmoCapacity / 4)
-        {
-            spriteRenderer.sprite = LowAmmoIndicator;
-            ammoIndicator.SetActive(true);
-        }
-        // Otherwise, the tower has plenty of ammo and we can stop drawing the sprite.
+        int index = -1;
+        float nearDist = float.MaxValue;
+        for (int i = 0; i < rangeTiles.Count; i++)
+            if (rangeTiles[i].enemies.Count > 0)
+            {
+                float dist = (BuiltOn.worldPos - rangeTiles[i].enemies[0].transform.position).sqrMagnitude;
+                if (dist < nearDist)
+                {
+                    nearDist = dist;
+                    index = i;
+                }
+            }
+        if (index < 0)
+            currentTarget = null;
         else
-            ammoIndicator.SetActive(false);
-    }    
+            currentTarget = rangeTiles[index].enemies[0];
+    }
+
+    protected virtual void Update()
+    {
+        if (currentTarget == null)
+            UpdateTarget();
+        if(currentTarget != null)
+            Attack();
+    }
+
+    //IDamagable
+    public virtual void TakeDamage(int damage)
+    {
+        Health -= damage;
+        healthbar.fillAmount = (float)Health / (float)MaxHealth;
+        if (Health <= 0)
+        {
+            Debug.Log("Tower destroyed!");
+            if (OnDeath != null)
+                OnDeath(BuiltOn);
+        }
+    }
+
+    /*
+    // Debug enemy list
+    private void OnGUI()
+    {
+        GUI.color = Color.blue;
+        if (enemyList.Count == 0)
+        {
+            GUILayout.Label("enemyList is empty");
+            return;
+        }
+        foreach(Enemy e in enemyList)
+            GUILayout.Label(e.name);
+    }*/
+
+    //Temporary
+    //TODO: move this
+    public UnityEngine.UI.Image healthbar;
 }

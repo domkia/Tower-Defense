@@ -9,17 +9,23 @@ public class TileVisual : MonoBehaviour
     private MeshRenderer rend;
     private MaterialPropertyBlock propBlock;
 
-    private void Start()
+    private void Awake()
     {
         rend = GetComponent<MeshRenderer>();
         propBlock = new MaterialPropertyBlock();
     }
 
+    /// <summary>
+    /// Called from HexGrid when instantiated
+    /// </summary>
+    /// <param name="tile"></param>
     public void SetTile(HexTile tile)
     {
         this.tile = tile;
+        ChangeTileType(this.tile.type);
     }
 
+    /*
     public void ToggleVisible()
     {
         //rend.enabled = !rend.enabled;
@@ -27,6 +33,7 @@ public class TileVisual : MonoBehaviour
         type = ++type % 4;
         ChangeTileType((TileType)type);
     }
+    */
 
     public void ChangeTileType(TileType type)
     {
@@ -37,11 +44,14 @@ public class TileVisual : MonoBehaviour
             case TileType.Empty:
                 tintColor = Color.white;
                 break;
-            case TileType.Resource:
-                tintColor = Color.yellow;
+            case TileType.Wood:
+                tintColor = Color.green;
+                break;
+            case TileType.Stone:
+                tintColor = Color.gray;
                 break;
             case TileType.Tower:
-                tintColor = Color.grey;
+                tintColor = Color.cyan;
                 break;
             case TileType.Blocked:
                 tintColor = Color.black;
