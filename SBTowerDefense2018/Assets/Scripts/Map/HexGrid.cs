@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 public class HexGrid : Singleton<HexGrid>, IEnumerable
 {
@@ -18,12 +19,16 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     private static float hexWidth;
     private static float hexRadius;
 
+    public static string savePath = "Assets/Resources/grid.data";
+
     void Awake()
     {
         hexWidth = 1f;
         hexRadius = hexWidth / Mathf.Cos(30f * Mathf.Deg2Rad) / 2f; //2 x hexRadius === hexHeight
 
-        InitializeTiles();                                          //Populate array with tiles
+        if (System.IO.File.Exists(savePath) == false)
+            Debug.LogError("grid.data does not exist");
+        LoadGridFromFile();
         SpawnPhysicalTiles();                                       //create TileVisual for every tile
     }
 
@@ -78,7 +83,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     }
 
     /// <summary>
-    /// Create all the tiles and calculate their axial and world coordinates
+    /// Initialize tile array
     /// </summary>
     private void InitializeTiles()
     {
@@ -86,22 +91,38 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
         this.tiles = new HexTile[size][];                           //Initialize two dimensional array
         for (int i = 0; i < size; i++)
             this.tiles[i] = new HexTile[size];
+    }
 
-        int diameter = tiles[0].Length;
-        for (int y = 0; y < diameter; y++)
+    public void LoadGridFromFile()
+    {
+        using (FileStream fs = new FileStream(savePath, FileMode.Open, FileAccess.Read))
         {
-            int count = diameter - Mathf.Abs(mapRadius - y);                        //How many tiles in a row
-            int startIndex = Mathf.Max(mapRadius - y, 0);                           //Starting collumn in 2d array
-            for (int x = startIndex; x < startIndex + count; x++)
+            //Get map radius from file
+            //TODO: make sure file is not empty and the first 4 bytes == int (mapRadius)
+            BinaryReader br = new BinaryReader(fs);
+            mapRadius = br.ReadInt32();
+
+            //Initialize arrays
+            InitializeTiles();
+
+            int diameter = tiles[0].Length;
+            for (int y = 0; y < diameter; y++)
             {
-                int axialX = x - mapRadius;
-                int axialY = y - mapRadius;
-                Vector3 worldPosition = TileCoordToWorldPosition(axialX, axialY);
-                tiles[y][x] = new HexTile(axialX, axialY, worldPosition, TileType.Empty);
+                int count = diameter - Mathf.Abs(mapRadius - y);                        //How many tiles in a row
+                int startIndex = Mathf.Max(mapRadius - y, 0);                           //Starting collumn in 2d array
+                for (int x = startIndex; x < startIndex + count; x++)
+                {
+                    int axialX = x - mapRadius;
+                    int axialY = y - mapRadius;
+                    Vector3 worldPosition = TileCoordToWorldPosition(axialX, axialY);
+                    TileType type = (TileType)(br.ReadInt32() + 1);
+                    tiles[y][x] = new HexTile(axialX, axialY, worldPosition, type);
+                }
             }
         }
 
         //Set corner / center tile types
+        CenterTile.SetType(TileType.Empty);
         for (int i = 0; i < 6; i++)
             GetCornerTile(i).SetType(TileType.Blocked);
 

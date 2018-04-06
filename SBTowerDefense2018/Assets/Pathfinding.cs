@@ -69,8 +69,6 @@ public static class Pathfinding
                 }
             }
         }
-
-        //TODO: if path was not found (blocked by towers), find path to nearest tower instead (to attack it)
         return null;
     }
 

@@ -1477,8 +1477,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1877092309801028, guid: ff3943da467fd7e46920eb9f8ef5cce3,
     type: 2}
-  prepareTime: 2
-  waves: 8
+  prepareTime: 3
+  waves: 3
+  enemiesPerWave: 4
+  waitBetweenSpawns: 0.5
 --- !u!4 &1244414090
 Transform:
   m_ObjectHideFlags: 0
@@ -1811,7 +1813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f669ef0bfc8061b429f4c0550068c0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapRadius: 6
+  mapRadius: 5
   tileVisualPrefab: {fileID: 1255232354865754, guid: 91de3e912e5691c42929994b13a7126e,
     type: 2}
 --- !u!4 &1471865825

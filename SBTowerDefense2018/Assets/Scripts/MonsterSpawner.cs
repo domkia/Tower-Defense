@@ -9,6 +9,8 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public float prepareTime = 10f;
     public int waves = 3;
+    public int enemiesPerWave = 5;
+    public float waitBetweenSpawns = 0.5f;
 
     private int currentWave = 0;
     private SpawnDirection[] spawners;
@@ -50,32 +52,69 @@ public class MonsterSpawner : MonoBehaviour
     IEnumerator SpawnWave()
     {
         //TESTING
-        HexTile spawnTile = spawners[0].spawnTiles[0];
-        Enemy enemy = Instantiate(enemyPrefab).GetComponent<Enemy>();
-        enemy.transform.parent = this.transform;
-        yield return new WaitForSeconds(1f);
-        enemy.Move(spawnTile);
-        yield return new WaitForSeconds(0.5f);
+        int remaining = enemiesPerWave;
+
+        //:: Every wave choses one random direction
+        //int randomDirection = GetRandomOpenSpawnDirection();
+        //if (randomDirection == -1)
+        //    Debug.LogError("there are no open spawn directions");
+
+        while (remaining > 0)
+        {
+            //OR: Every enemy chose random direction
+            int randomDirection = GetRandomOpenSpawnDirection();
+            if (randomDirection == -1)
+                Debug.LogError("there are no open spawn directions");
+
+            HexTile spawnTile = spawners[randomDirection].GetRandomOpenTile();
+            Enemy enemy = Instantiate(enemyPrefab).GetComponent<Enemy>();
+            enemy.transform.parent = this.transform;
+            remaining--;
+            //yield return new WaitForSeconds(1f);          //Idle for a second
+            enemy.Move(spawnTile);
+            yield return new WaitForSeconds(waitBetweenSpawns);
+        }
+    }
+
+    private int GetRandomOpenSpawnDirection()
+    {
+        int rand = Random.Range(0, 5);
+        for (int i = 0; i < spawners.Length; i++)
+        {
+            int index = (rand + i) % 6;
+            if (spawners[index].IsOpen())
+                return index;
+        }
+        return -1;
     }
 
     class SpawnDirection
     {
-        public List<HexTile> spawnTiles;
+        public List<HexTile> spawnTiles { get; private set; }
 
         public SpawnDirection(int direction)
         {
             spawnTiles = HexGrid.Instance.GetEdgeTiles(direction);
         }
 
-        public bool IsOpen
+        public bool IsOpen()
         {
-            get
+            for (int i = 0; i < spawnTiles.Count; i++)
+                if (spawnTiles[i].type == TileType.Empty)
+                    return true;
+            return false;
+        }
+
+        public HexTile GetRandomOpenTile()
+        {
+            int randStart = Random.Range(0, spawnTiles.Count - 1);
+            for (int i = 0; i < spawnTiles.Count; i++)
             {
-                for (int i = 0; i < spawnTiles.Count; i++)
-                    if (spawnTiles[i].type == TileType.Empty)
-                        return true;
-                return false;
+                int index = (randStart + i) % spawnTiles.Count;     //Loop list from random start position
+                if (spawnTiles[index].type == TileType.Empty)
+                    return spawnTiles[index];
             }
+            return null;            
         }
     }
 }

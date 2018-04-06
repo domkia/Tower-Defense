@@ -12,7 +12,7 @@ public class RightClickSetTileType : MonoBehaviour
             TileVisual tv = build.GetTileAtClick();
             if (tv != null)
                 if (tv.tile.enemies.Count == 0)
-                    tv.ChangeTileType(TileType.Resource);
+                    tv.ChangeTileType(TileType.Wood);
         }
 
     }

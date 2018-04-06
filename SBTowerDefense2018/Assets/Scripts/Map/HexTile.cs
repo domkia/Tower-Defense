@@ -73,8 +73,9 @@ public class HexTile
 
 public enum TileType
 {
-    Empty = 0,
-    Resource = 1,
-    Tower = 2,
-    Blocked = 3
+    Tower = 0,
+    Empty = 1,
+    Wood = 2,
+    Stone = 3,
+    Blocked = 4
 }
