@@ -21,9 +21,7 @@ GameObject:
   - component: {fileID: 4009311355429192}
   - component: {fileID: 33120319934719560}
   - component: {fileID: 23555355910264520}
-  - component: {fileID: 65214090333684716}
-  - component: {fileID: 114881356135761024}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: CastleMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +89,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4711932845057764}
   - component: {fileID: 114429602446854494}
-  m_Layer: 0
+  - component: {fileID: 114987720283616598}
+  - component: {fileID: 65372179235848200}
+  m_Layer: 8
   m_Name: CrossbowTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,18 +167,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1324404243032806}
   m_Mesh: {fileID: 4300000, guid: 37ff00407183bcd418af4bd104090ff0, type: 3}
---- !u!65 &65214090333684716
+--- !u!65 &65372179235848200
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1324404243032806}
+  m_GameObject: {fileID: 1874519148069422}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9337842, y: 1.2928807, z: 0.9230085}
-  m_Center: {x: -0.04500541, y: 0.6429834, z: 0.0000013411045}
+  m_Size: {x: 0.5763723, y: 1.0779526, z: 0.591075}
+  m_Center: {x: -0.025807947, y: 0.56113994, z: 0.0028292239}
 --- !u!114 &114401992497146958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,17 +296,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114881356135761024
+--- !u!114 &114987720283616598
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1324404243032806}
+  m_GameObject: {fileID: 1874519148069422}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24e5c9f50d3591d4bab669091c47c46a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectionColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!222 &222079311202504306
 CanvasRenderer:
   m_ObjectHideFlags: 1
