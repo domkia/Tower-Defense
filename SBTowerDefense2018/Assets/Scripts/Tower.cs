@@ -36,7 +36,7 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
         //rangeTiles = HexGrid.Instance.GetTilesRing(builtOn, 2);       //Get ring of tiles
     }
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         Health = MaxHealth;
         //enemyList = new LinkedList<Enemy>();

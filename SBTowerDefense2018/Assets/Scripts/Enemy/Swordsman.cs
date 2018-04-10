@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 public class Swordsman : Enemy
 {
@@ -19,6 +20,8 @@ public class Swordsman : Enemy
         healthBar.fillAmount = (float)Health / (float)maxHealth;
         if (Health <= 0)
         {
+            PlayerStats.Instance.ChangeMoney(moneyReward);
+            Debug.Log(PlayerStats.Instance.Money);
             Die();
         }
     }
