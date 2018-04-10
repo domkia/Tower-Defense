@@ -1,13 +1,16 @@
-﻿using System;
+﻿using System.Runtime.Serialization;
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "new Resource", menuName = "Resource", order = 0)]
-public class Resource : ScriptableObject
+[Serializable]
+public class Resource : ScriptableObject, ISerializable
 {
     // Name of the resource ("Wood", "Stone", and so on)
     [SerializeField] public string ResourceName;
     // Its icon in the UI.
-    [SerializeField] public Sprite Icon;
+    // TO DO: Figure out a way to serialize a sprite. (Do we even need to serialize it anyway?)
+    // [SerializeField] public Sprite Icon;
 
     // The amount of this particular resource the player holds at the moment.
     public int Amount { get; private set; }
@@ -37,7 +40,7 @@ public class Resource : ScriptableObject
     /// <returns>true, if the player had enough resource to spend, otherwise false.</returns>
     public bool Spend(int amount)
     {
-        if (this.Amount > amount)
+        if (this.Amount >= amount)
         {
             this.Amount -= amount;
             if (OnChangedAmount != null)
@@ -55,5 +58,18 @@ public class Resource : ScriptableObject
     public void Reset()
     {
         this.Amount = 0;
+    }
+    // This method is called on serialization.
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        info.AddValue("resourceName", ResourceName, typeof(string));
+        info.AddValue("amount", Amount, typeof(int));
+    }
+
+    // This special constructor is used for deserialization.
+    public Resource(SerializationInfo info, StreamingContext context)
+    {
+        ResourceName = (string) info.GetValue("resourceName", typeof(string));
+        Amount = (int) info.GetValue("amount", typeof(int));
     }
 }

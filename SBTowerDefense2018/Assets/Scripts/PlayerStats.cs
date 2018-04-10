@@ -1,10 +1,13 @@
-﻿/// <summary>
+﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
+/// <summary>
 /// This will hold the information (stats) for our player.
 /// </summary>
-[System.Serializable]
+[Serializable]
 public class PlayerStats
 {
-
     // I feel like this design is better: we don't even need to construct an instance of this in a game manager
     // or something for this work. If anyone disagrees, they may improve on it.
     private static PlayerStats instance = null;
@@ -19,12 +22,14 @@ public class PlayerStats
         }
     }
 
-    private PlayerStats()
+    public PlayerStats()
     {
+        //Load all Resource scriptable objects from unity's built in Resources folder
+        this.Resources = UnityEngine.Resources.LoadAll<Resource>("ResourcesInfo/");
     }
 
     // Resources (wood, stone, iron, etc.) and their amounts.
-    public Resource[] Resources { get; set; }
+    public Resource[] Resources { get; private set; }
 
     // Amount of money the player has, which he earns from killing enemies.
     public int Money { get; private set; }
@@ -35,8 +40,8 @@ public class PlayerStats
     // How many towers the player has built.
     public int TowersBuilt { get; private set; }
 
-    // How many seconds the player has survived in the current playing session.
-    public int TimeSurvivedInSeconds { get; private set; }
+    // How many waves has the player survived.
+    public int WavesSurvived { get; private set; }
 
     /// <summary>
     /// Changes the player's money by some amount.
@@ -64,10 +69,44 @@ public class PlayerStats
     }
 
     /// <summary>
-    /// Increments the amount of seconds the player has survived in the current playing session by one.
+    /// Increments the amount of wave the player has survived.
     /// </summary>
-    public void IncrementSurvivalTimer()
+    public void WaveSurvived()
     {
-        TimeSurvivedInSeconds++;
+        WavesSurvived++;
+    }
+
+    private static readonly string filePath = "/playerStats.dat";
+
+    /// <summary>
+    /// Saves the player's stats to a file.
+    /// </summary>
+    public void Save()
+    {
+        using (var file = File.Create(Application.persistentDataPath + filePath))
+        {
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(file, this);
+        }
+    }
+
+    /// <summary>
+    /// Loads the player's stats from a file.
+    /// </summary>
+    public void Load()
+    {
+        if(File.Exists(Application.persistentDataPath + filePath))
+        {
+            using (var file = File.Open(Application.persistentDataPath + filePath, FileMode.Open))
+            {
+                var formatter = new BinaryFormatter();
+                var savedStats = (PlayerStats) formatter.Deserialize(file);
+                Resources = savedStats.Resources;
+                Money = savedStats.Money;
+                EnemiesKilled = savedStats.EnemiesKilled;
+                TowersBuilt = savedStats.TowersBuilt;
+                WavesSurvived = savedStats.WavesSurvived;
+            }
+        }
     }
 }

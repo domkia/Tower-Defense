@@ -1,0 +1,19 @@
+-- Quick design document --
+
+Enemy Units:
+- Peasant
+- Archer
+- Spearman
+- Maceman
+- Swordsman
+- Knight (Cavalier)
+- Siege Tower (more enemies inside)
+- Boss?
+
+Towers:
+- Base Castle
+- Archer Outpost
+- Crossbows
+- Tar barrels? / Fire throwers
+- Trebuchet / Catapult
+- Cannons?

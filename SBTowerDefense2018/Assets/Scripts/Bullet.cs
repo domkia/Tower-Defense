@@ -3,50 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-    // Enemy position that the bullet is targetting (heading towards)
-    private Transform target;
+
+    private Enemy enemy;
     // Speed of the bullet
     public float Speed = 0.5f;
-    // Tag of enemy (passed in by tower)
-    private string enemyTag;
+
+    public int Damage = 10;
+
+    public float d = 0.2f;
+    private Vector3 lastKnownPosition;
 
     /// <summary>
     /// Sets the bullet's target.
     /// </summary>
-    /// <param name="_target">Enemy target</param>
-    /// <param name="_enemyTag">Tag of enemy</param>
-    public void Seek(Transform _target, string _enemyTag)
+    /// <param name="enemy">Reference to enemy</param>
+    public void Seek(Enemy enemy)
     {
-        target = _target;
-        enemyTag = _enemyTag;
+        this.enemy = enemy;
     }
 
     private void Update()
     {
-        // If the bullet has no target, destroy it.
-        if(target == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (enemy != null)
+            lastKnownPosition = enemy.transform.position;
 
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = lastKnownPosition - transform.position;
         float distanceThisFrame = Speed * Time.deltaTime;
 
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
-    }
 
-    /// <summary>
-    /// This method gets called when the bullet collides with something.
-    /// </summary>
-    /// <param name="other">Other object's collider</param>
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag(enemyTag))
+        float distanceToEnemy = (transform.position - lastKnownPosition).magnitude;
+        if (distanceToEnemy <= d)
         {
-            // The bullet hit an enemy
-            Debug.Log("Hit!");
+            if(enemy != null)
+                enemy.TakeDamage(Damage);
             Destroy(gameObject);
+            return;
         }
     }
 }

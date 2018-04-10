@@ -1,21 +1,18 @@
 ﻿using UnityEngine;
 
-// Right now, the only thing the game manager does is to push the resources into the PlayerStats instance.
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour// : Singleton<GameManager>
 {
-    //private PlayerStats stats;
+    public delegate void GameStateHandler();
+    public static GameStateHandler OnGameOver = delegate { };
+    public static GameStateHandler OnGameWon = delegate { };
 
-    // If anybody can figure out a better way to put resources and their amounts into the player stats,
-    // feel free to improve on it.
-    public Resource[] resources;
-
-    //void Awake()
-    //{
-    //    stats = new PlayerStats();
-    //}
-
-    private void Awake()
+    private void Start()
     {
-        PlayerStats.Instance.Resources = resources;
+        //When the base is destroyed, GAME OVER
+        Tower baseTower = TowerManager.Instance.GetTowerAt(HexGrid.Instance.CenterTile);
+        baseTower.OnDeath += (a) => OnGameOver();
+
+        //When all the enemies are killed, you WIN
+        MonsterSpawner.OnAllEnemiesKilled += () => OnGameWon();
     }
 }

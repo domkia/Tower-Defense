@@ -1,8 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-public class ResourceInteractable : MonoBehaviour, IInteractable
+public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
 {
+    public Color selectionColor;
     public int maxTier = 3;           //How many times you can collect this resource until it's gone
     public int amountPerTier;         //How much you get for every tier
     public float timeToCollect;       //Time it takes to collect it once
@@ -11,8 +12,10 @@ public class ResourceInteractable : MonoBehaviour, IInteractable
     private float currTime;
     private int currTier;
 
+    public Color SelectionColor { get { return selectionColor; } }
+
     public event Action<IInteractable> OnCompleted;     //Called when there is no more of this resource left
-    public event Action OnCancelled;                    
+    public event Action<IInteractable> OnCancelled;                    
 
     public event Action<IInteractable> OnCollected;     
 
@@ -28,7 +31,7 @@ public class ResourceInteractable : MonoBehaviour, IInteractable
     {
         currTime = 0f;
         if (OnCancelled != null)
-            OnCancelled();                      //Interaction was somehow cancelled
+            OnCancelled(this);                      //Interaction was somehow cancelled
     }
 
     public float UpdateProgress()
@@ -54,5 +57,11 @@ public class ResourceInteractable : MonoBehaviour, IInteractable
 
         //TODO: Add particle effects, sounds etc.
         Destroy(this.gameObject);
+    }
+
+    // As long as the resource exists on the map, it is always interactive.
+    public bool IsCurrentlyInteractive()
+    {
+        return true;
     }
 }
