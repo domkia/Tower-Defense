@@ -40,8 +40,8 @@ public class PlayerStats
     // How many towers the player has built.
     public int TowersBuilt { get; private set; }
 
-    // How many seconds the player has survived in the current playing session.
-    public int TimeSurvivedInSeconds { get; private set; }
+    // How many waves has the player survived.
+    public int WavesSurvived { get; private set; }
 
     /// <summary>
     /// Changes the player's money by some amount.
@@ -69,11 +69,11 @@ public class PlayerStats
     }
 
     /// <summary>
-    /// Increments the amount of seconds the player has survived in the current playing session by one.
+    /// Increments the amount of wave the player has survived.
     /// </summary>
-    public void IncrementSurvivalTimer()
+    public void WaveSurvived()
     {
-        TimeSurvivedInSeconds++;
+        WavesSurvived++;
     }
 
     private static readonly string filePath = "/playerStats.dat";
@@ -105,7 +105,7 @@ public class PlayerStats
                 Money = savedStats.Money;
                 EnemiesKilled = savedStats.EnemiesKilled;
                 TowersBuilt = savedStats.TowersBuilt;
-                TimeSurvivedInSeconds = savedStats.TimeSurvivedInSeconds;
+                WavesSurvived = savedStats.WavesSurvived;
             }
         }
     }
