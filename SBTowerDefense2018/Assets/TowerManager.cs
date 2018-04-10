@@ -10,6 +10,9 @@ class TowerManager : Singleton<TowerManager>
 
     private void Start()
     {
+        PlayerStats.Instance.Resources[0].Add(900);
+        PlayerStats.Instance.Resources[1].Add(900);
+        PlayerStats.Instance.Resources[2].Add(900);
         towers = new Dictionary<HexTile, Tower>();
         BuildBase();
     }

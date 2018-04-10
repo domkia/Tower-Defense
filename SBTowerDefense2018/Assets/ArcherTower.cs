@@ -15,12 +15,12 @@ public class ArcherTower : Tower
         get { return reloadTime; }
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-        GetComponentInChildren<TowerInfo>().Setup(new InfoField("Reload Time", reloadTime.ToString()),
-                                                  new InfoField("Attack Speed", (1.0f/fireRate).ToString()));
-    }
+    //protected override void Awake()
+    //{
+    //    base.Awake();
+    //    GetComponentInChildren<TowerInfo>().Setup(new InfoField("Reload Time", reloadTime.ToString()),
+    //                                              new InfoField("Attack Speed", (1.0f/fireRate).ToString()));
+    //}
 
     // When this countdown goes to zero, a bullet is fired. n
     private float fireCountdown = 0.0f;

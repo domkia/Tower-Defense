@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: 657c988a10051a549bb1cac7a237f334
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Pirma.unity
     guid: a31e1e6323e5d0c45839005ed37750ec
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SaveLoadTest.unity
     guid: ebbd099df874ba942a0809b274df90ed
+  - enabled: 1
+    path: Assets/Scenes/UI_cost.unity
+    guid: 194b76e80b231304b9de92aaed576a5c
