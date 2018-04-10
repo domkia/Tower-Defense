@@ -6,9 +6,6 @@ public class Swordsman : Enemy
     public int maxHealth = 12;
     public float maxSpeed = 0.5f;
 
-    // Money reward for killing a swordsman (temporary, move to abstract Enemy class later)
-    public int MoneyReward;
-
     private void Start()
     {
         Damage = damage;
@@ -22,7 +19,6 @@ public class Swordsman : Enemy
         healthBar.fillAmount = (float)Health / (float)maxHealth;
         if (Health <= 0)
         {
-            PlayerStats.Instance.ChangeMoney(MoneyReward);
             Die();
         }
     }
