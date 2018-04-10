@@ -6,7 +6,7 @@ public class MonsterSpawner : MonoBehaviour
 {
     public static event System.Action OnAllEnemiesKilled;
 
-    public GameObject enemyPrefab;
+    public List<GameObject> enemyPrefab;
     public float prepareTime = 10f;
     public int waves = 3;
     public int enemiesPerWave = 5;
@@ -14,6 +14,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private int currentWave = 0;
     private SpawnDirection[] spawners;
+    
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class MonsterSpawner : MonoBehaviour
         currentWave = 0;
         GameManager.OnGameOver += () => StopAllCoroutines();
         StartCoroutine(Spawn());
+        
     }
 
     private void SetupSpawnDirections()
@@ -66,9 +68,9 @@ public class MonsterSpawner : MonoBehaviour
             int randomDirection = GetRandomOpenSpawnDirection();
             if (randomDirection == -1)
                 Debug.LogError("there are no open spawn directions");
-
+            
             HexTile spawnTile = spawners[randomDirection].GetRandomOpenTile();
-            Enemy enemy = Instantiate(enemyPrefab).GetComponent<Enemy>();
+            Enemy enemy = Instantiate(enemyPrefab[Random.Range(0,enemyPrefab.Count)]).GetComponent<Enemy>();
             enemy.transform.parent = this.transform;
             remaining--;
             //yield return new WaitForSeconds(1f);          //Idle for a second
