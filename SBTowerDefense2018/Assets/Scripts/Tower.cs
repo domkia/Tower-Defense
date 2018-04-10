@@ -9,12 +9,16 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
 {
     [SerializeField]
     private int MaxHealth = 10;
+    public int WoodCost = 0;
+    public int IronCost = 0;
+    public int StoneCost = 0;
+
 
     protected TowerInteractable towerInteractable;      // Reference to TowerInteractable component.
     public HexTile BuiltOn { get; protected set; }      // Tile this tower is built on
     public List<HexTile> rangeTiles { get; protected set; } // If enemy is within one of those tiles, it is added to the enemyList
     protected Enemy currentTarget = null;
-
+    
     //IDamagable
     public event Action<HexTile> OnDeath;
     public int Health { get; set; }
