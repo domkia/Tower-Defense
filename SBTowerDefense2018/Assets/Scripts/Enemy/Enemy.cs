@@ -37,7 +37,6 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>
 
     protected void Die()
     {
-        PlayerStats.Instance.EnemyKilled();
         if (OnDeath != null)
             OnDeath(this);
         Destroy(gameObject);
