@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Base Enemy class
 /// </summary>
-public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>
+public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
 {
     public HexTile currentlyOn { get; set; }                    //Tile this enemy is currently on
     public int Damage { get; set; }                             //Every enemy has damage?
@@ -22,6 +22,8 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>
 
     protected IEnemyState currentState;
     public float Speed { get; protected set; }
+
+    public Color SelectionColor { get { return Color.red; } }
 
     protected void Awake()
     {

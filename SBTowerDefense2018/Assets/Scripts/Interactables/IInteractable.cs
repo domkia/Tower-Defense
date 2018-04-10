@@ -13,5 +13,5 @@ public interface IInteractable
     float UpdateProgress();
     void Cancel();
     event Action<IInteractable> OnCompleted;
-    event Action OnCancelled;
+    event Action<IInteractable> OnCancelled;
 }

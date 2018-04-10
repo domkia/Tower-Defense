@@ -89,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4881481930637960}
   - component: {fileID: 114407146604368030}
+  - component: {fileID: 65531003000875274}
   m_Layer: 0
   m_Name: EnemyFixed
   m_TagString: Enemy
@@ -165,6 +166,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740128080304704}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65531003000875274
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877092309801028}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25, y: 0.5, z: 0.25}
+  m_Center: {x: 0.000000059604645, y: 0.26, z: -0.00000008940697}
 --- !u!114 &114369778562506620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -206,7 +219,8 @@ MonoBehaviour:
   healthBar: {fileID: 114369778562506620}
   damage: 2
   maxHealth: 8
-  maxSpeed: 0.75
+  maxSpeed: 0.5
+  MoneyReward: 0
 --- !u!114 &114420076311919650
 MonoBehaviour:
   m_ObjectHideFlags: 1
