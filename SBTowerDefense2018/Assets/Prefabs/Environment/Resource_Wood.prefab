@@ -302,7 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionColor: {r: 0.764163, g: 0.86764705, b: 0.59969723, a: 1}
   maxTier: 3
-  amountPerTier: 3
+  amountPerTier: 55
   timeToCollect: 2
   resource: {fileID: 11400000, guid: 64fd2836d0bdd4249bbedd43a171a2ac, type: 2}
 --- !u!135 &135741606468532818
