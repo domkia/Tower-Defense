@@ -50,7 +50,7 @@ public class HexGridEditor : Editor
 
     private void Save()
     {
-        using (FileStream fs = new FileStream(HexGrid.savePath, FileMode.OpenOrCreate, FileAccess.Write))
+        using (FileStream fs = new FileStream(System.IO.Path.Combine(Application.streamingAssetsPath, HexGrid.savePath), FileMode.OpenOrCreate, FileAccess.Write))
         {
             //Write map radius
             BinaryWriter bw = new BinaryWriter(fs);
@@ -92,12 +92,12 @@ public class HexGridEditor : Editor
 
     private void Load()
     {
-        if (File.Exists(HexGrid.savePath) == false)
+        if (File.Exists(System.IO.Path.Combine(Application.streamingAssetsPath, HexGrid.savePath)) == false)
         {
             ResetTiles();
             return;
         }
-        using (FileStream fs = new FileStream(HexGrid.savePath, FileMode.Open, FileAccess.Read))
+        using (FileStream fs = new FileStream(System.IO.Path.Combine(Application.streamingAssetsPath, HexGrid.savePath), FileMode.Open, FileAccess.Read))
         {
             BinaryReader br = new BinaryReader(fs);
             int radius = br.ReadInt32();

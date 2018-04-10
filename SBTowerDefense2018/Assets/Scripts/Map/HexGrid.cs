@@ -20,14 +20,14 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     private static float hexWidth;
     private static float hexRadius;
 
-    public static string savePath = "Assets/Resources/grid.data";
+    public static string savePath = "grid.data";
 
     void Awake()
     {
         hexWidth = 1f;
         hexRadius = hexWidth / Mathf.Cos(30f * Mathf.Deg2Rad) / 2f; //2 x hexRadius === hexHeight
 
-        if (System.IO.File.Exists(savePath) == false)
+        if (System.IO.File.Exists(System.IO.Path.Combine(Application.streamingAssetsPath, savePath)) == false)
             Debug.LogError("grid.data does not exist");
         LoadGridFromFile();
         displayHexTiles = GetComponent<DisplayHexTiles>();
@@ -96,7 +96,8 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
 
     public void LoadGridFromFile()
     {
-        using (FileStream fs = new FileStream(savePath, FileMode.Open, FileAccess.Read))
+        string path = System.IO.Path.Combine(Application.streamingAssetsPath, savePath);
+        using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
         {
             //Get map radius from file
             //TODO: make sure file is not empty and the first 4 bytes == int (mapRadius)
