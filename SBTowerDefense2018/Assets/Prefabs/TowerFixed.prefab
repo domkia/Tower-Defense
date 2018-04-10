@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 23598109952338608}
   - component: {fileID: 65402663886582176}
   - component: {fileID: 114693100579165722}
+  - component: {fileID: 114307783660151388}
   m_Layer: 8
   m_Name: CastleMesh
   m_TagString: Untagged
@@ -118,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1001661952357942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.0048964, y: -1.1702731, z: 3.1941466}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4236542138911808}
@@ -179,6 +180,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9337842, y: 1.2928807, z: 0.9230085}
   m_Center: {x: -0.04500541, y: 0.6429834, z: 0.0000013411045}
+--- !u!114 &114307783660151388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1436287452201494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 252455399b4228e479d8ff77d75c679c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoWindow: {fileID: 1852417176911110, guid: 943b675073df8644fada2d20f8ab37ca, type: 2}
 --- !u!114 &114585984048261078
 MonoBehaviour:
   m_ObjectHideFlags: 1

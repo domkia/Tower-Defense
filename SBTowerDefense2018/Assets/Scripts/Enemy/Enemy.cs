@@ -7,6 +7,9 @@ using UnityEngine.UI;
 /// </summary>
 public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>
 {
+
+    public int moneyReward = 1;
+
     public HexTile currentlyOn { get; set; }                    //Tile this enemy is currently on
     public int Damage { get; set; }                             //Every enemy has damage?
 
