@@ -23,7 +23,7 @@ public class buildAtPos : MonoBehaviour
                     Debug.Log("Can't build here");
                     return;
                 }
-                TowerManager.Instance.BuildTowerAt(tile.tile, towerPrefab);
+                TowerManager.Instance.BuyTowerAt(tile.tile, towerPrefab);
                 isBuilding = !isBuilding;
             }
         }

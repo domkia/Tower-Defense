@@ -293,6 +293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 10
+  WoodCost: 50
+  IronCost: 0
+  StoneCost: 0
   healthbar: {fileID: 114590552478496970}
   ammoCapacity: 12
   reloadTime: 2

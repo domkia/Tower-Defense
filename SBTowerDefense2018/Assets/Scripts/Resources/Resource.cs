@@ -40,7 +40,7 @@ public class Resource : ScriptableObject, ISerializable
     /// <returns>true, if the player had enough resource to spend, otherwise false.</returns>
     public bool Spend(int amount)
     {
-        if (this.Amount > amount)
+        if (this.Amount >= amount)
         {
             this.Amount -= amount;
             if (OnChangedAmount != null)
@@ -59,7 +59,6 @@ public class Resource : ScriptableObject, ISerializable
     {
         this.Amount = 0;
     }
-
     // This method is called on serialization.
     public void GetObjectData(SerializationInfo info, StreamingContext context)
     {
