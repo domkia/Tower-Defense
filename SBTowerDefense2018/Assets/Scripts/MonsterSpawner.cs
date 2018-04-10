@@ -38,6 +38,7 @@ public class MonsterSpawner : MonoBehaviour
         {
             currentWave++;
             yield return SpawnWave();
+            PlayerStats.Instance.WaveSurvived();
             yield return new WaitForSeconds(prepareTime);
         }
 
