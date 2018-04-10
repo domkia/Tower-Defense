@@ -4,14 +4,17 @@ using UnityEngine;
 /// <summary>
 /// Tower component, responsible for the interactive nature of the tower.
 /// </summary>
-public class TowerInteractable : MonoBehaviour, IInteractable
+public class TowerInteractable : MonoBehaviour, IInteractable, ISelectable
 {
+    public Color selectionColor = Color.white;
     // Reference to tower which this component is part of.
     private Tower parent;
     // Current reloading progress [0-1]
     private float currentProgress;
     // Indicates whether the parent tower is currently interactive or not.
     private bool isCurrentlyInteractive;
+
+    public Color SelectionColor{ get{ return selectionColor; } }
 
     /// <summary>
     /// Sets the parent tower of this component. (Set to this)
@@ -33,7 +36,7 @@ public class TowerInteractable : MonoBehaviour, IInteractable
     #region IInteractable implementation
 
     public event Action<IInteractable> OnCompleted;
-    public event Action OnCancelled;
+    public event Action<IInteractable> OnCancelled;
 
     public float UpdateProgress()
     {
@@ -41,7 +44,6 @@ public class TowerInteractable : MonoBehaviour, IInteractable
         if(currentProgress >= 1f)
         {
             currentProgress = 0f;
-            //parent.Reload();                  // What if tower does something else instead of reloading?
             isCurrentlyInteractive = false;
             if (OnCompleted != null)
                 OnCompleted(this);              // call Reload() or any other method from DERIVED classes
@@ -53,7 +55,7 @@ public class TowerInteractable : MonoBehaviour, IInteractable
     {
         currentProgress = 0f;
         if (OnCancelled != null)
-            OnCancelled();
+            OnCancelled(this);
     }
 
     public bool IsCurrentlyInteractive()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Base Enemy class
 /// </summary>
-public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>
+public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
 {
 
     public int moneyReward = 1;
@@ -25,6 +25,8 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>
 
     protected IEnemyState currentState;
     public float Speed { get; protected set; }
+
+    public Color SelectionColor { get { return Color.red; } }
 
     protected void Awake()
     {

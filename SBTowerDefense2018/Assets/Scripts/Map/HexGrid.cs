@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
+[RequireComponent(typeof(DisplayHexTiles))]
 public class HexGrid : Singleton<HexGrid>, IEnumerable
 {
     //Six directions to neighbours in axial coordinate space
@@ -14,7 +15,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
 
     public int mapRadius = 3;
     public GameObject tileVisualPrefab;
-
+    public DisplayHexTiles displayHexTiles;
     public HexTile[][] tiles;
     private static float hexWidth;
     private static float hexRadius;
@@ -29,7 +30,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
         if (System.IO.File.Exists(savePath) == false)
             Debug.LogError("grid.data does not exist");
         LoadGridFromFile();
-        SpawnPhysicalTiles();                                       //create TileVisual for every tile
+        displayHexTiles = GetComponent<DisplayHexTiles>();
     }
 
     public HexTile CenterTile
@@ -130,6 +131,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
     }
 
     //TODO: move this to visual map spawner or something
+    /*
     private void SpawnPhysicalTiles()
     {
         foreach (HexTile tile in this)
@@ -140,7 +142,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
             tv.transform.position = tile.worldPos;
             tv.transform.parent = this.transform;
         }
-    }
+    }*/
 
     /// <summary>
     /// From Axial coordinates to world position
