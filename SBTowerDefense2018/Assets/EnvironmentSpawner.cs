@@ -29,10 +29,10 @@ public class EnvironmentSpawner : Singleton<EnvironmentSpawner>
             switch (tile.type)
             {
                 case TileType.Wood:
-                    randomPrefab = woodResourcePrefabs[Random.Range(0, woodResourcePrefabs.Count - 1)];
+                    randomPrefab = woodResourcePrefabs[Random.Range(0, woodResourcePrefabs.Count)];
                     break;
                 case TileType.Stone:
-                    randomPrefab = stoneResourcePrefabs[Random.Range(0, stoneResourcePrefabs.Count - 1)];
+                    randomPrefab = stoneResourcePrefabs[Random.Range(0, stoneResourcePrefabs.Count)];
                     break;
                 case TileType.Blocked:
                     randomPrefab = blockedTile;
