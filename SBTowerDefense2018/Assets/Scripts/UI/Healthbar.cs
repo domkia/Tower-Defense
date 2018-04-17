@@ -23,7 +23,7 @@ public class Healthbar : MonoBehaviour
     private void Awake()
     {
         //Debug.Log("Awake called!");
-        GameObject canvas = GameObject.Find("UI");
+        GameObject canvas = GameObject.Find("HealthBars");
         if (canvas == null)
             Debug.Log("Canvas not found!");
         rectTransform = Instantiate(healthbarPrefab, GetScreenPosition(), Quaternion.identity).GetComponent<RectTransform>();

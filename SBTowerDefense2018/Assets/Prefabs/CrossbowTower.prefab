@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114987720283616598}
   - component: {fileID: 65372179235848200}
   - component: {fileID: 114662188289450380}
+  - component: {fileID: 114532304515995140}
   m_Layer: 8
   m_Name: CrossbowTower
   m_TagString: Untagged
@@ -140,9 +141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 4
   WoodCost: 50
-  IronCost: 20
-  StoneCost: 0
-  healthbar: {fileID: 0}
+  IronCost: 0
+  StoneCost: 20
   ammoCapacity: 10
   reloadTime: 2
   archersCount: 1
@@ -150,9 +150,20 @@ MonoBehaviour:
   range: 4
   arrowPrefab: {fileID: 1831838192795536, guid: 1d6492dc622781548a9eba7dab9d6e3a,
     type: 2}
-  lowAmmoPercentage: 0.25
-  LowAmmoIndicator: {fileID: 21300000, guid: 4481b2338d1aba845988a41206a7020c, type: 3}
-  NoAmmoIndicator: {fileID: 21300000, guid: 2f1c0793b5f92e14099d5410f805147c, type: 3}
+--- !u!114 &114532304515995140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1874519148069422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d906f3050fcd5d4d8632152c2cbefec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LowAmmoRatio: 0.25
+  LowAmmoSprite: {fileID: 21300000, guid: 4481b2338d1aba845988a41206a7020c, type: 3}
+  NoAmmoSprite: {fileID: 21300000, guid: 2f1c0793b5f92e14099d5410f805147c, type: 3}
 --- !u!114 &114662188289450380
 MonoBehaviour:
   m_ObjectHideFlags: 1
