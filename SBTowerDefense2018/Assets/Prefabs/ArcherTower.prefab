@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 65425488060001164}
   - component: {fileID: 114100470473809302}
   - component: {fileID: 114880655876947204}
+  - component: {fileID: 114737386901761396}
   m_Layer: 8
   m_Name: ArcherTower
   m_TagString: Untagged
@@ -327,7 +328,6 @@ MonoBehaviour:
   WoodCost: 0
   IronCost: 0
   StoneCost: 0
-  healthbar: {fileID: 0}
   ammoCapacity: 16
   reloadTime: 2
   archersCount: 1
@@ -335,9 +335,20 @@ MonoBehaviour:
   range: 2
   arrowPrefab: {fileID: 1871370763936802, guid: bd51cd5a0d6dadf449ce7728f0ee1ec6,
     type: 2}
-  lowAmmoPercentage: 0.25
-  LowAmmoIndicator: {fileID: 21300000, guid: 4481b2338d1aba845988a41206a7020c, type: 3}
-  NoAmmoIndicator: {fileID: 21300000, guid: 2f1c0793b5f92e14099d5410f805147c, type: 3}
+--- !u!114 &114737386901761396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714079419029534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d906f3050fcd5d4d8632152c2cbefec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LowAmmoRatio: 0.25
+  LowAmmoSprite: {fileID: 21300000, guid: 4481b2338d1aba845988a41206a7020c, type: 3}
+  NoAmmoSprite: {fileID: 21300000, guid: 2f1c0793b5f92e14099d5410f805147c, type: 3}
 --- !u!114 &114880655876947204
 MonoBehaviour:
   m_ObjectHideFlags: 1
