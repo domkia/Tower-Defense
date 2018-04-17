@@ -678,7 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 1244414089}
-  basePrefab: {fileID: 1001661952357942, guid: 55651a268d8698949880634b1c452437, type: 2}
+  basePrefab: {fileID: 1714079419029534, guid: 36e25abe84415444dba3e9019dc0a588, type: 2}
 --- !u!114 &189335689
 MonoBehaviour:
   m_ObjectHideFlags: 0

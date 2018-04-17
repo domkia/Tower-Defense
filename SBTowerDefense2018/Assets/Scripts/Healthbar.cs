@@ -22,11 +22,12 @@ public class Healthbar : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Awake called!");
+        //Debug.Log("Awake called!");
         GameObject canvas = GameObject.Find("UI");
         if (canvas == null)
             Debug.Log("Canvas not found!");
-        rectTransform = Instantiate(healthbarPrefab, canvas.transform).GetComponent<RectTransform>();
+        rectTransform = Instantiate(healthbarPrefab, GetScreenPosition(), Quaternion.identity).GetComponent<RectTransform>();
+        rectTransform.parent = canvas.transform;
         healthbarFill = rectTransform.GetChild(0).GetComponent<Image>();
         if (healthbarFill == null)
             Debug.Log("HEALTHBARFILL");
@@ -35,8 +36,13 @@ public class Healthbar : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("UPDATE");
-        Vector3 vec = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 1.5f);
+        Vector3 vec = GetScreenPosition();
         rectTransform.position = vec;
+    }
+
+    private Vector3 GetScreenPosition()
+    {
+        //Debug.Log("UPDATE");
+        return Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 1.5f);
     }
 }
