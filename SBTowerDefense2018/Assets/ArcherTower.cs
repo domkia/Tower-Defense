@@ -15,6 +15,8 @@ public class ArcherTower : Tower
         get { return reloadTime; }
     }
 
+    private AmmoIndicator ammoIndicator;
+
     //protected override void Awake()
     //{
     //    base.Awake();
@@ -29,7 +31,8 @@ public class ArcherTower : Tower
     {
         base.Setup(builtOn);
 
-        SetupIndicator();
+        ammoIndicator = GetComponent<AmmoIndicator>();
+        ammoIndicator.Setup(this);
         Reload(null);
         towerInteractable.SetParent(this);
         towerInteractable.OnCompleted += Reload;
@@ -46,7 +49,7 @@ public class ArcherTower : Tower
         {
             Shoot();
             fireCountdown = 1.0f / fireRate;
-            UpdateIndicator();
+            ammoIndicator.UpdateIndicator(AmmoLeft, ammoCapacity);
         }
         fireCountdown -= Time.deltaTime;
     }
@@ -64,6 +67,9 @@ public class ArcherTower : Tower
         // Decrement the amount of bullets left
         AmmoLeft--;
 
+        if (AmmoLeft == 0)
+            towerInteractable.SetToInteractive();
+
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         if (bullet != null)
             bullet.Seek(currentTarget);
@@ -75,7 +81,7 @@ public class ArcherTower : Tower
     public void Reload(IInteractable i)
     {
         AmmoLeft = ammoCapacity;
-        UpdateIndicator();
+        ammoIndicator.UpdateIndicator(AmmoLeft, ammoCapacity);
     }
 
     //Clean up
@@ -84,48 +90,48 @@ public class ArcherTower : Tower
         towerInteractable.OnCompleted -= Reload;
     }
 
-    //TODO: ammo indicators
-    //--------- Move this to separate class -----------------
+    ////TODO: ammo indicators
+    ////--------- Move this to separate class -----------------
 
-    public float lowAmmoPercentage = 0.25f;
-    public Sprite LowAmmoIndicator;         // Sprite to be drawn when a tower has low ammo.
-    public Sprite NoAmmoIndicator;          // Sprite to be drawn when a tower has no ammo left.
-    private GameObject ammoIndicator;
-    private SpriteRenderer spriteRenderer;  // Reference to sprite renderer for the ammo indicator.
+    //public float lowAmmoPercentage = 0.25f;
+    //public Sprite LowAmmoIndicator;         // Sprite to be drawn when a tower has low ammo.
+    //public Sprite NoAmmoIndicator;          // Sprite to be drawn when a tower has no ammo left.
+    //private GameObject ammoIndicator;
+    //private SpriteRenderer spriteRenderer;  // Reference to sprite renderer for the ammo indicator.
 
-    private void SetupIndicator()
-    {
-        ammoIndicator = new GameObject("Ammo Indicator");
-        ammoIndicator.transform.parent = this.transform;
-        // We add an offset in the positive Y direction, so we can see the sprite clearly.
-        // If we didn't add an offset, the sprite would be embedded in the tower.
-        ammoIndicator.transform.position = this.transform.position + new Vector3(0, 2f, 0);
-        // We add a SpriteRenderer component as we will need to render sprites.
-        spriteRenderer = ammoIndicator.AddComponent<SpriteRenderer>();
-        ammoIndicator.SetActive(false);
-    }
+    //private void SetupIndicator()
+    //{
+    //    ammoIndicator = new GameObject("Ammo Indicator");
+    //    ammoIndicator.transform.parent = this.transform;
+    //    // We add an offset in the positive Y direction, so we can see the sprite clearly.
+    //    // If we didn't add an offset, the sprite would be embedded in the tower.
+    //    ammoIndicator.transform.position = this.transform.position + new Vector3(0, 2f, 0);
+    //    // We add a SpriteRenderer component as we will need to render sprites.
+    //    spriteRenderer = ammoIndicator.AddComponent<SpriteRenderer>();
+    //    ammoIndicator.SetActive(false);
+    //}
 
-    /// <summary>
-    /// Updates the ammo warning indicator.
-    /// </summary>
-    private void UpdateIndicator()
-    {
-        // No ammo case.
-        if (AmmoLeft == 0)
-        {
-            spriteRenderer.sprite = NoAmmoIndicator;
-            ammoIndicator.SetActive(true);
-            // Since the tower has no bullets left, it can now be interacted with.
-            towerInteractable.SetToInteractive();
-        }
-        // Low ammo case.
-        else if (AmmoLeft <= ammoCapacity * lowAmmoPercentage)
-        {
-            spriteRenderer.sprite = LowAmmoIndicator;
-            ammoIndicator.SetActive(true);
-        }
-        // Otherwise, the tower has plenty of ammo and we can stop drawing the sprite.
-        else
-            ammoIndicator.SetActive(false);
-    }
+    ///// <summary>
+    ///// Updates the ammo warning indicator.
+    ///// </summary>
+    //private void UpdateIndicator()
+    //{
+    //    // No ammo case.
+    //    if (AmmoLeft == 0)
+    //    {
+    //        spriteRenderer.sprite = NoAmmoIndicator;
+    //        ammoIndicator.SetActive(true);
+    //        // Since the tower has no bullets left, it can now be interacted with.
+    //        towerInteractable.SetToInteractive();
+    //    }
+    //    // Low ammo case.
+    //    else if (AmmoLeft <= ammoCapacity * lowAmmoPercentage)
+    //    {
+    //        spriteRenderer.sprite = LowAmmoIndicator;
+    //        ammoIndicator.SetActive(true);
+    //    }
+    //    // Otherwise, the tower has plenty of ammo and we can stop drawing the sprite.
+    //    else
+    //        ammoIndicator.SetActive(false);
+    //}
 }

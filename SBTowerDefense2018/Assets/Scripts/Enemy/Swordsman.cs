@@ -17,7 +17,7 @@ public class Swordsman : Enemy
     public override void TakeDamage(int amount)
     {
         Health -= amount;
-        healthBar.fillAmount = (float)Health / (float)maxHealth;
+        healthBar.UpdateHealthbar(Health, maxHealth);
         if (Health <= 0)
         {
             PlayerStats.Instance.ChangeMoney(moneyReward);

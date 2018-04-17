@@ -27,6 +27,8 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
     public abstract void Attack();
     public abstract float InteractionDuration { get; }
 
+    protected Healthbar healthbar;
+
     //Protected stuff
     protected virtual void GetRangeTiles()
     {
@@ -41,6 +43,7 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
         Health = MaxHealth;
         //enemyList = new LinkedList<Enemy>();
         towerInteractable = GetComponentInChildren<TowerInteractable>();
+        healthbar = GetComponent<Healthbar>();
     }
 
     public virtual void Setup(HexTile builtOn)
@@ -88,7 +91,7 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
     public virtual void TakeDamage(int damage)
     {
         Health -= damage;
-        healthbar.fillAmount = (float)Health / (float)MaxHealth;
+        healthbar.UpdateHealthbar(Health, MaxHealth);
         if (Health <= 0)
         {
             Debug.Log("Tower destroyed!");
@@ -110,8 +113,4 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
         foreach(Enemy e in enemyList)
             GUILayout.Label(e.name);
     }*/
-
-    //Temporary
-    //TODO: move this
-    public UnityEngine.UI.Image healthbar;
 }
