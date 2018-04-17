@@ -28,9 +28,12 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
 
     public Color SelectionColor { get { return Color.red; } }
 
+    protected Healthbar healthBar;
+
     protected void Awake()
     {
         GameManager.OnGameOver += Idle;
+        healthBar = GetComponent<Healthbar>();
         Idle();                                                 //Initial state is Idle
     }
 
@@ -45,6 +48,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
         PlayerStats.Instance.EnemyKilled();
         if (OnDeath != null)
             OnDeath(this);
+        healthBar.RemoveHealthbar();
         Destroy(gameObject);
     }
 
@@ -52,8 +56,4 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
     {
         GameManager.OnGameOver -= Idle;
     }
-
-    //TODO: decouple this
-    [Header("HealthBar")]
-    public Image healthBar;
 }

@@ -24,9 +24,10 @@ public class AmmoIndicator : MonoBehaviour
     {
         // We add an offset in the positive Y direction, so we can see the sprite clearly.
         // If we didn't add an offset, the sprite would be embedded in the tower.
-        gameObject.transform.position = parent.transform.position + new Vector3(0f, 2f, 0f);
-        spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-        gameObject.SetActive(false);
+        spriteRenderer = new GameObject("Ammo Indicator").AddComponent<SpriteRenderer>();
+        spriteRenderer.transform.position = parent.transform.position + new Vector3(0f, 2f, 0f);
+        spriteRenderer.transform.localScale *= 0.5f;
+        spriteRenderer.gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -45,10 +46,10 @@ public class AmmoIndicator : MonoBehaviour
             if (currentRatio <= LowAmmoRatio)
             {
                 spriteRenderer.sprite = LowAmmoSprite;
-                gameObject.SetActive(true);
+                spriteRenderer.gameObject.SetActive(true);
             }
             else
-                gameObject.SetActive(false);
+                spriteRenderer.gameObject.SetActive(false);
         }
     }
 }
