@@ -6,6 +6,9 @@ public class MonsterSpawner : MonoBehaviour
 {
     public static event System.Action OnAllEnemiesKilled;
 
+    // Is called when a new wave starts.
+    public static event System.Action OnNewWaveStart;
+
     public List<GameObject> enemyPrefab;
     public float prepareTime = 10f;
     public int waves = 3;
@@ -14,15 +17,17 @@ public class MonsterSpawner : MonoBehaviour
 
     private int currentWave = 0;
     private SpawnDirection[] spawners;
-    
+
+    // For wave counter
+    public static int TotalNumberOfWaves;
 
     private void Start()
     {
+        TotalNumberOfWaves = waves;
         SetupSpawnDirections();
         currentWave = 0;
         GameManager.OnGameOver += () => StopAllCoroutines();
         StartCoroutine(Spawn());
-        
     }
 
     private void SetupSpawnDirections()
@@ -39,6 +44,10 @@ public class MonsterSpawner : MonoBehaviour
         while(currentWave < waves)
         {
             currentWave++;
+
+            if (OnNewWaveStart != null)
+                OnNewWaveStart();
+
             yield return SpawnWave();
             PlayerStats.Instance.WaveSurvived();
             yield return new WaitForSeconds(prepareTime);
