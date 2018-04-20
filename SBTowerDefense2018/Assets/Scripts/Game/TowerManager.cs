@@ -59,7 +59,10 @@ class TowerManager : Singleton<TowerManager>
     {
         if (tile == null)
             throw new System.Exception("HexTile (key) is null when trying to add to the dictionary");
-        ArcherTower towercost = towerPrefab.GetComponent<ArcherTower>();
+
+        /* TEMPORARY FIX */
+        // Replace with a more flexible system for building towers.
+        Tower towercost = towerPrefab.GetComponent<Tower>();
        
         tile.SetType(TileType.Tower);                       //Set tile type
         //Debug.Log(PlayerStats.Instance.Resources[2].ResourceName);
@@ -88,7 +91,7 @@ class TowerManager : Singleton<TowerManager>
     public bool CanBuildAt(HexTile atTile)
     {
         //Check if there are no enemies on this tile
-        if (atTile.enemies.Count > 0)
+        if (atTile.Enemies.Count > 0)
             return false;
 
         //Check if towers are not close together

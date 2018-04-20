@@ -13,14 +13,14 @@ public class HexTile
     public static event System.Action<HexTile> OnTileTypeChanged = delegate { };
 
     //Enemies that are within this tile
-    public List<Enemy> enemies { get; private set; }
+    public List<Enemy> Enemies { get; private set; }
 
     public HexTile(int xCord, int yCord, Vector3 worldPosition, TileType tileType = TileType.Empty)
     {
         this.x = xCord;
         this.y = yCord;
         this.worldPos = worldPosition;
-        enemies = new List<Enemy>();
+        Enemies = new List<Enemy>();
         SetType(tileType);
     }
 
@@ -38,12 +38,12 @@ public class HexTile
     public void EnemyExit(Enemy enemy)
     {
         enemy.OnDeath -= EnemyExit;
-        enemies.Remove(enemy);
+        Enemies.Remove(enemy);
     }
 
     public void EnemyEnter(Enemy enemy)
     {
-        enemies.Insert(enemies.Count, enemy);
+        Enemies.Insert(Enemies.Count, enemy);
         enemy.OnDeath += EnemyExit;
     }
 
