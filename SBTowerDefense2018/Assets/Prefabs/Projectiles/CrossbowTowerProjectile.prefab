@@ -9,32 +9,32 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1871370763936802}
+  m_RootGameObject: {fileID: 1831838192795536}
   m_IsPrefabParent: 1
---- !u!1 &1871370763936802
+--- !u!1 &1831838192795536
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4723117309681114}
-  - component: {fileID: 33603755636022606}
-  - component: {fileID: 23698849931027010}
-  - component: {fileID: 114499552713665998}
+  - component: {fileID: 4105277187569234}
+  - component: {fileID: 33182561092852744}
+  - component: {fileID: 23499247494428286}
+  - component: {fileID: 114592029614796032}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: CrossbowTowerProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4723117309681114
+--- !u!4 &4105277187569234
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871370763936802}
+  m_GameObject: {fileID: 1831838192795536}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
@@ -42,12 +42,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23698849931027010
+--- !u!23 &23499247494428286
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871370763936802}
+  m_GameObject: {fileID: 1831838192795536}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -76,24 +76,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33603755636022606
+--- !u!33 &33182561092852744
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871370763936802}
+  m_GameObject: {fileID: 1831838192795536}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114499552713665998
+--- !u!114 &114592029614796032
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1871370763936802}
+  m_GameObject: {fileID: 1831838192795536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00e094e7baed0fd49937aaa7945b1c53, type: 3}
+  m_Script: {fileID: 11500000, guid: abdc9ffd76ad98a46b11976f243a465b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2.5
-  Damage: 3
-  d: 0.2
+  Speed: 4
+  Damage: 4
+  MinimumDistanceToTarget: 0.1

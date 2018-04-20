@@ -1,7 +1,7 @@
 ﻿
 interface IDamagable<T>
 {
-    int Health { get; set; }
+    int CurrentHealth { get; set; }
     void TakeDamage(int damage);
     event System.Action<T> OnDeath;
 }

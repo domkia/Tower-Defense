@@ -16,7 +16,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
     //IDamagable implementation
     public event Action<Enemy> OnDeath;
     public abstract void TakeDamage(int amount);
-    public int Health { get; set; }
+    public int CurrentHealth { get; set; }
 
     //Enemy states
     public abstract void Idle();                                //Do nothing

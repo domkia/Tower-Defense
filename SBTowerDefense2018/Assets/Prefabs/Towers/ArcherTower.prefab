@@ -299,8 +299,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.72, y: 1.2928807, z: 0.75}
-  m_Center: {x: -0.04500541, y: 0.6429834, z: 0.0000013411045}
+  m_Size: {x: 0.82181704, y: 1.4329584, z: 0.75}
+  m_Center: {x: 0.012121066, y: 0.71368945, z: 0}
 --- !u!114 &114100470473809302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -324,16 +324,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e301cc2574c5d4c8dd0fb52072fb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 12
-  WoodCost: 0
+  Health: 10
+  WoodCost: 50
   IronCost: 0
   StoneCost: 0
-  ammoCapacity: 16
-  reloadTime: 2
-  archersCount: 1
-  fireRate: 2
-  range: 2
-  arrowPrefab: {fileID: 1871370763936802, guid: bd51cd5a0d6dadf449ce7728f0ee1ec6,
+  ReloadTime: 1
+  FireRate: 1
+  ammoCapacity: 10
+  Range: 2
+  projectilePrefab: {fileID: 1871370763936802, guid: bd51cd5a0d6dadf449ce7728f0ee1ec6,
     type: 2}
 --- !u!114 &114737386901761396
 MonoBehaviour:

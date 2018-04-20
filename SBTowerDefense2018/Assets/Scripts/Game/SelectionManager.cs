@@ -26,7 +26,7 @@ public class SelectionManager : Singleton<SelectionManager>
         else if (selected is TowerInteractable)
         {
             TowerInteractable tower = selected as TowerInteractable;
-            HexGrid.Instance.displayHexTiles.ShowTiles(tower.GetComponent<Tower>().rangeTiles);
+            HexGrid.Instance.displayHexTiles.ShowTiles(tower.GetComponent<Tower>().TilesInRange);
         }
         else if (selected is Enemy)
             (selected as Enemy).OnDeath += DeselectEnemy;
@@ -63,7 +63,9 @@ public class SelectionManager : Singleton<SelectionManager>
 
     private void SetChildrenLayer(string layer)
     {
+        // Bug (at the end of the game?)
         GameObject go = (selected as MonoBehaviour).gameObject;
+
         foreach(MeshRenderer mr in go.GetComponentsInChildren<MeshRenderer>())
             if(mr.gameObject != go)
                 mr.gameObject.layer = LayerMask.NameToLayer(layer);

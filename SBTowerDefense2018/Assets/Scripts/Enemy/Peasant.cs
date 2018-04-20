@@ -11,15 +11,15 @@ public class Peasant : Enemy
     private void Start()
     {
         Damage = damage;
-        Health = maxHealth;
+        CurrentHealth = maxHealth;
         Speed = maxSpeed;
     }
 
     public override void TakeDamage(int amount)
     {
-        Health -= amount;
-        healthBar.UpdateHealthbar(Health, maxHealth);
-        if (Health <= 0)
+        CurrentHealth -= amount;
+        healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
+        if (CurrentHealth <= 0)
         {
             Die();
         }

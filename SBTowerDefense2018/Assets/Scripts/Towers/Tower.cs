@@ -3,45 +3,65 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Abstract tower class
+/// Abstract class for towers that will be built by the player.
 /// </summary>
 public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
 {
-    [SerializeField]
-    private int MaxHealth = 10;
+    // Current health of the tower.
+    public int CurrentHealth { get; set; }
+
+    // Maximum amount of health the tower will have.
+    // We need this in order to draw the healthbar.
+    public int Health;
+
+    // Resource costs to build the tower.
     public int WoodCost = 0;
     public int IronCost = 0;
     public int StoneCost = 0;
 
+    /* Will all towers shoot projectiles and thus need to reload + have an AmmoIndicator component? */
 
-    protected TowerInteractable towerInteractable;      // Reference to TowerInteractable component.
-    public HexTile BuiltOn { get; protected set; }      // Tile this tower is built on
-    public List<HexTile> rangeTiles { get; protected set; } // If enemy is within one of those tiles, it is added to the enemyList
-    protected Enemy currentTarget = null;
-    
-    //IDamagable
-    public event Action<HexTile> OnDeath;
-    public int Health { get; set; }
+    // Time needed to reload the tower.
+    public float ReloadTime;
+    // Fire rate of the tower (projectiles per second)
+    public float FireRate;
+    // When this reaches zero, the tower will shoot a projectile.
+    protected float fireCountdown;
 
-    //TODO: Rename this method to Act or something else
+    /* ============================================================================================= */
+
+
+    // Tile the tower is built on.
+    public HexTile BuiltOn { get; protected set; }
+
+    // All tiles in range of this tower. Any enemy that enters any of the tiles in this list,
+    // becomes a viable target.
+    public List<HexTile> TilesInRange { get; protected set; }
+
+    // This is called when the tower is destroyed.
+    public event Action<HexTile> OnDeath = delegate { };
+
+    // Reference to TowerInteractable component.
+    protected TowerInteractable towerInteractable;
+
+    // Reference to Healthbar component.
+    protected Healthbar healthbar;
+
     public abstract void Attack();
     public abstract float InteractionDuration { get; }
 
-    protected Healthbar healthbar;
-
-    //Protected stuff
-    protected virtual void GetRangeTiles()
+    /// <summary>
+    /// Sets up the list, which holds the tiles in range for this tower.
+    /// In the base class (Tower), this only adds the tile the tower is built on.
+    /// </summary>
+    protected virtual void SetupTilesInRange()
     {
-        //Range tiles can be anything, for ex:
-        rangeTiles = HexGrid.Instance.GetNeighbours(BuiltOn);           //By default range is 1
-        //rangeTiles = HexGrid.Instance.GetTilesInRange(builtOn, 3);    //Get tiles of specific range
-        //rangeTiles = HexGrid.Instance.GetTilesRing(builtOn, 2);       //Get ring of tiles
+        TilesInRange = new List<HexTile> { BuiltOn };
     }
 
     protected virtual void Awake()
     {
-        Health = MaxHealth;
-        //enemyList = new LinkedList<Enemy>();
+        CurrentHealth = Health;
         towerInteractable = GetComponentInChildren<TowerInteractable>();
         healthbar = GetComponent<Healthbar>();
     }
@@ -49,68 +69,26 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
     public virtual void Setup(HexTile builtOn)
     {
         BuiltOn = builtOn;
-        GetRangeTiles();                
-        rangeTiles.Add(BuiltOn);        //Also don't forget to add tile tower is standing on
-
-        //SetupEnemyCallbacks();
+        SetupTilesInRange();
     }
 
     /// <summary>
     /// Finds nearest enemy in range and updates target. If there is no viable enemy, target is set to null
-    /// (indicating no target)
+    /// (which indicates no viable target)
     /// </summary>
-    protected virtual void UpdateTarget()
-    {
-        int index = -1;
-        float nearDist = float.MaxValue;
-        for (int i = 0; i < rangeTiles.Count; i++)
-            if (rangeTiles[i].enemies.Count > 0)
-            {
-                float dist = (BuiltOn.worldPos - rangeTiles[i].enemies[0].transform.position).sqrMagnitude;
-                if (dist < nearDist)
-                {
-                    nearDist = dist;
-                    index = i;
-                }
-            }
-        if (index < 0)
-            currentTarget = null;
-        else
-            currentTarget = rangeTiles[index].enemies[0];
-    }
+    protected abstract void UpdateTarget();
 
-    protected virtual void Update()
-    {
-        if (currentTarget == null)
-            UpdateTarget();
-        if(currentTarget != null)
-            Attack();
-    }
+    protected abstract void Update();
 
-    //IDamagable
+    /// <summary>
+    /// Deals damage to this tower.
+    /// </summary>
+    /// <param name="damage">Amount of damage this tower will take.</param>
     public virtual void TakeDamage(int damage)
     {
-        Health -= damage;
-        healthbar.UpdateHealthbar(Health, MaxHealth);
-        if (Health <= 0)
-        {
-            Debug.Log("Tower destroyed!");
-            if (OnDeath != null)
-                OnDeath(BuiltOn);
-        }
+        CurrentHealth -= damage;
+        healthbar.UpdateHealthbar(CurrentHealth, Health);
+        if (CurrentHealth <= 0)
+            OnDeath(BuiltOn);
     }
-
-    /*
-    // Debug enemy list
-    private void OnGUI()
-    {
-        GUI.color = Color.blue;
-        if (enemyList.Count == 0)
-        {
-            GUILayout.Label("enemyList is empty");
-            return;
-        }
-        foreach(Enemy e in enemyList)
-            GUILayout.Label(e.name);
-    }*/
 }
