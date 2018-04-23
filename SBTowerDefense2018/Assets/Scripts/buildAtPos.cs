@@ -1,14 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class buildAtPos : MonoBehaviour
 {
     public LayerMask layer;
     public bool isBuilding = false;
-    public GameObject towerPrefab;
+    public List<GameObject> towerPrefabs;
+    public int index = 0;
 
-    public void startBuilding()
+    /// <summary>
+    /// Starts building tower of certain number in list
+    /// </summary>
+    /// <param name="num">Number of tower</param>
+    public void startBuilding(int num)
     {
         isBuilding = !isBuilding;
+        index = num;
     }
 
     private void Update()
@@ -23,7 +30,7 @@ public class buildAtPos : MonoBehaviour
                     Debug.Log("Can't build here");
                     return;
                 }
-                TowerManager.Instance.BuyTowerAt(tile.tile, towerPrefab);
+                TowerManager.Instance.BuyTowerAt(tile.tile, towerPrefabs[index]);
                 isBuilding = !isBuilding;
             }
         }
