@@ -6,8 +6,12 @@ using UnityEngine;
 /// </summary>
 public class AOEProjectile : Projectile
 {
-    // Splash damage radius
-    public int ExplosionRadius;
+    // Splash damage radius.
+    private const int ExplosionRadius = 1;
+
+    // All enemies receive damage, equal to direct damage * this multiplier.
+    [Range(0.0f, 1.0f)]
+    public float SplashDamageMultiplier;
 
     // Stores a reference to the tile that this projectile will eventually reach.
     private HexTile targetTile;
@@ -44,19 +48,22 @@ public class AOEProjectile : Projectile
     /// </summary>
     private void Explode()
     {
-        // First, get a list of all tiles that will be affected by splash damage.
-        List<HexTile> affectedTiles = new List<HexTile> { targetTile };
-        var additionalTiles = HexGrid.Instance.GetTilesInRange(targetTile, ExplosionRadius);
-        affectedTiles.AddRange(additionalTiles);
-
-        // Next, we get a list of all enemies that will be affected.
-        List<Enemy> affectedEnemies = new List<Enemy>();
-        foreach (var tile in affectedTiles)
-            affectedEnemies.AddRange(tile.Enemies);
-
-        // Finally, deal damage.
-        foreach (var enemy in affectedEnemies)
+        // First, deal direct damage to all enemies which are currently on the target tile.
+        foreach (var enemy in targetTile.Enemies)
             enemy.TakeDamage(Damage);
+
+        // Next, get all tiles which will receive splash damage.
+        List<HexTile> splashDamageTiles = HexGrid.Instance.GetTilesInRange(targetTile, ExplosionRadius);
+
+        // We get all enemies which will receive splash damage.
+        List<Enemy> splashDamageEnemies = new List<Enemy>();
+        foreach (var tile in splashDamageTiles)
+            splashDamageEnemies.AddRange(tile.Enemies);
+
+        // Deal splash damage
+        int splashDamage = (int) (Damage * SplashDamageMultiplier);
+        foreach (var enemy in splashDamageEnemies)
+            enemy.TakeDamage(splashDamage);
 
         Destroy(gameObject);
     }

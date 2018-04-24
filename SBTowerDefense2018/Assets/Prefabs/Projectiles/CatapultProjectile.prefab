@@ -97,4 +97,4 @@ MonoBehaviour:
   Speed: 3
   Damage: 1
   MinimumDistanceToTarget: 0.1
-  ExplosionRadius: 2
+  SplashDamageMultiplier: 0.2
