@@ -184,7 +184,7 @@ MonoBehaviour:
   StoneCost: 20
   ReloadTime: 5
   FireRate: 1
-  ammoCapacity: 40
+  ammoCapacity: 10
   Range: 3
   projectilePrefab: {fileID: 1876297957564252, guid: 4ec5bc3f9013995478d543077ab499e6,
     type: 2}
