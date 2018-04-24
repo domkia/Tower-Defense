@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class SpecialAttack {
 
-    protected float timer = 0;
+    public abstract string name { get; }
+    public float timer = 0;
     public bool isReady = true;
     public abstract float cooldown { get; }
 

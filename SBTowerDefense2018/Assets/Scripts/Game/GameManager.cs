@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour// : Singleton<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     public delegate void GameStateHandler();
     public static GameStateHandler OnGameOver = delegate { };

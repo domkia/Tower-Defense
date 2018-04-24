@@ -12,6 +12,14 @@ public class ReloadSpecial : SpecialAttack
         }
     }
 
+    public override string name
+    {
+        get
+        {
+            return "Reload";
+        }
+    }
+
     public override void Do()
     {
         if (!isReady)
