@@ -111,7 +111,20 @@ public class BasicTower : Tower, IReloadable
             towerInteractable.SetToInteractive();
 
         BasicProjectile projectile = projectileGO.GetComponent<BasicProjectile>();
-        projectile.Seek(currentTarget);
+        projectile.Seek(currentTarget, multiplier);
+    }
+
+    private float multiplier = 1;
+
+    public void MultiplyDamage(float multiplier, float duration)
+    {
+        this.multiplier = multiplier;
+        Invoke("ResetDamage", duration);
+    }
+
+    private void ResetDamage()
+    {
+        multiplier = 1;
     }
 
     /// <summary>
