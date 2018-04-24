@@ -7,6 +7,7 @@ public class Peasant : Enemy
     public int damage = 1;
     public int maxHealth = 1;
     public float maxSpeed = 0.1f;
+    public int moneyReward = 10;
 
     private void Start()
     {
@@ -21,6 +22,8 @@ public class Peasant : Enemy
         healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
         if (CurrentHealth <= 0)
         {
+            GiveReward(moneyReward);
+            Debug.Log(PlayerStats.Instance.Money);
             Die();
         }
     }
