@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class AbilitiesManager : MonoBehaviour {
 
-    private List<SpecialAttack> specialAttack = new List<SpecialAttack>(3);
-    
-
+    private List<SpecialAttack> specialAttack = new List<SpecialAttack>();
 
 	// Use this for initialization
 	void Start () {
-		
+        ReloadSpecial reload = new ReloadSpecial();
+        specialAttack.Add(reload);
 	}
 	
 	// Update is called once per frame
@@ -24,4 +23,14 @@ public class AbilitiesManager : MonoBehaviour {
             specialAttack[0].Do();
         }
 	}
+    public void doSpecialAttack(int index)
+    {
+        if (index < 0 || index > specialAttack.Count)
+        {
+            Debug.Log("Index out of bounds");
+            return;
+        }
+        else
+        specialAttack[index].Do();
+    }
 }
