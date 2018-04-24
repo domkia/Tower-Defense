@@ -12,6 +12,14 @@ public class IncreaseFireRate : SpecialAttack
         }
     }
 
+    public override string name
+    {
+        get
+        {
+            return "Increase firerate";
+        }
+    }
+
     public override void Do()
     {
         timer = cooldown;

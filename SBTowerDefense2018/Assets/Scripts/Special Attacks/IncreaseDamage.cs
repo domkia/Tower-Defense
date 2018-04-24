@@ -12,8 +12,21 @@ public class IncreaseDamage : SpecialAttack
         }
     }
 
+    public override string name
+    {
+        get
+        {
+            return "Increase damage";
+        }
+    }
+
     public override void Do()
     {
+        if (!isReady)
+        {
+            Debug.Log("Skill is still on cooldown " + timer);
+            return;
+        }
         Increase();
         timer = cooldown;
         isReady = false;
@@ -21,6 +34,7 @@ public class IncreaseDamage : SpecialAttack
 
     public void Increase()
     {
+        
         var towers = TowerManager.Instance.GetTowers();
         foreach (var tower in towers.Values)
         {

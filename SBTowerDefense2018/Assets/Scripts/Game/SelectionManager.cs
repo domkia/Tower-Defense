@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
@@ -73,6 +74,8 @@ public class SelectionManager : Singleton<SelectionManager>
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
         if (selected == null)
             if(selectionEffect.enabled == true)
                 selectionEffect.enabled = false;
