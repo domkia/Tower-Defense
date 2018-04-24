@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// Implements a tower, which shoots a regular projectile (no area of effect, no lasting effects
 /// such as poison, etc.)
 /// </summary>
-public class BasicTower : Tower
+public class BasicTower : Tower, IReloadable
 {
     // Maximum amount of ammo this tower can hold.
     public int ammoCapacity;
@@ -25,7 +24,15 @@ public class BasicTower : Tower
             return ReloadTime;
         }
     }
-    
+
+    float IReloadable.ReloadTime
+    {
+        get
+        {
+            return ReloadTime;
+        }
+    }
+
     // Reference to AmmoIndicator component. (We may need to move this to the base class.)
     private AmmoIndicator ammoIndicator;
 
@@ -36,10 +43,10 @@ public class BasicTower : Tower
         ammoIndicator = GetComponent<AmmoIndicator>();
         ammoIndicator.Setup(this);
 
-        Reload(null);
+        Interact(null);
 
         towerInteractable.SetParent(this);
-        towerInteractable.OnCompleted += Reload;
+        towerInteractable.OnCompleted += Interact;
     }
 
     protected override void SetupTilesInRange()
@@ -108,9 +115,17 @@ public class BasicTower : Tower
     }
 
     /// <summary>
+    /// Interacts with the tower.
+    /// </summary>
+    public void Interact(IInteractable i)
+    {
+        Reload();
+    }
+
+    /// <summary>
     /// Reloads the tower, setting the amount of bullets left to the tower's ammo capacity.
     /// </summary>
-    public void Reload(IInteractable i)
+    public void Reload()
     {
         AmmoLeft = ammoCapacity;
         ammoIndicator.UpdateIndicator(AmmoLeft, ammoCapacity);
@@ -119,7 +134,7 @@ public class BasicTower : Tower
     //Clean up
     private void OnDestroy()
     {
-        towerInteractable.OnCompleted -= Reload;
+        towerInteractable.OnCompleted -= Interact;
     }
 
     //protected override void Awake()

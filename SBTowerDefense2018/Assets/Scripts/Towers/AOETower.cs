@@ -3,7 +3,7 @@
 /// <summary>
 /// Implements a tower which shoots a projectile that has some area of effect (like an explosion, for instance)
 /// </summary>
-public class AOETower : Tower
+public class AOETower : Tower, IReloadable
 {
     // Maximum amount of ammo this tower can hold.
     public int ammoCapacity;
@@ -27,6 +27,14 @@ public class AOETower : Tower
         }
     }
 
+    float IReloadable.ReloadTime
+    {
+        get
+        {
+            return ReloadTime;
+        }
+    }
+
     // We should probably have an abstract parent class, called RangedTower, so we wouldn't need to override
     // all of these.
 
@@ -37,10 +45,10 @@ public class AOETower : Tower
         ammoIndicator = GetComponent<AmmoIndicator>();
         ammoIndicator.Setup(this);
 
-        Reload(null);
+        Interact(null);
 
         towerInteractable.SetParent(this);
-        towerInteractable.OnCompleted += Reload;
+        towerInteractable.OnCompleted += Interact;
     }
 
     protected override void SetupTilesInRange()
@@ -52,9 +60,17 @@ public class AOETower : Tower
     }
 
     /// <summary>
+    /// Interacts with the tower.
+    /// </summary>
+    public void Interact(IInteractable i)
+    {
+        Reload();
+    }
+
+    /// <summary>
     /// Reloads the tower, setting the amount of bullets left to the tower's ammo capacity.
     /// </summary>
-    public void Reload(IInteractable i)
+    public void Reload()
     {
         AmmoLeft = ammoCapacity;
         ammoIndicator.UpdateIndicator(AmmoLeft, ammoCapacity);
@@ -63,7 +79,7 @@ public class AOETower : Tower
     //Clean up
     private void OnDestroy()
     {
-        towerInteractable.OnCompleted -= Reload;
+        towerInteractable.OnCompleted -= Interact;
     }
 
     // =====================================================================================
