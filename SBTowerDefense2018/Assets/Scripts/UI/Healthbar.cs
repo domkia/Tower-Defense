@@ -31,7 +31,7 @@ public class Healthbar : MonoBehaviour
         healthbarFill = rectTransform.GetChild(0).GetComponent<Image>();
         if (healthbarFill == null)
             Debug.Log("HEALTHBARFILL");
-        Debug.Log(healthbarFill.transform.parent.name);
+        //Debug.Log(healthbarFill.transform.parent.name);
     }
 
     private void Update()

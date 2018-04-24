@@ -21,7 +21,7 @@ public class Swordsman : Enemy
         if (CurrentHealth <= 0)
         {
             PlayerStats.Instance.ChangeMoney(moneyReward);
-            Debug.Log(PlayerStats.Instance.Money);
+            //Debug.Log(PlayerStats.Instance.Money);
             Die();
         }
     }

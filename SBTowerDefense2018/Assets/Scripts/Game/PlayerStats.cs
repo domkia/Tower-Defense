@@ -75,6 +75,13 @@ public class PlayerStats
     {
         WavesSurvived++;
     }
+    public void resetResources()
+    {
+        foreach(Resource res in Resources)
+        {
+            res.Reset();
+        }
+    }
 
     private static readonly string filePath = "/playerStats.dat";
 
