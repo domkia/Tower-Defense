@@ -14,6 +14,7 @@ public class IncreaseDamage : SpecialAttack
 
     public override void Do()
     {
+        Increase();
         timer = cooldown;
         isReady = false;
     }

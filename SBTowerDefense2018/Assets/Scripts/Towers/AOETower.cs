@@ -145,7 +145,6 @@ public class AOETower : Tower, IReloadable
         AmmoLeft--;
         if (AmmoLeft == 0)
             towerInteractable.SetToInteractive();
-
         AOEProjectile projectile = projectileGO.GetComponent<AOEProjectile>();
         projectile.SetTargetTile(currentTarget, multiplier);
     }
