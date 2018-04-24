@@ -25,9 +25,7 @@ public class AOEProjectile : Projectile
     public void SetTargetTile(HexTile target, float multiplier)
     {
         int newDamage = (int)(Damage * multiplier);
-        Debug.Log("Before: " + Damage);
         Damage = newDamage;
-        Debug.Log("After: " + Damage);
         targetTile = target;
         // We can precalculate the unit direction vector ahead of time, because tiles don't move.
         unitDirectionVector = (target.worldPos - transform.position).normalized;

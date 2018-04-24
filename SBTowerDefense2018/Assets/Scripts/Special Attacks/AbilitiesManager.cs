@@ -10,6 +10,8 @@ public class AbilitiesManager : MonoBehaviour {
 	void Start () {
         ReloadSpecial reload = new ReloadSpecial();
         specialAttack.Add(reload);
+        IncreaseDamage damage = new IncreaseDamage();
+        specialAttack.Add(damage);
 	}
 	
 	// Update is called once per frame

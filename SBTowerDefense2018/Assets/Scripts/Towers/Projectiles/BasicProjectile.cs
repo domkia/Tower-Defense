@@ -18,9 +18,7 @@ public class BasicProjectile : Projectile
     public void Seek(Enemy enemy, float multiplier)
     {
         int newDamage = (int) (Damage * multiplier);
-        Debug.Log("Before: " + Damage);
         Damage = newDamage;
-        Debug.Log("After: " + Damage);
         enemyTarget = enemy;
     }
 
