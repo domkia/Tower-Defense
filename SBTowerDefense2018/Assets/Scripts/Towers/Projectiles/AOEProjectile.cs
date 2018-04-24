@@ -50,6 +50,9 @@ public class AOEProjectile : Projectile
     /// </summary>
     private void Explode()
     {
+        if (targetTile.Enemies.Count < 1)
+            return;
+
         // First, deal direct damage to all enemies which are currently on the target tile.
         foreach (var enemy in targetTile.Enemies)
             enemy.TakeDamage(Damage);

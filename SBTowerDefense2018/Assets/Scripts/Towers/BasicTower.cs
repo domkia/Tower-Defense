@@ -4,18 +4,24 @@
 /// Implements a tower, which shoots a regular projectile (no area of effect, no lasting effects
 /// such as poison, etc.)
 /// </summary>
+[RequireComponent(typeof(AmmoIndicator))]
 public class BasicTower : Tower, IReloadable
 {
     // Maximum amount of ammo this tower can hold.
     public int ammoCapacity;
-    // Range of this tower (in tiles)
-    public int Range;
     // What projectile this tower will shoot out.
     public GameObject projectilePrefab;
     // Ammo left in this tower.
-    public int AmmoLeft { get; private set; }
+    public int AmmoLeft { get; protected set; }
     // Reference to enemy target for this tower.
     protected Enemy currentTarget;
+
+    // Time needed to reload the tower.
+    public float ReloadTime;
+    // Fire rate of the tower (projectiles per second)
+    public float FireRate;
+    // When this reaches zero, the tower will shoot a projectile.
+    protected float fireCountdown;
 
     public override float InteractionDuration
     {
@@ -33,8 +39,8 @@ public class BasicTower : Tower, IReloadable
         }
     }
 
-    // Reference to AmmoIndicator component. (We may need to move this to the base class.)
-    private AmmoIndicator ammoIndicator;
+    // Reference to AmmoIndicator component.
+    protected AmmoIndicator ammoIndicator;
 
     public override void Setup(HexTile builtOn)
     {
@@ -57,18 +63,16 @@ public class BasicTower : Tower, IReloadable
         TilesInRange.AddRange(additionalTiles);
     }
 
-    public override void Attack()
+    private void Attack()
     {
         if (fireCountdown <= 0.0f && AmmoLeft > 0)
         {
-            Shoot();
-            fireCountdown = 1.0f / FireRate;
-            ammoIndicator.UpdateIndicator(AmmoLeft, ammoCapacity);
+            PreShoot();
         }
         fireCountdown -= Time.deltaTime;
     }
 
-    protected override void Update()
+    protected virtual void Update()
     {
         // If there is no target, find another one. Otherwise, attack.
         if (currentTarget == null)
@@ -77,7 +81,11 @@ public class BasicTower : Tower, IReloadable
             Attack();
     }
 
-    protected override void UpdateTarget()
+    /// <summary>
+    /// Finds nearest enemy in range and updates target. If there is no viable enemy, target is set to null
+    /// (which indicates no viable target)
+    /// </summary>
+    protected virtual void UpdateTarget()
     {
         int index = -1;
         float nearDist = float.MaxValue;
@@ -100,21 +108,39 @@ public class BasicTower : Tower, IReloadable
     /// <summary>
     /// Shoots a projectile. at the target.
     /// </summary>
-    private void Shoot()
+    protected virtual void SpawnProjectile()
     {
         GameObject projectileGO = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectileGO.transform.parent = transform;
+        BasicProjectile projectile = projectileGO.GetComponent<BasicProjectile>();
+        projectile.Seek(currentTarget, multiplier);
+    }
+
+    private void Shoot()
+    {
+        // Child classes can override this
+        SpawnProjectile();
 
         // Decrement the amount of bullets left
         AmmoLeft--;
         if (AmmoLeft == 0)
             towerInteractable.SetToInteractive();
 
-        BasicProjectile projectile = projectileGO.GetComponent<BasicProjectile>();
-        projectile.Seek(currentTarget, multiplier);
+        fireCountdown = 1.0f / FireRate;
+        ammoIndicator.UpdateIndicator(AmmoLeft, ammoCapacity);
     }
 
-    private float multiplier = 1;
+    /// <summary>
+    /// This methods allows you to wait or do some additional stuff before actually firing the projectile
+    /// Ideal when using animations
+    /// </summary>
+    protected virtual void PreShoot()
+    {
+        //By default don't delay, just instantly shoot
+        Shoot();
+    }
+
+    protected float multiplier = 1;
 
     public void MultiplyDamage(float multiplier, float duration)
     {
@@ -149,11 +175,4 @@ public class BasicTower : Tower, IReloadable
     {
         towerInteractable.OnCompleted -= Interact;
     }
-
-    //protected override void Awake()
-    //{
-    //    base.Awake();
-    //    GetComponentInChildren<TowerInfo>().Setup(new InfoField("Reload Time", reloadTime.ToString()),
-    //                                              new InfoField("Attack Speed", (1.0f/fireRate).ToString()));
-    //}
 }

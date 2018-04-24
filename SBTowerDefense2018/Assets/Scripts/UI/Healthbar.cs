@@ -27,7 +27,7 @@ public class Healthbar : MonoBehaviour
         if (canvas == null)
             Debug.Log("Canvas not found!");
         rectTransform = Instantiate(healthbarPrefab, GetScreenPosition(), Quaternion.identity).GetComponent<RectTransform>();
-        rectTransform.parent = canvas.transform;
+        rectTransform.SetParent(canvas.transform);
         healthbarFill = rectTransform.GetChild(0).GetComponent<Image>();
         if (healthbarFill == null)
             Debug.Log("HEALTHBARFILL");

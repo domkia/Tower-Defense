@@ -29,11 +29,11 @@ public class IncreaseDamage : SpecialAttack
             {
                 basicTower.MultiplyDamage(2, 10);
             }
-            else
-            {
-                AOETower aoeTower = tower as AOETower;
-                aoeTower.MultiplyDamage(2, 10);
-            }
+            //else
+            //{
+            //    AOETower aoeTower = tower as AOETower;
+            //    aoeTower.MultiplyDamage(2, 10);
+            //}
         }
     }
 
