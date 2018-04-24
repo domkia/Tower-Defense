@@ -5,6 +5,8 @@ using UnityEngine;
 /// <summary>
 /// Abstract class for towers that will be built by the player.
 /// </summary>
+[RequireComponent(typeof(Healthbar))]
+[RequireComponent(typeof(TowerInteractable))]
 public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
 {
     // Current health of the tower.
@@ -19,20 +21,11 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
     public int IronCost = 0;
     public int StoneCost = 0;
 
-    /* Will all towers shoot projectiles and thus need to reload + have an AmmoIndicator component? */
-
-    // Time needed to reload the tower.
-    public float ReloadTime;
-    // Fire rate of the tower (projectiles per second)
-    public float FireRate;
-    // When this reaches zero, the tower will shoot a projectile.
-    protected float fireCountdown;
-
-    /* ============================================================================================= */
-
-
     // Tile the tower is built on.
     public HexTile BuiltOn { get; protected set; }
+
+    // Range of this tower (in tiles)
+    public int Range;
 
     // All tiles in range of this tower. Any enemy that enters any of the tiles in this list,
     // becomes a viable target.
@@ -47,7 +40,6 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
     // Reference to Healthbar component.
     protected Healthbar healthbar;
 
-    public abstract void Attack();
     public abstract float InteractionDuration { get; }
 
     /// <summary>
@@ -71,14 +63,6 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
         BuiltOn = builtOn;
         SetupTilesInRange();
     }
-
-    /// <summary>
-    /// Finds nearest enemy in range and updates target. If there is no viable enemy, target is set to null
-    /// (which indicates no viable target)
-    /// </summary>
-    protected abstract void UpdateTarget();
-
-    protected abstract void Update();
 
     /// <summary>
     /// Deals damage to this tower.
