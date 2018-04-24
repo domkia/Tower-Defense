@@ -15,8 +15,12 @@ public class BasicProjectile : Projectile
     /// Sets the projectile's target.
     /// </summary>
     /// <param name="enemy">Enemy that this projectile will be targetting.</param>
-    public void Seek(Enemy enemy)
+    public void Seek(Enemy enemy, float multiplier)
     {
+        int newDamage = (int) (Damage * multiplier);
+        Debug.Log("Before: " + Damage);
+        Damage = newDamage;
+        Debug.Log("After: " + Damage);
         enemyTarget = enemy;
     }
 

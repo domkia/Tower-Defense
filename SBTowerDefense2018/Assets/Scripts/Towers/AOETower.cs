@@ -67,6 +67,8 @@ public class AOETower : Tower, IReloadable
         Reload();
     }
 
+
+
     /// <summary>
     /// Reloads the tower, setting the amount of bullets left to the tower's ammo capacity.
     /// </summary>
@@ -145,6 +147,19 @@ public class AOETower : Tower, IReloadable
             towerInteractable.SetToInteractive();
 
         AOEProjectile projectile = projectileGO.GetComponent<AOEProjectile>();
-        projectile.SetTargetTile(currentTarget);
+        projectile.SetTargetTile(currentTarget, multiplier);
+    }
+
+    private float multiplier = 1;
+
+    public void MultiplyDamage(float multiplier, float duration)
+    {
+        this.multiplier = multiplier;
+        Invoke("ResetDamage", duration);
+    }
+
+    private void ResetDamage()
+    {
+        multiplier = 1;
     }
 }
