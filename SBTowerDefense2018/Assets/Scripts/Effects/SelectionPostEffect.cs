@@ -14,7 +14,7 @@ public class SelectionPostEffect : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Device supports image effects: " + SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.R8));
+        //Debug.Log("Device supports image effects: " + SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.R8));
         cam = GetComponent<Camera>();
 
         //Setup effect camera

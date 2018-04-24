@@ -268,7 +268,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
             }
             s += "\n";
         }
-        Debug.Log(s);
+        //Debug.Log(s);
     }
 
     public IEnumerator GetEnumerator()
