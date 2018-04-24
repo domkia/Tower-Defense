@@ -12,6 +12,8 @@ public class AbilitiesManager : MonoBehaviour {
         specialAttack.Add(reload);
         IncreaseDamage damage = new IncreaseDamage();
         specialAttack.Add(damage);
+        FreezeEnemy freeze = new FreezeEnemy();
+        specialAttack.Add(freeze);
 	}
 	
 	// Update is called once per frame

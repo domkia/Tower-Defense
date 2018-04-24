@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,5 +58,22 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
     protected void GiveReward(int moneyReward)
     {
         PlayerStats.Instance.ChangeMoney(moneyReward);
+    }
+    
+    public float startSpeed = 0.1f;
+    public float freeze = 0;
+    public float freezeDuration = 5;
+    public float enemySpeed; 
+
+    public void Freeze()
+    {
+        enemySpeed = Speed; // save start enemy speed
+        Speed = startSpeed * freeze;
+        Invoke("ResetFreeze", freezeDuration);
+    }
+    
+    private void ResetFreeze()
+    {
+        Speed = enemySpeed;
     }
 }
