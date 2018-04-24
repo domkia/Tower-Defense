@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
 {
 
-    public int moneyReward = 1;
-
     public HexTile currentlyOn { get; set; }                    //Tile this enemy is currently on
     public int Damage { get; set; }                             //Every enemy has damage?
 
@@ -55,5 +53,10 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
     private void OnDestroy()
     {
         GameManager.OnGameOver -= Idle;
+    }
+
+    protected void GiveReward(int moneyReward)
+    {
+        PlayerStats.Instance.ChangeMoney(moneyReward);
     }
 }

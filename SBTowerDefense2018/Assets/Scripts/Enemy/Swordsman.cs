@@ -6,6 +6,7 @@ public class Swordsman : Enemy
     public int damage = 2;
     public int maxHealth = 12;
     public float maxSpeed = 0.5f;
+    int moneyReward = 15;
 
     private void Start()
     {
@@ -20,8 +21,8 @@ public class Swordsman : Enemy
         healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
         if (CurrentHealth <= 0)
         {
-            PlayerStats.Instance.ChangeMoney(moneyReward);
-            //Debug.Log(PlayerStats.Instance.Money);
+            GiveReward(moneyReward);
+            Debug.Log(PlayerStats.Instance.Money);
             Die();
         }
     }
