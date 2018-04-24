@@ -29,6 +29,11 @@ class TowerManager : Singleton<TowerManager>
         return tower;
     }
 
+    public Dictionary<HexTile, Tower> GetTowers()
+    {
+        return towers;
+    }
+
     public void BuyTowerAt(HexTile tile, GameObject towerPrefab)
     {
         if (tile == null)
