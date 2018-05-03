@@ -75,45 +75,11 @@ public class PlayerStats
     {
         WavesSurvived++;
     }
-    public void resetResources()
+    public void ResetResources()
     {
         foreach(Resource res in Resources)
         {
             res.Reset();
-        }
-    }
-
-    private static readonly string filePath = "/playerStats.dat";
-
-    /// <summary>
-    /// Saves the player's stats to a file.
-    /// </summary>
-    public void Save()
-    {
-        using (var file = File.Create(Application.persistentDataPath + filePath))
-        {
-            var formatter = new BinaryFormatter();
-            formatter.Serialize(file, this);
-        }
-    }
-
-    /// <summary>
-    /// Loads the player's stats from a file.
-    /// </summary>
-    public void Load()
-    {
-        if(File.Exists(Application.persistentDataPath + filePath))
-        {
-            using (var file = File.Open(Application.persistentDataPath + filePath, FileMode.Open))
-            {
-                var formatter = new BinaryFormatter();
-                var savedStats = (PlayerStats) formatter.Deserialize(file);
-                Resources = savedStats.Resources;
-                Money = savedStats.Money;
-                EnemiesKilled = savedStats.EnemiesKilled;
-                TowersBuilt = savedStats.TowersBuilt;
-                WavesSurvived = savedStats.WavesSurvived;
-            }
         }
     }
 }

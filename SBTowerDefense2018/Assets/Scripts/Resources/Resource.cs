@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "new Resource", menuName = "Resource", order = 0)]
 [Serializable]
-public class Resource : ScriptableObject, ISerializable
+public class Resource : ScriptableObject
 {
     // Name of the resource ("Wood", "Stone", and so on)
     [SerializeField] public string ResourceName;
@@ -18,9 +18,8 @@ public class Resource : ScriptableObject, ISerializable
     // TODO: subscribe to this from ResourcesUI or something
     event Action OnNotEnoughResource;
 
-    // TODO: when the amount of a resource changes, for example, when the player collects a resource,
-    // update the UI.
-    event Action OnChangedAmount;
+    // Used to update UI elements.
+    public static event Action OnChangedAmount = delegate { };
 
     /// <summary>
     /// Adds some amount of resource to the player.
@@ -29,8 +28,7 @@ public class Resource : ScriptableObject, ISerializable
     public void Add(int amount)
     {
         this.Amount += amount;
-        if (OnChangedAmount != null)
-            OnChangedAmount();
+        OnChangedAmount();
     }
 
     /// <summary>
@@ -43,8 +41,7 @@ public class Resource : ScriptableObject, ISerializable
         if (this.Amount >= amount)
         {
             this.Amount -= amount;
-            if (OnChangedAmount != null)
-                OnChangedAmount();
+            OnChangedAmount();
             return true;
         }
         if (OnNotEnoughResource != null)
@@ -58,18 +55,5 @@ public class Resource : ScriptableObject, ISerializable
     public void Reset()
     {
         this.Amount = 0;
-    }
-    // This method is called on serialization.
-    public void GetObjectData(SerializationInfo info, StreamingContext context)
-    {
-        info.AddValue("resourceName", ResourceName, typeof(string));
-        info.AddValue("amount", Amount, typeof(int));
-    }
-
-    // This special constructor is used for deserialization.
-    public Resource(SerializationInfo info, StreamingContext context)
-    {
-        ResourceName = (string) info.GetValue("resourceName", typeof(string));
-        Amount = (int) info.GetValue("amount", typeof(int));
     }
 }
