@@ -69,6 +69,11 @@ public class HexTile
     {
         return string.Format("{0} {1}", x, y);
     }
+
+    public override int GetHashCode()
+    {
+        return 13 * x + y;
+    }
 }
 
 public enum TileType
