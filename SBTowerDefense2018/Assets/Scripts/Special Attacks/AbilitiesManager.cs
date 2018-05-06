@@ -29,8 +29,8 @@ public class AbilitiesManager : MonoBehaviour {
         for(int i = 0; i < specialAttack.Count; i++)
         {
            
-            specialAttack[i].UpdateCooldown(); 
-            cooldowns[i].fillAmount = specialAttack[i].timer / specialAttack[i].cooldown;
+            specialAttack[i].UpdateCooldown();
+            cooldowns[i].fillAmount = specialAttack[i].CooldownProgress;
         }
 		
         if (Input.GetKeyDown(KeyCode.Space))

@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SpecialAttack {
+public abstract class SpecialAttack : ScriptableObject
+{
+    public string title;
+    public Sprite icon;
+    public string description;
+    public float cooldown;
 
-    public abstract string name { get; }
-    public float timer = 0;
-    public bool isReady = true;
-    public abstract float cooldown { get; }
+    protected float timer = 0;
+    protected bool isReady = true;
 
     public abstract void Do();
 
@@ -22,5 +25,8 @@ public abstract class SpecialAttack {
         }
     }
 
-    
+    public float CooldownProgress
+    {
+        get { return timer / cooldown; }
+    }
 }

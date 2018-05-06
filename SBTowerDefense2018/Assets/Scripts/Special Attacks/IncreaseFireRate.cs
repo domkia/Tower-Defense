@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//[CreateAssetMenu(menuName = "SpecialAttacks/...")]
 public class IncreaseFireRate : SpecialAttack
 {
+    /*
     public override float cooldown
     {
         get
@@ -18,7 +20,7 @@ public class IncreaseFireRate : SpecialAttack
         {
             return "Increase firerate";
         }
-    }
+    }*/
 
     public override void Do()
     {
