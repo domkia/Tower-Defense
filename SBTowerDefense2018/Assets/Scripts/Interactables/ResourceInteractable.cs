@@ -14,6 +14,12 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
 
     public Color SelectionColor { get { return selectionColor; } }
 
+    // Sound stuff
+    private PlayResourceCollectingSFX soundPlayer;
+    private float timeBetweenSFX = 0.6f;
+    private float timeUntilSFX = 0.0f;
+    // -----------
+
     public event Action<IInteractable> OnCompleted;     //Called when there is no more of this resource left
     public event Action<IInteractable> OnCancelled;                    
 
@@ -25,6 +31,7 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
         currTier = maxTier;
         if (timeToCollect <= 0)
             Debug.LogError("timeToCollect illegal");
+        soundPlayer = GetComponent<PlayResourceCollectingSFX>();
     }
 
     public void Cancel()
@@ -37,9 +44,18 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
     public float UpdateProgress()
     {
         currTime += Time.deltaTime;
+
+        timeUntilSFX -= Time.deltaTime;
+        if(timeUntilSFX <= 0.0f)
+        {
+            soundPlayer.PlaySound(SoundType.ResourceCollecting);
+            timeUntilSFX = timeBetweenSFX;
+        }
+
         if (currTime > timeToCollect)
         {
             resource.Add(amountPerTier);        //Collect some
+            soundPlayer.PlaySound(SoundType.ResourceCollected);
             currTime = 0f;
             if (OnCollected != null)
                 OnCollected(this);
@@ -56,7 +72,13 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
             OnCompleted(this);
 
         //TODO: Add particle effects, sounds etc.
-        Destroy(this.gameObject);
+
+        float delay = soundPlayer.PlaySound(SoundType.ResourceDepleted);
+        // Hide the game object.
+        gameObject.GetComponentInChildren<Renderer>().enabled = false;
+        // Delay destroying the game object until the resource depletion sound effect has finished playing.
+        // Otherwise the sound effect would cut out.
+        Destroy(gameObject, delay);
     }
 
     // As long as the resource exists on the map, it is always interactive.
