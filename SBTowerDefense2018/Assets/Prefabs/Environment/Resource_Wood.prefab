@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4984588379777702}
   - component: {fileID: 135741606468532818}
   - component: {fileID: 114223638736113060}
+  - component: {fileID: 82323109396181774}
+  - component: {fileID: 114455378379058878}
   m_Layer: 8
   m_Name: Resource_Wood
   m_TagString: Untagged
@@ -289,6 +291,86 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1858704651626276}
   m_Mesh: {fileID: 4300002, guid: 749f0fcee8899d14d9fc75a4b5997df6, type: 3}
+--- !u!82 &82323109396181774
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089432609041724}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114223638736113060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,6 +387,37 @@ MonoBehaviour:
   amountPerTier: 55
   timeToCollect: 2
   resource: {fileID: 11400000, guid: 64fd2836d0bdd4249bbedd43a171a2ac, type: 2}
+--- !u!114 &114455378379058878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089432609041724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae7769b80414e634888d97131204cbdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceCollectingSFX:
+  - {fileID: 8300000, guid: 09e7cd94728a07f4490f7c84c6bcae25, type: 3}
+  - {fileID: 8300000, guid: 6208738c2de363e4398087b3166531ca, type: 3}
+  - {fileID: 8300000, guid: b789abb842128694e81402d893a2ae64, type: 3}
+  - {fileID: 8300000, guid: a765c8f67cdffad4b9c0623fc59300ac, type: 3}
+  - {fileID: 8300000, guid: 200978a61bdca7b4c8de5ac6e14c574b, type: 3}
+  - {fileID: 8300000, guid: dfb52c2bfc69266479ed21f4e5856a17, type: 3}
+  - {fileID: 8300000, guid: 1f16f4dc4c9097843a4637b5f2ba2c8c, type: 3}
+  - {fileID: 8300000, guid: 799d8dfe010fd7d41acb683d92b8f200, type: 3}
+  resourceCollectedSFX:
+  - {fileID: 8300000, guid: ea91440112317c44fa4c8516c9d3a926, type: 3}
+  - {fileID: 8300000, guid: ebbaf9be1b4a2ee44bf2a7f716a74dcf, type: 3}
+  - {fileID: 8300000, guid: c574c4e1a4d391144934d9ed746c8ad7, type: 3}
+  - {fileID: 8300000, guid: fbf1065f914f7934ea6ec1315479df49, type: 3}
+  resourceDepletedSFX:
+  - {fileID: 8300000, guid: 0407fa796bfc0e146a4b7626891e9c74, type: 3}
+  - {fileID: 8300000, guid: 039965ab8c4969448adcb28d89561d16, type: 3}
+  - {fileID: 8300000, guid: 1891eee429434ce43b77841db5bd14a7, type: 3}
+  - {fileID: 8300000, guid: 0bfcfdce482c6bb478addb727be7b027, type: 3}
+  - {fileID: 8300000, guid: 36eba8508c501e844a7bf211ea714e4e, type: 3}
 --- !u!135 &135741606468532818
 SphereCollider:
   m_ObjectHideFlags: 1
