@@ -9,11 +9,13 @@ public class MonsterSpawner : MonoBehaviour
     // Is called when a new wave starts.
     public static event System.Action OnNewWaveStart;
 
-    public List<GameObject> enemyPrefab;
+    //public List<GameObject> enemyPrefab;
     public float prepareTime = 10f;
-    public int waves = 3;
-    public int enemiesPerWave = 5;
-    public float waitBetweenSpawns = 0.5f;
+    //public int waves = 3;
+    //public int enemiesPerWave = 5;
+    // public float waitBetweenSpawns = 0.5f;
+    [SerializeField]
+    public List<Wave> waves;
 
     private int currentWave = 0;
     private SpawnDirection[] spawners;
@@ -23,7 +25,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Start()
     {
-        TotalNumberOfWaves = waves;
+        TotalNumberOfWaves = waves.Count;
         SetupSpawnDirections();
         currentWave = 0;
         GameManager.OnGameOver += () => StopAllCoroutines();
@@ -41,15 +43,15 @@ public class MonsterSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(prepareTime);
 
-        while(currentWave < waves)
+        while(currentWave < waves.Count)
         {
-            currentWave++;
-
+            
             if (OnNewWaveStart != null)
                 OnNewWaveStart();
 
             yield return SpawnWave();
             PlayerStats.Instance.WaveSurvived();
+            currentWave++;
             yield return new WaitForSeconds(prepareTime);
         }
 
@@ -64,7 +66,7 @@ public class MonsterSpawner : MonoBehaviour
     IEnumerator SpawnWave()
     {
         //TESTING
-        int remaining = enemiesPerWave;
+        int remaining = waves[currentWave].enemiesNumber;
 
         //:: Every wave choses one random direction
         //int randomDirection = GetRandomOpenSpawnDirection();
@@ -79,12 +81,13 @@ public class MonsterSpawner : MonoBehaviour
                 Debug.LogError("there are no open spawn directions");
             
             HexTile spawnTile = spawners[randomDirection].GetRandomOpenTile();
-            Enemy enemy = Instantiate(enemyPrefab[Random.Range(0,enemyPrefab.Count)]).GetComponent<Enemy>();
+            int count = waves[currentWave].enemies.Count;
+               Enemy enemy = Instantiate(waves[currentWave].enemies[Random.Range(0,count)]).GetComponent<Enemy>();
             enemy.transform.parent = this.transform;
             remaining--;
             //yield return new WaitForSeconds(1f);          //Idle for a second
             enemy.Move(spawnTile);
-            yield return new WaitForSeconds(waitBetweenSpawns);
+            yield return new WaitForSeconds(waves[currentWave].timeBetweenEnemies);
         }
     }
 

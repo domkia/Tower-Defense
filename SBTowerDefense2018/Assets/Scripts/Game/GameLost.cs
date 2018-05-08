@@ -15,5 +15,6 @@ public class GameLost : MonoBehaviour
         GameManager.OnGameOver -= EndGame;
         Debug.Log("GAME OVER!");
         gameOverPanel.SetActive(true);
+        Time.timeScale = 0;
     }
 }
