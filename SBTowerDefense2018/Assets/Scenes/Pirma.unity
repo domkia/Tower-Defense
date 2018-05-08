@@ -1641,7 +1641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOver: 0
   Panel: {fileID: 832473551}
-  TowerPref: {fileID: 266566102}
+  TowerPref: {fileID: 1714079419029534, guid: 36e25abe84415444dba3e9019dc0a588, type: 2}
   text: {fileID: 1250856210}
 --- !u!1 &275142249
 GameObject:
@@ -3823,7 +3823,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &594372727
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3857,8 +3857,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 692346457}
-  m_RootOrder: 4
+  m_Father: {fileID: 1847312835}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3897,7 +3897,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &613401388
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4433,7 +4433,6 @@ RectTransform:
   - {fileID: 901703713}
   - {fileID: 1750863353}
   - {fileID: 1847312835}
-  - {fileID: 613401386}
   m_Father: {fileID: 3216112}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4554,7 +4553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOver: 0
   Panel: {fileID: 1847312834}
-  TowerPref: {fileID: 692346456}
+  TowerPref: {fileID: 1874519148069422, guid: b781f55965071854aa136e73f68cf85c, type: 2}
   text: {fileID: 613401387}
 --- !u!1 &697539130
 GameObject:
@@ -5864,7 +5863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOver: 0
   Panel: {fileID: 946837509}
-  TowerPref: {fileID: 1103287854}
+  TowerPref: {fileID: 1063850298698030, guid: ee782d792b08acc4d9da39d3eb690c99, type: 2}
   text: {fileID: 594372726}
 --- !u!1 &1110548159
 GameObject:
@@ -6956,7 +6955,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1250856211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9697,6 +9696,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 931051637}
+  - {fileID: 613401386}
   m_Father: {fileID: 692346457}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
