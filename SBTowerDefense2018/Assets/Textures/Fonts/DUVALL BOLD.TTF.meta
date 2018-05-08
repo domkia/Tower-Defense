@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: d74bb0da60d79b64a9d16702242dd872
+timeCreated: 1525777478
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Duvall
+  fontNames:
+  - Duvall
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 94b9a522e26293144b0631798e3a4686, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
