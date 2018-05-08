@@ -40,13 +40,23 @@ class TowerManager : Singleton<TowerManager>
             throw new System.Exception("HexTile (key) is null when trying to add to the dictionary");
         Tower towercost = towerPrefab.GetComponent<Tower>();
         if (towercost.WoodCost > PlayerStats.Instance.Resources[2].Amount)//checking if enough wood
-            Debug.Log("Not Enough Wood");
+        {
+            Debug.Log("Not enough wood!");
+            UISoundPlayer.Instance.PlayAlertSound();
+        }
         else if (towercost.IronCost > PlayerStats.Instance.Resources[0].Amount)
-            Debug.Log("Not Enough Iron");
+        {
+            Debug.Log("Not enough iron!");
+            UISoundPlayer.Instance.PlayAlertSound();
+        }
         else if (towercost.StoneCost > PlayerStats.Instance.Resources[1].Amount)
-            Debug.Log("Not Enough Stone");
+        {
+            Debug.Log("Not enough stone!");
+            UISoundPlayer.Instance.PlayAlertSound();
+        }
         else
         {
+            UISoundPlayer.Instance.PlayTowerBuiltSound();
             PlayerStats.Instance.Resources[0].Spend(towercost.IronCost);
             PlayerStats.Instance.Resources[1].Spend(towercost.StoneCost);
             PlayerStats.Instance.Resources[2].Spend(towercost.WoodCost);

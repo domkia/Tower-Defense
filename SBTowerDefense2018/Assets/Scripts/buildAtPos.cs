@@ -27,6 +27,7 @@ public class buildAtPos : MonoBehaviour
             {
                 if (TowerManager.Instance.CanBuildAt(tile.tile) == false)
                 {
+                    UISoundPlayer.Instance.PlayAlertSound();
                     Debug.Log("Can't build here");
                     return;
                 }
