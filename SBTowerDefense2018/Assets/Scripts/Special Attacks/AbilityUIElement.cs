@@ -4,51 +4,58 @@ using UnityEngine.EventSystems;
 
 public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    [HideInInspector]
     public SpecialAttack ability = null;
+    public bool IsEmpty { get { return ability == null; } }
 
-    private Vector2 snapPosition;
+    private void Awake()
+    {
+        Reset();
+    }
 
     public void Setup(SpecialAttack specialAttack)
     {
         ability = specialAttack;
         transform.Find("Icon").GetComponent<Image>().sprite = ability.icon;
         transform.Find("Title").GetComponent<Text>().text = ability.title;
-        transform.Find("Cooldown").GetComponent<Image>().fillAmount = 0f;
     }
 
     public void Reset()
     {
-        transform.position = snapPosition;
-        GetComponent<Image>().raycastTarget = true;
+        ability = null;
+        transform.Find("Icon").GetComponent<Image>().sprite = null;
+        transform.Find("Title").GetComponent<Text>().text = null;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (IsEmpty)
+            return;
         GetComponent<Image>().raycastTarget = false;
-        snapPosition = transform.position;
+        AbilitiesSelector.Instance.BeginDrag(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        GameObject onto = eventData.pointerCurrentRaycast.gameObject;
-        if (onto == null)
-        {
-            Reset();
+        if (IsEmpty)
             return;
-        }
-        AbilitiesSelector.Instance.DragOnto(this, onto);
-        Reset();
+        GameObject onto = eventData.pointerCurrentRaycast.gameObject;
+        AbilitiesSelector.Instance.EndDrag(this, onto);
+        GetComponent<Image>().raycastTarget = true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (IsEmpty)
+            return;
         transform.position = Input.mousePosition;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.delta.magnitude == 0f)
-            AbilitiesSelector.Instance.Click(this);
+        if (IsEmpty)
+            return;
+        if (eventData.delta.magnitude < 5f)
+            AbilitiesSelector.Instance.Move(this);
+        Debug.Log("!!!");
     }
 }
