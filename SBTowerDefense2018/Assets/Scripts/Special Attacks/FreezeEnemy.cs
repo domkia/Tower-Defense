@@ -1,26 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName ="SpecialAttacks/FreezeEnemies")]
 public class FreezeEnemy : SpecialAttack
 {
-    public float abillityDuration = 5;
-
-    public override float cooldown
-    {
-        get
-        {
-            return 30f;
-        }
-    }
-
-    public override string name
-    {
-        get
-        {
-            return "Freeze";
-        }
-    }
+    public float freezeDuration;
 
     public override void Do()
     {

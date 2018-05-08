@@ -2,23 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "SpecialAttacks/IncreaseDamage")]
 public class IncreaseDamage : SpecialAttack
 {
-    public override float cooldown
-    {
-        get
-        {
-            return 30;
-        }
-    }
-
-    public override string name
-    {
-        get
-        {
-            return "Increase damage";
-        }
-    }
 
     public override void Do()
     {

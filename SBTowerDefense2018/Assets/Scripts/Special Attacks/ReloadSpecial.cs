@@ -2,23 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[CreateAssetMenu(menuName ="SpecialAttacks/ReloadTowers")]
 public class ReloadSpecial : SpecialAttack
 {
-    public override float cooldown
-    {
-        get
-        {
-            return 5f;
-        }
-    }
-
-    public override string name
-    {
-        get
-        {
-            return "Reload";
-        }
-    }
 
     public override void Do()
     {
