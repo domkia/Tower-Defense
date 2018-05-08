@@ -15,5 +15,6 @@ public class GameWon : MonoBehaviour
     {
         text.gameObject.SetActive(true);
         GameManager.OnGameWon -= Won;
+        Time.timeScale = 0;
     }
 }
