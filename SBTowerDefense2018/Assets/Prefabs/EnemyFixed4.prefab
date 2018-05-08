@@ -141,9 +141,9 @@ MonoBehaviour:
   freeze: 0
   freezeDuration: 5
   enemySpeed: 0
-  damage: 8
-  maxHealth: 25
-  maxSpeed: 0.2
+  damage: 5
+  maxHealth: 30
+  maxSpeed: 0.3
 --- !u!114 &114422081716733656
 MonoBehaviour:
   m_ObjectHideFlags: 1

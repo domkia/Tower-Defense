@@ -462,6 +462,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 96435742}
   ingameButtons: {fileID: 1815900396}
+--- !u!224 &100696849 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+    type: 2}
+  m_PrefabInternal: {fileID: 162292124}
 --- !u!1 &101057161
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +985,106 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 161559684}
+--- !u!1001 &162292124
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1084190297}
+    m_Modifications:
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7d9e343513148d64e8b3c9fbe26dbe23, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &173114884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1087,6 +1192,7 @@ GameObject:
   - component: {fileID: 189335688}
   - component: {fileID: 189335690}
   - component: {fileID: 189335691}
+  - component: {fileID: 189335692}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1185,6 +1291,24 @@ MonoBehaviour:
   - {fileID: 579239962}
   - {fileID: 380654229}
   - {fileID: 147197279}
+--- !u!114 &189335692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 189335684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cd73e1f4d664541ba02e711e20acc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WaveCounter: {fileID: 265215028}
+--- !u!114 &265215028 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114019583575020940, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
+    type: 2}
+  m_PrefabInternal: {fileID: 162292124}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &266566102
 GameObject:
   m_ObjectHideFlags: 0
@@ -4986,6 +5110,7 @@ RectTransform:
   - {fileID: 147197280}
   - {fileID: 56632536}
   - {fileID: 2044299557}
+  - {fileID: 100696849}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5878,12 +6003,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f082bd4765f8faf4ba49ee924a4d8529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab:
-  - {fileID: 1877092309801028, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
-  prepareTime: 5
-  waves: 3
-  enemiesPerWave: 4
-  waitBetweenSpawns: 2
+  prepareTime: 10
+  waves:
+  - enemiesNumber: 5
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
+  - enemiesNumber: 6
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
+    - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
+  - enemiesNumber: 7
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
+  - enemiesNumber: 8
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
+    - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
+    - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
+  - enemiesNumber: 9
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
+    - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
+  - enemiesNumber: 10
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
+  - enemiesNumber: 11
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
+    - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
+    - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
+    - {fileID: 114150536740707284, guid: 04a95fc653a244b409b6514890f8e041, type: 2}
+  - enemiesNumber: 12
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
+    - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
+    - {fileID: 114150536740707284, guid: 04a95fc653a244b409b6514890f8e041, type: 2}
+  - enemiesNumber: 13
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
+    - {fileID: 114150536740707284, guid: 04a95fc653a244b409b6514890f8e041, type: 2}
+  - enemiesNumber: 14
+    timeBetweenEnemies: 0.4
+    enemies:
+    - {fileID: 114150536740707284, guid: 04a95fc653a244b409b6514890f8e041, type: 2}
 --- !u!4 &1244414090
 Transform:
   m_ObjectHideFlags: 0

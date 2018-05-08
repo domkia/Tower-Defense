@@ -124,10 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38ba6bd6cede424b93e8911701b1322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyReward: 1
+  startSpeed: 0.1
+  freeze: 0
+  freezeDuration: 5
+  enemySpeed: 0
   damage: 1
-  maxHealth: 1
-  maxSpeed: 1.5
+  maxHealth: 3
+  maxSpeed: 1
+  moneyReward: 1
 --- !u!114 &114883444578161338
 MonoBehaviour:
   m_ObjectHideFlags: 1

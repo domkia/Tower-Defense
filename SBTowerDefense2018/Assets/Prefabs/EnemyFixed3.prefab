@@ -154,6 +154,6 @@ MonoBehaviour:
   freeze: 0
   freezeDuration: 5
   enemySpeed: 0
-  damage: 4
-  maxHealth: 15
-  maxSpeed: 1
+  damage: 3
+  maxHealth: 12
+  maxSpeed: 0.7
