@@ -17,6 +17,7 @@ public class FreezeEnemy : SpecialAttack
         Freezeddd();
         timer = cooldown;
         isReady = false;
+        Debug.Log("Freeze " + timer + " " + (isReady).ToString());
     }
 
     public void Freezeddd()

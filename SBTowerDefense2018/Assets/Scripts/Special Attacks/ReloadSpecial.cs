@@ -15,7 +15,7 @@ public class ReloadSpecial : SpecialAttack
 
         }
         Dictionary<HexTile, Tower> towers= TowerManager.Instance.GetTowers();
-        Debug.Log("Reloaded");
+        //Debug.Log("Reloaded");
         foreach(var tower in towers.Values)
         {
             IReloadable reloadable = tower as IReloadable;

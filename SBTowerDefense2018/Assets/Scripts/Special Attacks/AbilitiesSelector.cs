@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class AbilitiesSelector : Singleton<AbilitiesSelector>
 {
+    public Button startButton;
     public List<SpecialAttack> allAbilities;
 
     public int amountToSelect = 3;
@@ -17,13 +20,29 @@ public class AbilitiesSelector : Singleton<AbilitiesSelector>
     {
         InstantiateSlots();
         SetupUIElements();
+        ShowHideStartButton();
+
+        UnityAction startButtonCallback = new UnityAction(()=>
+        {
+            AbilitiesManager.Instance.StartGame(GetSelectedAbilities());
+            startButton.gameObject.SetActive(false);
+            GameManager.OnAbilitiesSelected();
+        });
+        startButton.onClick.AddListener(startButtonCallback);
+    }
+
+    private List<AbilityUIElement> GetSelectedAbilities()
+    {
+        List<AbilityUIElement> a = new List<AbilityUIElement>();
+        for (int i = 0; i < selectedAbilitiesContainer.childCount; i++)
+            a.Add(selectedAbilitiesContainer.GetChild(i).GetComponent<AbilityUIElement>());
+        return a;
     }
 
     public void Move(AbilityUIElement abilityUI)
     {
         AbilityUIElement newSlot = null;
-        if (abilityUI.transform.parent == availableAbilitiesContainer &&
-            NotEmptyAmount(selectedAbilitiesContainer) < amountToSelect)
+        if (abilityUI.transform.parent == availableAbilitiesContainer && NotEmptyAmount(selectedAbilitiesContainer) < amountToSelect)
             newSlot = GetEmptySlot(selectedAbilitiesContainer);
         else if (abilityUI.transform.parent == selectedAbilitiesContainer)
             newSlot = GetEmptySlot(availableAbilitiesContainer);
@@ -31,6 +50,7 @@ public class AbilitiesSelector : Singleton<AbilitiesSelector>
             Debug.Log("Can't find empty slot");
         newSlot.Setup(abilityUI.ability);
         abilityUI.Reset();
+        ShowHideStartButton();
     }
 
     public void BeginDrag(AbilityUIElement abilityUIElement)
@@ -49,7 +69,7 @@ public class AbilitiesSelector : Singleton<AbilitiesSelector>
     {
         if (onto == null)
         {
-            Debug.Log("EndDrag onto nothing");
+            //Debug.Log("EndDrag onto nothing");
             CancelDrag(abilityUIElement);
             return;
         }
@@ -57,12 +77,12 @@ public class AbilitiesSelector : Singleton<AbilitiesSelector>
         {
             if (onto == tempUISlot)
             {
-                Debug.Log("Same object");
+                //Debug.Log("Same object");
                 CancelDrag(abilityUIElement);
                 return;
             }
 
-            Debug.Log("EndDrag onto another element");
+            //Debug.Log("EndDrag onto another element");
             AbilityUIElement other = onto.GetComponent<AbilityUIElement>();
             CancelDrag(abilityUIElement);
             if (other.IsEmpty)
@@ -87,6 +107,7 @@ public class AbilitiesSelector : Singleton<AbilitiesSelector>
         }
         else
             CancelDrag(abilityUIElement);
+        ShowHideStartButton();
     }
 
     private void CancelDrag(AbilityUIElement abilityUIElement)
@@ -135,7 +156,7 @@ public class AbilitiesSelector : Singleton<AbilitiesSelector>
 
         //Instantiate temp
         tempUISlot = Instantiate(abilityUISlotPrefab, transform);
-        tempUISlot.GetComponent<Image>().color = Color.red;
+        tempUISlot.GetComponent<Image>().color = Color.gray;
         tempUISlot.gameObject.SetActive(false);
     }
 
@@ -147,6 +168,23 @@ public class AbilitiesSelector : Singleton<AbilitiesSelector>
             Transform slot = availableAbilitiesContainer.GetChild(i);
             AbilityUIElement element = slot.GetComponentInChildren<AbilityUIElement>();
             element.Setup(allAbilities[i]);
+        }
+    }
+
+    void ShowHideStartButton()
+    {
+        int count = NotEmptyAmount(selectedAbilitiesContainer);
+        bool inter = count == amountToSelect ? true : false;
+        CanvasGroup group = startButton.GetComponent<CanvasGroup>();
+        if (inter)
+        {
+            group.alpha = 1f;
+            group.interactable = true;
+        }
+        else
+        {
+            group.alpha = 0.5f;
+            group.interactable = false;
         }
     }
 }

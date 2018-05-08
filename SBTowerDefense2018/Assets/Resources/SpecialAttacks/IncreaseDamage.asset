@@ -14,4 +14,4 @@ MonoBehaviour:
   title: Extra Damage
   icon: {fileID: 21300004, guid: 66b73e8e3b17e21459c975711f7ccca4, type: 3}
   description: Increases outcoming damage by 2
-  cooldown: 45
+  cooldown: 10

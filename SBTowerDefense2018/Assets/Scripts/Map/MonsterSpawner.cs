@@ -28,6 +28,11 @@ public class MonsterSpawner : MonoBehaviour
         TotalNumberOfWaves = waves.Count;
         SetupSpawnDirections();
         currentWave = 0;
+        GameManager.OnAbilitiesSelected += StartSpawning;
+    }
+
+    public void StartSpawning()
+    {
         GameManager.OnGameOver += () => StopAllCoroutines();
         StartCoroutine(Spawn());
     }

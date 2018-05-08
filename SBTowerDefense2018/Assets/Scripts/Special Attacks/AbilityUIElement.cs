@@ -6,6 +6,7 @@ public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, 
 {
     public SpecialAttack ability = null;
     public bool IsEmpty { get { return ability == null; } }
+    public Image cooldown;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         ability = specialAttack;
         transform.Find("Icon").GetComponent<Image>().sprite = ability.icon;
         transform.Find("Title").GetComponent<Text>().text = ability.title;
+        cooldown = transform.Find("Cooldown").GetComponent<Image>();
     }
 
     public void Reset()
@@ -24,6 +26,8 @@ public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         ability = null;
         transform.Find("Icon").GetComponent<Image>().sprite = null;
         transform.Find("Title").GetComponent<Text>().text = null;
+        //if(cooldown != null)
+        //cooldown.fillAmount = 0f;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -56,6 +60,5 @@ public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             return;
         if (eventData.delta.magnitude < 5f)
             AbilitiesSelector.Instance.Move(this);
-        Debug.Log("!!!");
     }
 }

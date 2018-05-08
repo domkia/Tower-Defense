@@ -5,6 +5,7 @@ public class GameManager : Singleton<GameManager>
     public delegate void GameStateHandler();
     public static GameStateHandler OnGameOver = delegate { };
     public static GameStateHandler OnGameWon = delegate { };
+    public static GameStateHandler OnAbilitiesSelected = delegate { };
 
     private void Start()
     {

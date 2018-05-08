@@ -1,66 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class AbilitiesManager : MonoBehaviour {
-
-    private List<SpecialAttack> specialAttack = new List<SpecialAttack>();
-    private List<Image> cooldowns = new List<Image>();
+public class AbilitiesManager : Singleton<AbilitiesManager>
+{
+    private List<AbilityUIElement> specialAttacks = new List<AbilityUIElement>();
 
     public GameObject abilityChoosePanel;
-    public GameObject[] selectionButtons = new GameObject[3];
-    private int current;
-    // Use this for initialization
-    void Start () {
+    public GameObject selectedAbilitiesPanel;
+
+    private bool gameStarted = false;
+
+    public void StartGame(List<AbilityUIElement> abilities)
+    {
+        specialAttacks = abilities;
+        SetupAbilitiesPannel();
         abilityChoosePanel.SetActive(false);
-        ReloadSpecial reload = new ReloadSpecial();
-        specialAttack.Add(reload);
-        IncreaseDamage damage = new IncreaseDamage();
-        specialAttack.Add(damage);
-        FreezeEnemy freeze = new FreezeEnemy();
-        specialAttack.Add(freeze);
-	}
+        AbilitiesSelector.Instance.enabled = false;
+        
+        selectedAbilitiesPanel.SetActive(true);
+        gameStarted = true;
+    }
+
+    private void SetupAbilitiesPannel()
+    {
+        for (int i = 0; i < specialAttacks.Count; i++)
+        {
+            specialAttacks[i].cooldown.fillAmount = 1f;
+            specialAttacks[i].enabled = false;
+            Button button = specialAttacks[i].gameObject.AddComponent<Button>();
+            Debug.Log(i);
+            int a = i;
+            button.onClick.AddListener(
+                () => Do(a)
+            );
+            specialAttacks[i].transform.SetParent(selectedAbilitiesPanel.transform, false);
+        }
+    }
+
+    private void Do(int index)
+    {
+        if (specialAttacks[index].ability.IsReady)
+        {
+            specialAttacks[index].ability.Do();
+        }
+    }
 	
-	// Update is called once per frame
-	void Update () {
-        if (!GameStart.Instance.isFull)
+	void Update ()
+    {
+        if (gameStarted == false)
             return;
-        for(int i = 0; i < specialAttack.Count; i++)
+        for(int i = 0; i < specialAttacks.Count; i++)
         {
-           
-            specialAttack[i].UpdateCooldown();
-            cooldowns[i].fillAmount = specialAttack[i].CooldownProgress;
-        }
-		
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            specialAttack[0].Do();
+            specialAttacks[i].ability.UpdateCooldown();
+            specialAttacks[i].cooldown.fillAmount = specialAttacks[i].ability.CooldownProgress;
         }
 	}
-    public void doSpecialAttack(int index)
-    {
-        if (index < 0 || index > specialAttack.Count)
-        {
-            Debug.Log("Index out of bounds");
-            return;
-        }
-        else
-        GameStart.specialList[index].Do();
-        cooldowns[index].fillAmount = 0;
-
-    }
-    public void chooseAbility(int index)
-    {
-        abilityChoosePanel.SetActive(true);
-        current = index;
-
-    }
-    public void changeAbility(int index)
-    {
-        GameStart.specialList[current] = specialAttack[index];
-        selectionButtons[current].GetComponentInChildren<Text>().text = specialAttack[index].name;
-        cooldowns.Add(GameStart.Instance.Buttons[current].transform.Find("Cooldown").GetComponent<Image>());
-        abilityChoosePanel.SetActive(false);
-    }
 }

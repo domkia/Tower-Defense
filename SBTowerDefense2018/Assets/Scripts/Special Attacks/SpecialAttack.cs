@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class SpecialAttack : ScriptableObject
 {
@@ -18,12 +16,16 @@ public abstract class SpecialAttack : ScriptableObject
     {
         if (isReady)
             return;
+
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
             isReady = true;
         }
     }
+    
+    public bool IsReady
+    { get { return isReady; } }
 
     public float CooldownProgress
     {
