@@ -896,7 +896,7 @@ Prefab:
     - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
         type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 224914972293076866, guid: 7d9e343513148d64e8b3c9fbe26dbe23,
         type: 2}
@@ -5751,12 +5751,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f082bd4765f8faf4ba49ee924a4d8529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prepareTime: 3
+  prepareTime: 10
   waves:
   - enemiesNumber: 5
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 1
     enemies:
-    - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
+    - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
   - enemiesNumber: 6
     timeBetweenEnemies: 0.4
     enemies:
@@ -5787,22 +5787,22 @@ MonoBehaviour:
     - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
     - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
-    - {fileID: 114150536740707284, guid: 04a95fc653a244b409b6514890f8e041, type: 2}
+    - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
   - enemiesNumber: 12
     timeBetweenEnemies: 0.4
     enemies:
     - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
-    - {fileID: 114150536740707284, guid: 04a95fc653a244b409b6514890f8e041, type: 2}
+    - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
   - enemiesNumber: 13
     timeBetweenEnemies: 0.4
     enemies:
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
-    - {fileID: 114150536740707284, guid: 04a95fc653a244b409b6514890f8e041, type: 2}
+    - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
   - enemiesNumber: 14
     timeBetweenEnemies: 0.4
     enemies:
-    - {fileID: 114150536740707284, guid: 04a95fc653a244b409b6514890f8e041, type: 2}
+    - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
 --- !u!4 &1244414090
 Transform:
   m_ObjectHideFlags: 0
@@ -6316,7 +6316,7 @@ Prefab:
     - target: {fileID: 224356728591531606, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 224356728591531606, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
@@ -6426,6 +6426,51 @@ Prefab:
     - target: {fileID: 1275716947887918, guid: f5636aff7c0f3974db035c7042f15923, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224363631151926312, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224363631151926312, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224363631151926312, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224363631151926312, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -193
+      objectReference: {fileID: 0}
+    - target: {fileID: 224243924426398102, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224243924426398102, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 224243924426398102, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224243924426398102, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224243924426398102, guid: f5636aff7c0f3974db035c7042f15923,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5636aff7c0f3974db035c7042f15923, type: 2}

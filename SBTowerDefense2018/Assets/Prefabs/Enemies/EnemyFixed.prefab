@@ -150,7 +150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0833a293ac24f6e4d975546028aab27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyReward: 1
+  startSpeed: 0.1
+  freeze: 0
+  freezeDuration: 5
+  enemySpeed: 0
   damage: 2
   maxHealth: 8
   maxSpeed: 0.5
