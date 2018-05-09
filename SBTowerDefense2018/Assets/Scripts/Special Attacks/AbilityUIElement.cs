@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
-public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, 
+    IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public SpecialAttack ability = null;
     public bool IsEmpty { get { return ability == null; } }
@@ -26,8 +28,6 @@ public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         ability = null;
         transform.Find("Icon").GetComponent<Image>().sprite = null;
         transform.Find("Title").GetComponent<Text>().text = null;
-        //if(cooldown != null)
-        //cooldown.fillAmount = 0f;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -60,5 +60,21 @@ public class AbilityUIElement : MonoBehaviour, IBeginDragHandler, IDragHandler, 
             return;
         if (eventData.delta.magnitude < 5f)
             AbilitiesSelector.Instance.Move(this);
+    }
+
+    Tweener scaleIn;
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (IsEmpty)
+            return;
+        scaleIn = transform.DOScale(1.1f, 0.2f).SetEase(Ease.OutBack);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (IsEmpty)
+            return;
+        scaleIn.Kill();
+        transform.localScale = Vector3.one;
     }
 }
