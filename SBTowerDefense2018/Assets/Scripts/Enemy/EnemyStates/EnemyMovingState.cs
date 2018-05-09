@@ -19,10 +19,13 @@ public class EnemyMovingState : IEnemyState
 
     public void UpdateState()
     {
+       
         //Update position
         moveProgress += parent.Speed * Time.deltaTime;
         parent.transform.position = Vector3.Lerp(path[targetWaypoint - 1].worldPos, path[targetWaypoint].worldPos, moveProgress);
 
+        Vector3 nextPos = path[targetWaypoint].worldPos;
+        parent.transform.LookAt(nextPos);
         //Calculate when this enemy enters / leaves current tile
         if (moveProgress >= 0.5f && path[targetWaypoint] != this.parent.currentlyOn)
         {
@@ -31,6 +34,7 @@ public class EnemyMovingState : IEnemyState
             this.parent.currentlyOn = next;
             this.parent.currentlyOn.EnemyEnter(parent);         //Enter new tile
 
+            
             //Finally attack the base / other tower
             if (this.parent.currentlyOn == path.Destination)
             {
@@ -46,6 +50,8 @@ public class EnemyMovingState : IEnemyState
             moveProgress = 0f;
             targetWaypoint++;
 
+            nextPos = path[targetWaypoint].worldPos;
+            parent.transform.LookAt(nextPos);
             //TODO: this may be useful later
             //This doesn't get called, unless enemy is not supposed to be attacking at all.
             if (targetWaypoint > path.Waypoints.Count - 1)
