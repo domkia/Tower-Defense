@@ -75,7 +75,7 @@ public class EnvironmentSpawner : Singleton<EnvironmentSpawner>
             List<Vector3> ring = HexGrid.Instance.GetOuterRing(radius + i);
             foreach (Vector3 pos in ring)
             {
-                Instantiate(surroundingPrefab, pos + Vector3.up, Quaternion.identity, this.transform);
+                Instantiate(surroundingPrefab, pos, Quaternion.identity, this.transform);
             }
         }
     }
