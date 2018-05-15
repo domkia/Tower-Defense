@@ -39,6 +39,8 @@ GameObject:
   - component: {fileID: 114407146604368030}
   - component: {fileID: 65531003000875274}
   - component: {fileID: 114043840953997186}
+  - component: {fileID: 82583579070477786}
+  - component: {fileID: 114932862371884160}
   m_Layer: 0
   m_Name: EnemyFixed
   m_TagString: Enemy
@@ -126,6 +128,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.5, z: 0.25}
   m_Center: {x: 0.000000059604645, y: 0.26, z: -0.00000008940697}
+--- !u!82 &82583579070477786
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877092309801028}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114043840953997186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,3 +240,21 @@ MonoBehaviour:
   damage: 2
   maxHealth: 8
   maxSpeed: 0.5
+--- !u!114 &114932862371884160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877092309801028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a3819aa9efefe84d95999b354b1245c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPainSFX:
+  - {fileID: 8300000, guid: fdeccf33fbb6e8c41a1ad5224cdbe6d5, type: 3}
+  - {fileID: 8300000, guid: b750708bfca443945bfa1328f783df59, type: 3}
+  EnemyDeathSFX:
+  - {fileID: 8300000, guid: 73499108ae28afb4ab93d38efe0f43cb, type: 3}
+  - {fileID: 8300000, guid: f0f4460390dfcd34fbfacd3b36569e96, type: 3}
+  PainChance: 1

@@ -19,6 +19,7 @@ public class Swordsman : Enemy
     {
         CurrentHealth -= amount;
         healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
+        soundEffectPlayer.Play(SoundType.EnemyPain);
         if (CurrentHealth <= 0)
         {
             GiveReward(moneyReward);

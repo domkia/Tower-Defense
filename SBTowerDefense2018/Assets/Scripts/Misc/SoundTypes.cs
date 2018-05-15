@@ -3,5 +3,7 @@ public enum SoundType
 {
     ResourceCollecting,
     ResourceCollected,
-    ResourceDepleted
+    ResourceDepleted,
+    EnemyPain,
+    EnemyDeath
 }

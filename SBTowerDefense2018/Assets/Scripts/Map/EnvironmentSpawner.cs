@@ -11,9 +11,13 @@ public class EnvironmentSpawner : Singleton<EnvironmentSpawner>
     public List<GameObject> stoneResourcePrefabs;
     public GameObject blockedTile;
 
+    public int surroundingRadius = 3;
+    public GameObject surroundingPrefab;
+
     private void Start()
     {
         CreateEnvironment();
+        CreateSurroundingEnvironment();
     }
 
     public void CreateEnvironment()
@@ -61,5 +65,18 @@ public class EnvironmentSpawner : Singleton<EnvironmentSpawner>
                 break;
         }
         return mat;
+    }
+
+    private void CreateSurroundingEnvironment()
+    {
+        int radius = HexGrid.Instance.mapRadius + 1;
+        for (int i = 0; i < surroundingRadius; i++)
+        {
+            List<Vector3> ring = HexGrid.Instance.GetOuterRing(radius + i);
+            foreach (Vector3 pos in ring)
+            {
+                Instantiate(surroundingPrefab, pos + Vector3.up, Quaternion.identity, this.transform);
+            }
+        }
     }
 }

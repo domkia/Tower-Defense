@@ -8,6 +8,7 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
     public int amountPerTier;         //How much you get for every tier
     public float timeToCollect;       //Time it takes to collect it once
     public Resource resource;         //Info about the resource
+    public GameObject particles;
 
     private float currTime;
     private int currTier;
@@ -19,6 +20,7 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
     private float timeBetweenSFX = 0.6f;
     private float timeUntilSFX = 0.0f;
     // -----------
+    //World pos
 
     public event Action<IInteractable> OnCompleted;     //Called when there is no more of this resource left
     public event Action<IInteractable> OnCancelled;                    
@@ -48,7 +50,9 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
         timeUntilSFX -= Time.deltaTime;
         if(timeUntilSFX <= 0.0f)
         {
+            
             soundPlayer.PlaySound(SoundType.ResourceCollecting);
+            Instantiate(particles, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
             timeUntilSFX = timeBetweenSFX;
         }
 
