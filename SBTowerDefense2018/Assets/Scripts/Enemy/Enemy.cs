@@ -28,10 +28,13 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
 
     protected Healthbar healthBar;
 
+    protected PlayEnemySFX soundEffectPlayer;
+
     protected void Awake()
     {
         GameManager.OnGameOver += Idle;
         healthBar = GetComponent<Healthbar>();
+        soundEffectPlayer = GetComponent<PlayEnemySFX>();
         Idle();                                                 //Initial state is Idle
     }
 
@@ -47,6 +50,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
         if (OnDeath != null)
             OnDeath(this);
         healthBar.RemoveHealthbar();
+        soundEffectPlayer.Play(SoundType.EnemyDeath);
         Destroy(gameObject);
     }
 
