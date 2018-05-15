@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: FreezeEnemies
   m_EditorClassIdentifier: 
   title: Freeze!
-  icon: {fileID: 21300000, guid: 66b73e8e3b17e21459c975711f7ccca4, type: 3}
+  icon: {fileID: 21300004, guid: 32a6f2866f3ccdf4ca0c88eceeafb5ef, type: 3}
   description: Freezes all the enemies on the field
   cooldown: 30
   freezeDuration: 2
