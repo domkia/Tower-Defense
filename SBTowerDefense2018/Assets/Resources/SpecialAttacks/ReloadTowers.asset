@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: ReloadTowers
   m_EditorClassIdentifier: 
   title: Reload
-  icon: {fileID: 21300006, guid: 66b73e8e3b17e21459c975711f7ccca4, type: 3}
+  icon: {fileID: 21300006, guid: 32a6f2866f3ccdf4ca0c88eceeafb5ef, type: 3}
   description: Reloads all towers simultaneously
   cooldown: 10
