@@ -7,6 +7,8 @@ public class Knight : Enemy
     public int maxHealth = 30;
     public float maxSpeed = 0.1f;
     int moneyReward = 15;
+    
+
 
     private void Start()
     {
@@ -25,6 +27,7 @@ public class Knight : Enemy
             Debug.Log(PlayerStats.Instance.Money);
             Die();
         }
+        GameObject blood = Instantiate(bloodPrefab, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
     }
 
     //Called once
