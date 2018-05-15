@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1089432609041724}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4308560236098154}
@@ -223,6 +223,7 @@ MonoBehaviour:
   amountPerTier: 55
   timeToCollect: 2
   resource: {fileID: 11400000, guid: 64fd2836d0bdd4249bbedd43a171a2ac, type: 2}
+  particles: {fileID: 1627694282221956, guid: 0258708f3d9861346aabb8a7130dfe00, type: 2}
 --- !u!114 &114455378379058878
 MonoBehaviour:
   m_ObjectHideFlags: 1
