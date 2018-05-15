@@ -826,6 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ad5c4782fb1be40980118b8a3bff5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodPrefab: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 2}
   startSpeed: 0.1
   freeze: 0
   freezeDuration: 5

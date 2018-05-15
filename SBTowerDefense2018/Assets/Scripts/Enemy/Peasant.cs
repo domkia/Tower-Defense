@@ -26,6 +26,7 @@ public class Peasant : Enemy
             Debug.Log(PlayerStats.Instance.Money);
             Die();
         }
+        GameObject blood = Instantiate(bloodPrefab, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
     }
 
     //Called once

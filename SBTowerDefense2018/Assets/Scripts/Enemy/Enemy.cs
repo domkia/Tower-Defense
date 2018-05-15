@@ -10,7 +10,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
 
     public HexTile currentlyOn { get; set; }                    //Tile this enemy is currently on
     public int Damage { get; set; }                             //Every enemy has damage?
-
+    public GameObject bloodPrefab;
     //IDamagable implementation
     public event Action<Enemy> OnDeath;
     public abstract void TakeDamage(int amount);
