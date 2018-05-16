@@ -21,11 +21,26 @@ GameObject:
   - component: {fileID: 4824227273018942}
   - component: {fileID: 114520969347963976}
   - component: {fileID: 114883444578161338}
-  - component: {fileID: 82574154675128290}
-  - component: {fileID: 114022385171566266}
   m_Layer: 0
   m_Name: EnemyFixed2
   m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1456184167276592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4358167092810192}
+  - component: {fileID: 82264842309409256}
+  - component: {fileID: 114031708637172432}
+  m_Layer: 0
+  m_Name: SoundEffectPlayer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,6 +75,19 @@ Transform:
   m_Father: {fileID: 4824227273018942}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4358167092810192
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1456184167276592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4824227273018942}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4824227273018942
 Transform:
   m_ObjectHideFlags: 1
@@ -71,6 +99,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4104872822043424}
+  - {fileID: 4358167092810192}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -115,17 +144,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1697947089708378}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!82 &82574154675128290
+--- !u!82 &82264842309409256
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1445894350571828}
+  m_GameObject: {fileID: 1456184167276592}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -182,7 +211,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -195,12 +224,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114022385171566266
+--- !u!114 &114031708637172432
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1445894350571828}
+  m_GameObject: {fileID: 1456184167276592}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a3819aa9efefe84d95999b354b1245c, type: 3}
@@ -208,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyPainSFX:
   - {fileID: 8300000, guid: fdeccf33fbb6e8c41a1ad5224cdbe6d5, type: 3}
+  - {fileID: 8300000, guid: b750708bfca443945bfa1328f783df59, type: 3}
   EnemyDeathSFX:
   - {fileID: 8300000, guid: 73499108ae28afb4ab93d38efe0f43cb, type: 3}
   - {fileID: 8300000, guid: f0f4460390dfcd34fbfacd3b36569e96, type: 3}

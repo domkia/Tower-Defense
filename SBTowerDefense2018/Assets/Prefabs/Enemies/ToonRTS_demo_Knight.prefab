@@ -176,6 +176,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1393355336888158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4098599866205788}
+  - component: {fileID: 82830385717647208}
+  - component: {fileID: 114302665125220916}
+  m_Layer: 0
+  m_Name: SoundEffectPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1402831712810936
 GameObject:
   m_ObjectHideFlags: 1
@@ -383,8 +400,6 @@ GameObject:
   - component: {fileID: 95873877782046084}
   - component: {fileID: 114483801296745864}
   - component: {fileID: 114454993777460696}
-  - component: {fileID: 82831454277542460}
-  - component: {fileID: 114970236211513306}
   m_Layer: 0
   m_Name: ToonRTS_demo_Knight
   m_TagString: Untagged
@@ -422,6 +437,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4098599866205788
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393355336888158}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4660734313311358}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4130574168045684
 Transform:
   m_ObjectHideFlags: 1
@@ -643,6 +671,7 @@ Transform:
   m_Children:
   - {fileID: 4915739874696700}
   - {fileID: 4882826315027582}
+  - {fileID: 4098599866205788}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -800,17 +829,17 @@ Transform:
   m_Father: {fileID: 4915739874696700}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &82831454277542460
+--- !u!82 &82830385717647208
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1936088042990634}
+  m_GameObject: {fileID: 1393355336888158}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -867,7 +896,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -897,6 +926,24 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114302665125220916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393355336888158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a3819aa9efefe84d95999b354b1245c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPainSFX:
+  - {fileID: 8300000, guid: fdeccf33fbb6e8c41a1ad5224cdbe6d5, type: 3}
+  - {fileID: 8300000, guid: b750708bfca443945bfa1328f783df59, type: 3}
+  EnemyDeathSFX:
+  - {fileID: 8300000, guid: 73499108ae28afb4ab93d38efe0f43cb, type: 3}
+  - {fileID: 8300000, guid: f0f4460390dfcd34fbfacd3b36569e96, type: 3}
+  PainChance: 1
 --- !u!114 &114454993777460696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -929,24 +976,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthbarPrefab: {fileID: 1997694122300768, guid: 4641b375629111f4f8675a4810f361e7,
     type: 2}
---- !u!114 &114970236211513306
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1936088042990634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a3819aa9efefe84d95999b354b1245c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyPainSFX:
-  - {fileID: 8300000, guid: 468e780d481ef11409d53f949f8aecf2, type: 3}
-  - {fileID: 8300000, guid: b750708bfca443945bfa1328f783df59, type: 3}
-  EnemyDeathSFX:
-  - {fileID: 8300000, guid: 73499108ae28afb4ab93d38efe0f43cb, type: 3}
-  - {fileID: 8300000, guid: f0f4460390dfcd34fbfacd3b36569e96, type: 3}
-  PainChance: 1
 --- !u!137 &137597700030668576
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
