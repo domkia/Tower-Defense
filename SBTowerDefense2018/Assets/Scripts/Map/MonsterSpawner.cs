@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(AudioSource))]
 public class MonsterSpawner : MonoBehaviour
 {
     public static event System.Action OnAllEnemiesKilled;
@@ -17,6 +18,12 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField]
     public List<Wave> waves;
 
+    public AudioClip NewWaveSound;
+    [Range(0.0f, 1.0f)]
+    public float SoundVolume;
+
+    private AudioSource source;
+
     private int currentWave = 0;
     private SpawnDirection[] spawners;
 
@@ -25,6 +32,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Start()
     {
+        source = GetComponent<AudioSource>();
         TotalNumberOfWaves = waves.Count;
         SetupSpawnDirections();
         currentWave = 0;
@@ -53,7 +61,7 @@ public class MonsterSpawner : MonoBehaviour
             
             if (OnNewWaveStart != null)
                 OnNewWaveStart();
-
+            source.PlayOneShot(NewWaveSound, SoundVolume);
             yield return SpawnWave();
             PlayerStats.Instance.WaveSurvived();
             currentWave++;
