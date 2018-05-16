@@ -229,7 +229,10 @@ MonoBehaviour:
   amountPerTier: 20
   timeToCollect: 3
   resource: {fileID: 11400000, guid: f8b20030481a1a648b88ddb4be955801, type: 2}
-  particles: {fileID: 1158189803260206, guid: 9d1a56f71ac921d47abbd1ea2b2fffda, type: 2}
+  gatherParticle: {fileID: 1158189803260206, guid: 9d1a56f71ac921d47abbd1ea2b2fffda,
+    type: 2}
+  finishedParticle: {fileID: 1889049115421148, guid: e1a6800bbe87081438f8fc1132a9e9a5,
+    type: 2}
 --- !u!114 &114968136538946270
 MonoBehaviour:
   m_ObjectHideFlags: 1
