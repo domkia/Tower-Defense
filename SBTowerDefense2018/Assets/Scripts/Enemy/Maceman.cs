@@ -19,11 +19,13 @@ public class Maceman : Enemy
     {
         CurrentHealth -= amount;
         healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
-        soundEffectPlayer.Play(SoundType.EnemyPain);
+
+        if (CurrentHealth > 0)
+            soundEffectPlayer.Play(SoundType.EnemyPain);
+
         if (CurrentHealth <= 0)
         {
             GiveReward(moneyReward);
-            Debug.Log(PlayerStats.Instance.Money);
             Die();
         }
         GameObject blood = Instantiate(bloodPrefab, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
