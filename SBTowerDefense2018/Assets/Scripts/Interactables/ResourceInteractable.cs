@@ -8,7 +8,8 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
     public int amountPerTier;         //How much you get for every tier
     public float timeToCollect;       //Time it takes to collect it once
     public Resource resource;         //Info about the resource
-    public GameObject particles;
+    public GameObject gatherParticle;
+    public GameObject finishedParticle;
 
     private float currTime;
     private int currTier;
@@ -52,7 +53,7 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
         {
             
             soundPlayer.PlaySound(SoundType.ResourceCollecting);
-            Instantiate(particles, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
+            Instantiate(gatherParticle, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
             timeUntilSFX = timeBetweenSFX;
         }
 
@@ -74,12 +75,12 @@ public class ResourceInteractable : MonoBehaviour, IInteractable, ISelectable
     {
         if(OnCompleted != null)
             OnCompleted(this);
-
-        //TODO: Add particle effects, sounds etc.
-
-        float delay = soundPlayer.PlaySound(SoundType.ResourceDepleted);
+        Debug.Log("finished");
+        float delay = soundPlayer.PlaySound(SoundType.ResourceDepleted);        
         // Hide the game object.
         gameObject.GetComponentInChildren<Renderer>().enabled = false;
+        //Particles when resource is completed
+        Instantiate(finishedParticle, GetComponentInParent<Transform>());
         // Delay destroying the game object until the resource depletion sound effect has finished playing.
         // Otherwise the sound effect would cut out.
         Destroy(gameObject, delay);
