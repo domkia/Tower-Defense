@@ -5,5 +5,7 @@ public enum SoundType
     ResourceCollected,
     ResourceDepleted,
     EnemyPain,
-    EnemyDeath
+    EnemyDeath,
+    ProjectileSpawn,
+    ProjectileDestroy
 }
