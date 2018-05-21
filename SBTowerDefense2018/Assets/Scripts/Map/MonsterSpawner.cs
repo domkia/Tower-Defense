@@ -12,6 +12,7 @@ public class MonsterSpawner : MonoBehaviour
 
     //public List<GameObject> enemyPrefab;
     public float prepareTime = 10f;
+    public float timeBetweenWaves = 8f;
     //public int waves = 3;
     //public int enemiesPerWave = 5;
     // public float waitBetweenSpawns = 0.5f;
@@ -65,7 +66,7 @@ public class MonsterSpawner : MonoBehaviour
             yield return SpawnWave();
             PlayerStats.Instance.WaveSurvived();
             currentWave++;
-            yield return new WaitForSeconds(prepareTime);
+            yield return new WaitForSeconds(timeBetweenWaves);
         }
 
         //Finished spawning, now wait for all enemies to die

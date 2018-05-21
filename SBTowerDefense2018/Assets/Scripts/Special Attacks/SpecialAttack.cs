@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class SpecialAttack : ScriptableObject
 {
@@ -30,5 +31,11 @@ public abstract class SpecialAttack : ScriptableObject
     public float CooldownProgress
     {
         get { return timer / cooldown; }
+    }
+
+    public void Reset()
+    {
+        isReady = true;
+        timer = 0f;
     }
 }

@@ -74,5 +74,7 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
         healthbar.UpdateHealthbar(CurrentHealth, Health);
         if (CurrentHealth <= 0)
             OnDeath(BuiltOn);
+
+        CameraShaker.Instance.Shake(0.25f, 0.25f);
     }
 }

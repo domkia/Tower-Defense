@@ -7,7 +7,6 @@ public class Peasant : Enemy
     public int damage = 1;
     public int maxHealth = 1;
     public float maxSpeed = 0.1f;
-    public int moneyReward = 10;
 
     private void Start()
     {
@@ -16,19 +15,14 @@ public class Peasant : Enemy
         Speed = maxSpeed;
     }
 
-    public override void TakeDamage(int amount)
+    protected override void DamageEffect()
     {
-        CurrentHealth -= amount;
-        healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
+        base.DamageEffect();
 
-        if(CurrentHealth > 0)
+        healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
+        if (CurrentHealth > 0)
             soundEffectPlayer.Play(SoundType.EnemyPain);
 
-        if (CurrentHealth <= 0)
-        {
-            GiveReward(moneyReward);
-            Die();
-        }
         GameObject blood = Instantiate(bloodPrefab, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
     }
 

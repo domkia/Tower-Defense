@@ -27,6 +27,7 @@ public class AbilitiesManager : Singleton<AbilitiesManager>
     {
         for (int i = 0; i < specialAttacks.Count; i++)
         {
+            specialAttacks[i].ability.Reset();
             specialAttacks[i].cooldown.fillAmount = 1f;
             specialAttacks[i].enabled = false;
             Button button = specialAttacks[i].gameObject.AddComponent<Button>();

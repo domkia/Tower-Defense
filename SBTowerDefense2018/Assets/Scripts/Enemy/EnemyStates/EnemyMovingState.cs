@@ -19,7 +19,8 @@ public class EnemyMovingState : IEnemyState
 
     public void UpdateState()
     {
-       
+        parent.animator.Play("Walk");
+
         //Update position
         moveProgress += parent.Speed * Time.deltaTime;
         parent.transform.position = Vector3.Lerp(path[targetWaypoint - 1].worldPos, path[targetWaypoint].worldPos, moveProgress);

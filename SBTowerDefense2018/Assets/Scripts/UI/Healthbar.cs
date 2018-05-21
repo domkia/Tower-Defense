@@ -14,10 +14,20 @@ public class Healthbar : MonoBehaviour
         healthbarFill.fillAmount = (float) currentHealth / maxHealth;
     }
 
+    private bool vissible = true;
+    public bool Vissible
+    {
+        get { return vissible; }
+        set
+        {
+            vissible = value;
+            rectTransform.gameObject.SetActive(vissible);
+        }
+    }
+
     public void RemoveHealthbar()
     {
         Destroy(rectTransform.gameObject);
-        Destroy(gameObject);
     }
 
     private void Awake()
@@ -36,6 +46,8 @@ public class Healthbar : MonoBehaviour
 
     private void Update()
     {
+        if (!Vissible)
+            return;
         Vector3 vec = GetScreenPosition();
         rectTransform.position = vec;
     }

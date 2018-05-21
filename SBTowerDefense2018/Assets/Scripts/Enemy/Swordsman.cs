@@ -6,7 +6,6 @@ public class Swordsman : Enemy
     public int damage = 2;
     public int maxHealth = 12;
     public float maxSpeed = 0.5f;
-    int moneyReward = 15;
 
     private void Start()
     {
@@ -15,19 +14,14 @@ public class Swordsman : Enemy
         Speed = maxSpeed;
     }
 
-    public override void TakeDamage(int amount)
+    protected override void DamageEffect()
     {
-        CurrentHealth -= amount;
-        healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
+        base.DamageEffect();
 
+        healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
         if (CurrentHealth > 0)
             soundEffectPlayer.Play(SoundType.EnemyPain);
 
-        if (CurrentHealth <= 0)
-        {
-            GiveReward(moneyReward);
-            Die();
-        }
         GameObject blood = Instantiate(bloodPrefab, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
     }
 

@@ -6,7 +6,6 @@ public class Knight : Enemy
     public int damage = 8;
     public int maxHealth = 30;
     public float maxSpeed = 0.1f;
-    int moneyReward = 15;
     
 
 
@@ -17,19 +16,14 @@ public class Knight : Enemy
         Speed = maxSpeed;
     }
 
-    public override void TakeDamage(int amount)
+    protected override void DamageEffect()
     {
-        CurrentHealth -= amount;
-        healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
+        base.DamageEffect();
 
+        healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
         if (CurrentHealth > 0)
             soundEffectPlayer.Play(SoundType.EnemyPain);
 
-        if (CurrentHealth <= 0)
-        {
-            GiveReward(moneyReward);
-            Die();
-        }
         GameObject blood = Instantiate(bloodPrefab, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
     }
 

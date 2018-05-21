@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// Implements a tower, which shoots a regular projectile (no area of effect, no lasting effects
@@ -102,7 +103,16 @@ public class BasicTower : Tower, IReloadable
         if (index < 0)
             currentTarget = null;
         else
+        {
             currentTarget = TilesInRange[index].Enemies[0];
+            currentTarget.OnDeath += NextEnemy;
+        }
+    }
+
+    private void NextEnemy(Enemy dead)
+    {
+        currentTarget = null;
+        dead.OnDeath -= NextEnemy;
     }
 
     /// <summary>

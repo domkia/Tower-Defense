@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
     public GameObject bloodPrefab;
     //IDamagable implementation
     public event Action<Enemy> OnDeath;
-    public abstract void TakeDamage(int amount);
+
     public int CurrentHealth { get; set; }
 
     //Enemy states
@@ -23,8 +24,12 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
 
     protected IEnemyState currentState;
     public float Speed { get; protected set; }
+    public int moneyReward = 10;
 
     public Color SelectionColor { get { return Color.red; } }
+    public Animator animator;
+    public MeshRenderer mesh;
+    public float fadeOutTime = 3f;
 
     protected Healthbar healthBar;
 
@@ -35,6 +40,7 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
         GameManager.OnGameOver += Idle;
         healthBar = GetComponent<Healthbar>();
         soundEffectPlayer = GetComponentInChildren<PlayEnemySFX>();
+        animator = GetComponentInChildren<Animator>();
         Idle();                                                 //Initial state is Idle
     }
 
@@ -44,13 +50,47 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
             currentState.UpdateState();
     }
 
+    public void TakeDamage(int amount)
+    {
+        CurrentHealth -= amount;
+
+        DamageEffect();
+
+        if (CurrentHealth <= 0)
+        {
+            GiveReward(moneyReward);
+            Die();
+        }
+    }
+
+    protected virtual void DamageEffect()
+    {
+        animator.SetFloat("RandomHit", UnityEngine.Random.value);
+        animator.SetTrigger("Hit");
+    }
+
     protected void Die()
     {
         PlayerStats.Instance.EnemyKilled();
         if (OnDeath != null)
             OnDeath(this);
+        healthBar.Vissible = false;
+
+        StartCoroutine("DeathEffect");
+    }
+
+    /// <summary>
+    /// Play death sound, animation, fade out etc.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual IEnumerator DeathEffect()
+    {
+        currentState = null;
         soundEffectPlayer.Play(SoundType.EnemyDeath);
-        healthBar.RemoveHealthbar();
+        animator.SetTrigger("Die");
+
+        //Fade here
+        yield return new WaitForSeconds(fadeOutTime);
         Destroy(gameObject);
     }
 
@@ -73,11 +113,13 @@ public abstract class Enemy : MonoBehaviour, IDamagable<Enemy>, ISelectable
     {
         enemySpeed = Speed; // save start enemy speed
         Speed = startSpeed * freeze;
+        animator.speed = 0f;
         Invoke("ResetFreeze", freezeDuration);
     }
     
     private void ResetFreeze()
     {
+        animator.speed = 1f;
         Speed = enemySpeed;
     }
 }
