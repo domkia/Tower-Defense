@@ -7,7 +7,7 @@ using UnityEngine;
 public class AOEProjectile : Projectile
 {
     // Splash damage radius.
-    private const int ExplosionRadius = 1;
+    public int ExplosionRadius;
 
     // All enemies receive damage, equal to direct damage * this multiplier.
     [Range(0.0f, 1.0f)]
@@ -29,6 +29,9 @@ public class AOEProjectile : Projectile
         targetTile = target;
         // We can precalculate the unit direction vector ahead of time, because tiles don't move.
         unitDirectionVector = (target.worldPos - transform.position).normalized;
+
+        soundPlayer = GetComponentInChildren<PlayProjectileSounds>();
+        soundPlayer.PlaySound(SoundType.ProjectileSpawn);
     }
 
     protected override void Update()
@@ -50,9 +53,6 @@ public class AOEProjectile : Projectile
     /// </summary>
     private void Explode()
     {
-        if (targetTile.Enemies.Count < 1)
-            return;
-
         // First, deal direct damage to all enemies which are currently on the target tile.
         foreach (var enemy in targetTile.Enemies)
             enemy.TakeDamage(Damage);
@@ -69,7 +69,7 @@ public class AOEProjectile : Projectile
         int splashDamage = (int) (Damage * SplashDamageMultiplier);
         foreach (var enemy in splashDamageEnemies)
             enemy.TakeDamage(splashDamage);
-
+        soundPlayer.PlaySound(SoundType.ProjectileDestroy);
         Destroy(gameObject);
     }
 }
