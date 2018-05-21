@@ -12,5 +12,7 @@ public abstract class Projectile : MonoBehaviour
     // Once the projectile gets close enough to its target, it will perform its function.
     public float MinimumDistanceToTarget;
 
+    protected PlayProjectileSounds soundPlayer;
+
     protected abstract void Update();
 }

@@ -20,6 +20,9 @@ public class BasicProjectile : Projectile
         int newDamage = (int) (Damage * multiplier);
         Damage = newDamage;
         enemyTarget = enemy;
+
+        soundPlayer = GetComponentInChildren<PlayProjectileSounds>();
+        soundPlayer.PlaySound(SoundType.ProjectileSpawn);
     }
 
     protected override void Update()
@@ -41,7 +44,7 @@ public class BasicProjectile : Projectile
         {
             if (enemyTarget != null)
                 enemyTarget.TakeDamage(Damage);
-
+            soundPlayer.PlaySound(SoundType.ProjectileDestroy);
             Destroy(gameObject);
         }
     }
