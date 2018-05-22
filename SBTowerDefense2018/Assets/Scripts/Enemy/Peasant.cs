@@ -11,18 +11,19 @@ public class Peasant : Enemy
     private void Start()
     {
         Damage = damage;
-        Health = maxHealth;
+        CurrentHealth = maxHealth;
         Speed = maxSpeed;
     }
 
-    public override void TakeDamage(int amount)
+    protected override void DamageEffect()
     {
-        Health -= amount;
-        healthBar.fillAmount = (float)Health / (float)maxHealth;
-        if (Health <= 0)
-        {
-            Die();
-        }
+        base.DamageEffect();
+
+        healthBar.UpdateHealthbar(CurrentHealth, maxHealth);
+        if (CurrentHealth > 0)
+            soundEffectPlayer.Play(SoundType.EnemyPain);
+
+        GameObject blood = Instantiate(bloodPrefab, GetComponentInParent<Transform>().position, GetComponentInParent<Transform>().rotation);
     }
 
     //Called once

@@ -7,7 +7,7 @@ using System.IO;
 public class HexGrid : Singleton<HexGrid>, IEnumerable
 {
     //Six directions to neighbours in axial coordinate space
-    static Vector2Int[] axialDirections =
+    public static Vector2Int[] axialDirections =
     {
         new Vector2Int(1, 0), new Vector2Int(1, -1), new Vector2Int(0, -1),
         new Vector2Int(-1, 0), new Vector2Int(-1, 1), new Vector2Int(0, 1),
@@ -209,6 +209,27 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
         return ring;
     }
 
+    public List<Vector3> GetOuterRing(int radius)
+    {
+        List<Vector3> ring = new List<Vector3>();
+        Vector3 startPos = CenterTile.worldPos + Vector3.left * radius * hexWidth;
+        Vector3 offset = transform.TransformDirection(new Vector3((hexWidth / 2f), 0f, hexRadius + hexRadius / 2f));
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (i > 0)
+                offset = Quaternion.Euler(0f, 60f, 0f) * offset;
+            for (int j = 0; j < radius; j++)
+            {
+                if(i == 0 && j == 0)
+                    ring.Add(startPos + offset);
+                else
+                    ring.Add(ring[ring.Count - 1] + offset);
+            }
+        }
+        return ring;
+    }
+
     public List<HexTile> GetEdgeTiles(int direction)
     {
         if (direction < 0 || direction > 5)
@@ -221,16 +242,13 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
         for (int i = 0; i < mapRadius - 1; i++)
         {
             coord += axialDirections[direction];
-            //Debug.Log("edge tile coord: " + coord);
             HexTile edgeTile = GetTileAxial(coord);
-            //TODO: Check if its not null??
             edgeTiles.Add(edgeTile);
-            //Debug.Log(coord);
         }
         return edgeTiles;
     }
 
-    private HexTile GetCornerTile(int direction)
+    public HexTile GetCornerTile(int direction)
     {
         if (direction < 0 || direction > 5)
             throw new System.Exception("direction is not valid. GetCornerTile()");
@@ -268,7 +286,7 @@ public class HexGrid : Singleton<HexGrid>, IEnumerable
             }
             s += "\n";
         }
-        Debug.Log(s);
+        //Debug.Log(s);
     }
 
     public IEnumerator GetEnumerator()

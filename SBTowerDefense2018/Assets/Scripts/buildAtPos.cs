@@ -1,35 +1,61 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class buildAtPos : MonoBehaviour
 {
     public LayerMask layer;
     public bool isBuilding = false;
-    public GameObject towerPrefab;
+    public List<GameObject> towerPrefabs;
+    public int index = 0;
 
-    public void startBuilding()
+    public Material canBuild;
+    public Material cantBuild;
+    public GameObject builParticle;
+
+    /// <summary>
+    /// Starts building tower of certain number in list
+    /// </summary>
+    /// <param name="num">Number of tower</param>
+    public void startBuilding(int num)
     {
-        isBuilding = !isBuilding;
+        isBuilding = true;
+        index = num;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && isBuilding)
+        if (!isBuilding)
+            return;
+        TileVisual tile = GetTileAtMouse();
+        if (tile == null)
+            return;
+
+
+        Material mat = TowerManager.Instance.CanBuildAt(tile.tile) ? canBuild : cantBuild;
+
+        //Draw visual representation of tower
+        Graphics.DrawMesh(towerPrefabs[index].GetComponentInChildren<MeshFilter>().sharedMesh,
+            Matrix4x4.Translate(tile.transform.position), 
+            mat, 0);
+
+        if (Input.GetMouseButtonDown(0))
         {
-            TileVisual tile = GetTileAtClick();
-            if (tile != null)
+            if (TowerManager.Instance.CanBuildAt(tile.tile) == false)
             {
-                if (TowerManager.Instance.CanBuildAt(tile.tile) == false)
-                {
-                    Debug.Log("Can't build here");
-                    return;
-                }
-                TowerManager.Instance.BuyTowerAt(tile.tile, towerPrefab);
-                isBuilding = !isBuilding;
+                UISoundPlayer.Instance.PlayAlertSound();
+                Debug.Log("Can't build here");
+                return;
             }
+            TowerManager.Instance.BuyTowerAt(tile.tile, towerPrefabs[index]);
+
+            //Instantiate particle
+            Instantiate(builParticle, tile.transform.position, Quaternion.identity);
+
+            isBuilding = false;
         }
     }
 
-    public TileVisual GetTileAtClick()
+    public TileVisual GetTileAtMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;

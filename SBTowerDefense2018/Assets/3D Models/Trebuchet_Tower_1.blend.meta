@@ -6,11 +6,20 @@ ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Payload
+    100004: Trebuchet_Tower_1
     400000: //RootNode
+    400002: Payload
+    400004: Trebuchet_Tower_1
     2100000: unnamed
     2300000: //RootNode
+    2300002: Payload
+    2300004: Trebuchet_Tower_1
     3300000: //RootNode
+    3300002: Payload
+    3300004: Trebuchet_Tower_1
     4300000: Trebuchet_Tower_1
+    4300002: Payload
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}

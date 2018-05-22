@@ -11,8 +11,9 @@ class EnemyIdleState : IEnemyState
 
     public void UpdateState()
     {
+        parent.animator.Play("Idle");
         //for example: play idle animation
         //Set to idle when the game is over to prevent enemies from moving / attacking etc.
-        parent.transform.Rotate(Vector3.up * 180f * Time.deltaTime);
+        //parent.transform.Rotate(Vector3.up * 180f * Time.deltaTime);
     }
 }
