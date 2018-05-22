@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// </summary>
 class ShowWaveCounter : MonoBehaviour
 {
-
+    public GameObject panel;
     public Text WaveCounter;
 
     private int currentWave;
@@ -17,6 +17,7 @@ class ShowWaveCounter : MonoBehaviour
         WaveCounter.text = "";
         currentWave = 0;
         MonsterSpawner.OnNewWaveStart += UpdateText;
+        GameManager.OnGameOver += () => panel.SetActive(false);
     }
 
     /// <summary>

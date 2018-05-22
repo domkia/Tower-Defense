@@ -6,7 +6,6 @@ using DG.Tweening;
 public class GameLost : MonoBehaviour
 {
     public GameObject gameOverPanel;
-    
 
     public AudioClip GameOverSound;
     [Range(0.0f, 1.0f)]

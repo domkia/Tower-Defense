@@ -13,6 +13,8 @@ public class MonsterSpawner : MonoBehaviour
     //public List<GameObject> enemyPrefab;
     public float prepareTime = 10f;
     public float timeBetweenWaves = 8f;
+
+    //public int maxwave = 1;
     //public int waves = 3;
     //public int enemiesPerWave = 5;
     // public float waitBetweenSpawns = 0.5f;

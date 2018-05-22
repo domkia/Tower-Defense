@@ -14,6 +14,9 @@ public class AbilitiesManager : Singleton<AbilitiesManager>
 
     public void StartGame(List<AbilityUIElement> abilities)
     {
+        GameManager.OnGameOver += () => selectedAbilitiesPanel.SetActive(false);
+        GameManager.OnGameWon += () => selectedAbilitiesPanel.SetActive(false);
+
         specialAttacks = abilities;
         SetupAbilitiesPannel();
         abilityChoosePanel.SetActive(false);
