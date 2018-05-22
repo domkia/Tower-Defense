@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class GameWon : MonoBehaviour
 {
-    public Text text;
+    public CanvasGroup panel;
 
     public AudioClip VictorySound;
     [Range(0.0f, 1.0f)]
@@ -14,16 +15,17 @@ public class GameWon : MonoBehaviour
 
     private void Start()
     {
-        text.gameObject.SetActive(false);
+        panel.gameObject.SetActive(false);
         source = GetComponent<AudioSource>();
         GameManager.OnGameWon += Won;
+        panel.alpha = 0f;
     }
 
     void Won()
     {
-        text.gameObject.SetActive(true);
-        source.PlayOneShot(VictorySound, SoundVolume);
         GameManager.OnGameWon -= Won;
-        Time.timeScale = 0;
+        panel.gameObject.SetActive(true);
+        source.PlayOneShot(VictorySound, SoundVolume);
+        panel.DOFade(1f, 1f).OnComplete(() => panel.interactable = true);
     }
 }

@@ -53,22 +53,28 @@ public class AOEProjectile : Projectile
     /// </summary>
     private void Explode()
     {
-        // First, deal direct damage to all enemies which are currently on the target tile.
-        foreach (var enemy in targetTile.Enemies)
-            enemy.TakeDamage(Damage);
 
         // Next, get all tiles which will receive splash damage.
         List<HexTile> splashDamageTiles = HexGrid.Instance.GetTilesInRange(targetTile, ExplosionRadius);
 
         // We get all enemies which will receive splash damage.
-        List<Enemy> splashDamageEnemies = new List<Enemy>();
-        foreach (var tile in splashDamageTiles)
-            splashDamageEnemies.AddRange(tile.Enemies);
+        //List<Enemy> splashDamageEnemies = new List<Enemy>();
+        //foreach (var tile in splashDamageTiles)
+        //    splashDamageEnemies.AddRange(tile.Enemies);
+
+        // First, deal direct damage to all enemies which are currently on the target tile.
+        //foreach (var enemy in targetTile.Enemies)
+        int count = targetTile.Enemies.Count;
+        for(int i = 0; i < count; i++)
+            targetTile.Enemies[i].TakeDamage(Damage);
 
         // Deal splash damage
         int splashDamage = (int) (Damage * SplashDamageMultiplier);
-        foreach (var enemy in splashDamageEnemies)
-            enemy.TakeDamage(splashDamage);
+        for (int i = 0; i < splashDamageTiles.Count; i++)
+        {
+            foreach (var enemy in splashDamageTiles[i].Enemies)
+                enemy.TakeDamage(splashDamage);
+        }
         soundPlayer.PlaySound(SoundType.ProjectileDestroy);
         Destroy(gameObject);
     }

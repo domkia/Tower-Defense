@@ -43,7 +43,7 @@ public class HexTile
 
     public void EnemyEnter(Enemy enemy)
     {
-        Enemies.Insert(Enemies.Count, enemy);
+        Enemies.Add(enemy);//Insert(Enemies.Count, enemy);
         enemy.OnDeath += EnemyExit;
     }
 

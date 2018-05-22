@@ -90,7 +90,9 @@ class TowerManager : Singleton<TowerManager>
     {
         if (tile.type != TileType.Tower)
             Debug.LogError("There is no tower here");
-        
+
+        tile.SetType(TileType.Empty);
+
         Tower tower;
         towers.TryGetValue(tile, out tower);
         if (tower == null)

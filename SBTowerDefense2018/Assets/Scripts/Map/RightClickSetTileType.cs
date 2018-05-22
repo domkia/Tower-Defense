@@ -5,6 +5,7 @@ public class RightClickSetTileType : MonoBehaviour
 {
     public buildAtPos build;
 
+    /*
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
@@ -16,4 +17,5 @@ public class RightClickSetTileType : MonoBehaviour
         }
 
     }
+    */
 }
