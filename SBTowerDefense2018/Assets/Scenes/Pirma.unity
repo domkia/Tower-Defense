@@ -6655,7 +6655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6979,7 +6979,7 @@ Prefab:
     - target: {fileID: 224363631151926312, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 274
       objectReference: {fileID: 0}
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
@@ -6989,7 +6989,7 @@ Prefab:
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
@@ -7837,7 +7837,7 @@ Prefab:
     - target: {fileID: 224569327661505550, guid: 7b01956446a0aa64984c59f353f02e7a,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 250
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 224569327661505550, guid: 7b01956446a0aa64984c59f353f02e7a,
         type: 2}
@@ -7873,6 +7873,16 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114125172245990348, guid: 7b01956446a0aa64984c59f353f02e7a,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114125172245990348, guid: 7b01956446a0aa64984c59f353f02e7a,
+        type: 2}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b01956446a0aa64984c59f353f02e7a, type: 2}
