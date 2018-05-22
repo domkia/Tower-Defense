@@ -1,8 +1,10 @@
 **KTU Semestro Projektas**
 
+![Ambush](https://media.giphy.com/media/8cBapieqkUWs7nMhwf/giphy.gif)
+
 |||
 |--|--|
-|Žanras  |Tower Defense|
+|Žanras  |Tower/Base Defense|
 |Įrankis  |Unity 2017.3|
-|Platforma|Android / iOS|
-|Tematika|---|
+|Platforma|Windows|
+|Tematika|Medieval|
