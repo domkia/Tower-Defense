@@ -14,6 +14,7 @@ public class FreezeEnemy : SpecialAttack
             return;
 
         }
+        UISoundPlayer.Instance.PlayCustomSound(AbilityActivatedSFX);
         Freezeddd();
         timer = cooldown;
         isReady = false;

@@ -13,6 +13,7 @@ public class IncreaseDamage : SpecialAttack
             Debug.Log("Skill is still on cooldown " + timer);
             return;
         }
+        UISoundPlayer.Instance.PlayCustomSound(AbilityActivatedSFX);
         Increase();
         timer = cooldown;
         isReady = false;
