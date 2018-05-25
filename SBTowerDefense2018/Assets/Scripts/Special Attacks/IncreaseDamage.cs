@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "SpecialAttacks/IncreaseDamage")]
 public class IncreaseDamage : SpecialAttack
 {
+    public float DamageMultiplier;
+    public float Duration;
 
     public override void Do()
     {
@@ -27,14 +27,7 @@ public class IncreaseDamage : SpecialAttack
         {
             BasicTower basicTower = tower as BasicTower;
             if(basicTower != null)
-            {
-                basicTower.MultiplyDamage(2, 10);
-            }
-            //else
-            //{
-            //    AOETower aoeTower = tower as AOETower;
-            //    aoeTower.MultiplyDamage(2, 10);
-            //}
+                basicTower.MultiplyDamage(DamageMultiplier, Duration);
         }
     }
 
