@@ -15,4 +15,5 @@ MonoBehaviour:
   icon: {fileID: 21300004, guid: 32a6f2866f3ccdf4ca0c88eceeafb5ef, type: 3}
   description: Freezes all the enemies on the field
   cooldown: 30
+  AbilityActivatedSFX: {fileID: 8300000, guid: 74ba336dd3567144e9a0b99e8fdfda18, type: 3}
   freezeDuration: 2

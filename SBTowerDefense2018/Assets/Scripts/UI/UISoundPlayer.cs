@@ -10,6 +10,7 @@ public class UISoundPlayer : Singleton<UISoundPlayer>
     public AudioClip ClickButtonSFX;
     public AudioClip AlertSFX;
     public AudioClip TowerBuiltSFX;
+    public AudioClip AbilityReadySFX;
 
     [Range(0.0f, 1.0f)]
     public float SFXVolume;
@@ -43,9 +44,18 @@ public class UISoundPlayer : Singleton<UISoundPlayer>
         source.PlayOneShot(TowerBuiltSFX, SFXVolume);
     }
 
+    public void PlayAbilityReadySound()
+    {
+        source.PlayOneShot(AbilityReadySFX, SFXVolume);
+    }
+
+    public void PlayCustomSound(AudioClip sound)
+    {
+        source.PlayOneShot(sound, SFXVolume);
+    }
+
     private void Start()
     {
         source = GetComponent<AudioSource>();
     }
-
 }

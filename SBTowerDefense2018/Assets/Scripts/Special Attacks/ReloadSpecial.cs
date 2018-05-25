@@ -14,9 +14,14 @@ public class ReloadSpecial : SpecialAttack
             return;
 
         }
-        Dictionary<HexTile, Tower> towers= TowerManager.Instance.GetTowers();
-        //Debug.Log("Reloaded");
-        foreach(var tower in towers.Values)
+        UISoundPlayer.Instance.PlayCustomSound(AbilityActivatedSFX);
+        PerformSpecialReload();
+    }
+
+    private void PerformSpecialReload()
+    {
+        Dictionary<HexTile, Tower> towers = TowerManager.Instance.GetTowers();
+        foreach (var tower in towers.Values)
         {
             IReloadable reloadable = tower as IReloadable;
             if (reloadable != null)
@@ -26,5 +31,5 @@ public class ReloadSpecial : SpecialAttack
         }
         isReady = false;
         timer = cooldown;
-    }    
+    }
 }

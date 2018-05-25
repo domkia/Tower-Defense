@@ -1857,7 +1857,8 @@ MonoBehaviour:
   ClickButtonSFX: {fileID: 8300000, guid: d5f7e81c649bdbf40b9e12cea5f008d1, type: 3}
   AlertSFX: {fileID: 8300000, guid: 5ef29207c94a3a6419a6be0ccc78167c, type: 3}
   TowerBuiltSFX: {fileID: 8300000, guid: 9766777c9685ab5448059f7c4885291c, type: 3}
-  SFXVolume: 0.75
+  AbilityReadySFX: {fileID: 8300000, guid: c8cdb77772f2f5949b29630258e0a0b3, type: 3}
+  SFXVolume: 1
 --- !u!82 &277464664
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6979,7 +6980,7 @@ Prefab:
     - target: {fileID: 224363631151926312, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 274
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
@@ -6989,7 +6990,7 @@ Prefab:
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 160
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}

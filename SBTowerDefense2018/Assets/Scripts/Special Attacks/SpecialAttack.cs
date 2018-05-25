@@ -7,6 +7,8 @@ public abstract class SpecialAttack : ScriptableObject
     public Sprite icon;
     public string description;
     public float cooldown;
+    // Sound that is played when an ability is ready and is activated by the player.
+    public AudioClip AbilityActivatedSFX;
 
     protected float timer = 0;
     protected bool isReady = true;
@@ -22,6 +24,7 @@ public abstract class SpecialAttack : ScriptableObject
         if (timer <= 0)
         {
             isReady = true;
+            UISoundPlayer.Instance.PlayAbilityReadySound();
         }
     }
     
