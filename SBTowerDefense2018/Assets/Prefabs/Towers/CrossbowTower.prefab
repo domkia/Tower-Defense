@@ -84,11 +84,13 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
+  - {fileID: 2100000, guid: ae237e2789c296d4e87426d5116eb697, type: 2}
+  - {fileID: 2100000, guid: ae237e2789c296d4e87426d5116eb697, type: 2}
   - {fileID: 2100000, guid: ae237e2789c296d4e87426d5116eb697, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -143,12 +145,12 @@ MonoBehaviour:
   WoodCost: 50
   IronCost: 0
   StoneCost: 20
-  ReloadTime: 1
-  FireRate: 0.5
-  ammoCapacity: 15
   Range: 4
+  ammoCapacity: 15
   projectilePrefab: {fileID: 1831838192795536, guid: 1d6492dc622781548a9eba7dab9d6e3a,
     type: 2}
+  ReloadTime: 1
+  FireRate: 0.5
 --- !u!114 &114532304515995140
 MonoBehaviour:
   m_ObjectHideFlags: 1

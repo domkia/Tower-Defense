@@ -205,8 +205,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230e2083872b72e44adcb61e2a878f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundOnSpawn: {fileID: 8300000, guid: cef0c4f92b0a268489b67a4a4f729b8b, type: 3}
-  SoundOnDestroy: {fileID: 8300000, guid: 6d66adc6190e8e44fadf09be438ce96f, type: 3}
+  SoundsOnSpawn:
+  - {fileID: 8300000, guid: 4556ee8c1295c33459bb7f7c376ef269, type: 3}
+  - {fileID: 8300000, guid: 3a8fa152f0a8512419321542bf6c7177, type: 3}
+  - {fileID: 8300000, guid: cef0c4f92b0a268489b67a4a4f729b8b, type: 3}
+  - {fileID: 8300000, guid: 1ea2e9aefddce8d4f9ad131c9c7fe9e3, type: 3}
+  SoundsOnDestroy:
+  - {fileID: 8300000, guid: e10d7b44c3ac7ed42a4f4d90fc88723e, type: 3}
+  - {fileID: 8300000, guid: b57bfd1384cfd024bb532b6586127960, type: 3}
+  - {fileID: 8300000, guid: 6d66adc6190e8e44fadf09be438ce96f, type: 3}
 --- !u!114 &114592029614796032
 MonoBehaviour:
   m_ObjectHideFlags: 1

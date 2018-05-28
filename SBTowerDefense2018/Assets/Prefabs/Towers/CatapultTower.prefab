@@ -567,9 +567,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 10
-  WoodCost: 0
+  WoodCost: 80
   IronCost: 0
-  StoneCost: 0
+  StoneCost: 30
   Range: 2
   ammoCapacity: 10
   projectilePrefab: {fileID: 1876297957564252, guid: 4ec5bc3f9013995478d543077ab499e6,
