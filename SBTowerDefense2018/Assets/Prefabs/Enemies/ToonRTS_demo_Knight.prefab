@@ -956,6 +956,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodPrefab: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 2}
+  moneyReward: 10
+  animator: {fileID: 0}
+  mesh: {fileID: 0}
+  fadeOutTime: 3
   startSpeed: 0.1
   freeze: 0
   freezeDuration: 5

@@ -6272,57 +6272,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f082bd4765f8faf4ba49ee924a4d8529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prepareTime: 2
-  timeBetweenWaves: 8
+  prepareTime: 4
+  timeBetweenWaves: 9
   waves:
   - enemiesNumber: 5
-    timeBetweenEnemies: 1
+    timeBetweenEnemies: 1.7
     enemies:
     - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
   - enemiesNumber: 6
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 1.2
     enemies:
     - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
     - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
   - enemiesNumber: 7
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 1.1
     enemies:
     - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
   - enemiesNumber: 8
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 1.1
     enemies:
     - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
     - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
   - enemiesNumber: 9
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 1.1
     enemies:
     - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
   - enemiesNumber: 10
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 1.1
     enemies:
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
   - enemiesNumber: 11
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 2
     enemies:
     - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
     - {fileID: 114520969347963976, guid: fb23feec2acce644c95b808c149d417e, type: 2}
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
     - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
   - enemiesNumber: 12
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 2
     enemies:
     - {fileID: 114407146604368030, guid: ff3943da467fd7e46920eb9f8ef5cce3, type: 2}
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
     - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
   - enemiesNumber: 13
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 2
     enemies:
     - {fileID: 114996828868250556, guid: e1430759239372a42bec71d4a8b7d8af, type: 2}
     - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
   - enemiesNumber: 14
-    timeBetweenEnemies: 0.4
+    timeBetweenEnemies: 2
     enemies:
     - {fileID: 114454993777460696, guid: 0985854c29bd44b4a891e94963e4e2e0, type: 2}
   NewWaveSound: {fileID: 8300000, guid: c7ee7988a71d33a46858615404e3be62, type: 3}
@@ -6980,7 +6980,7 @@ Prefab:
     - target: {fileID: 224363631151926312, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 274
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
@@ -6990,7 +6990,7 @@ Prefab:
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 160
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224757945493612860, guid: f5636aff7c0f3974db035c7042f15923,
         type: 2}
