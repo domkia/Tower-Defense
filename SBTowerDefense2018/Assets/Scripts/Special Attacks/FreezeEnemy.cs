@@ -5,6 +5,7 @@ using UnityEngine;
 public class FreezeEnemy : SpecialAttack
 {
     public float freezeDuration;
+    public GameObject freezeParticle;
 
     public override void Do()
     {
@@ -15,6 +16,9 @@ public class FreezeEnemy : SpecialAttack
 
         }
         UISoundPlayer.Instance.PlayCustomSound(AbilityActivatedSFX);
+        Vector3 center = new Vector3(0f, 0.1f, 0f);
+        Quaternion rotation = Quaternion.Euler(90f, 0f, 0f);
+        GameObject freeze = Instantiate(freezeParticle, center, rotation);
         Freezeddd();
         timer = cooldown;
         isReady = false;

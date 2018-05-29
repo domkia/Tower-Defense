@@ -17,3 +17,5 @@ MonoBehaviour:
   cooldown: 30
   AbilityActivatedSFX: {fileID: 8300000, guid: 74ba336dd3567144e9a0b99e8fdfda18, type: 3}
   freezeDuration: 2
+  freezeParticle: {fileID: 1994180679620232, guid: b3d7030cad7fa5b4bae4432f6cd1a3b9,
+    type: 2}
