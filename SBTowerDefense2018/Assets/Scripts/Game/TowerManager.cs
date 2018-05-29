@@ -76,14 +76,14 @@ class TowerManager : Singleton<TowerManager>
         /* TEMPORARY FIX */
         // Replace with a more flexible system for building towers.
         Tower towercost = towerPrefab.GetComponent<Tower>();
-       
+
         tile.SetType(TileType.Tower);                       //Set tile type
         //Debug.Log(PlayerStats.Instance.Resources[2].ResourceName);
         Tower tower = Instantiate(towerPrefab, tile.worldPos, Quaternion.identity).GetComponent<Tower>();
         tower.OnDeath += DestroyTowerAt;                    //Setup tower
         tower.Setup(tile);
         towers.Add(tile, tower);                            //Add to the dictionary
-        
+
     }
 
     public void DestroyTowerAt(HexTile tile)
@@ -116,5 +116,17 @@ class TowerManager : Singleton<TowerManager>
                 return false;
 
         return atTile.type == TileType.Empty;
+    }
+
+    public bool EnoughResources(GameObject towerPrefab)
+    {
+        Tower towercost = towerPrefab.GetComponent<Tower>();
+        if (towercost.WoodCost > PlayerStats.Instance.Resources[2].Amount)
+            return false;
+        if (towercost.StoneCost > PlayerStats.Instance.Resources[1].Amount)
+            return false;
+        if (towercost.IronCost > PlayerStats.Instance.Resources[0].Amount)
+            return false;
+        return true;
     }
 }

@@ -30,8 +30,10 @@ public class buildAtPos : MonoBehaviour
         if (tile == null)
             return;
 
+        bool enoughResources = TowerManager.Instance.EnoughResources(towerPrefabs[index]);
+        bool canBuildTower = TowerManager.Instance.CanBuildAt(tile.tile) && enoughResources;
 
-        Material mat = TowerManager.Instance.CanBuildAt(tile.tile) ? canBuild : cantBuild;
+        Material mat = canBuildTower ? canBuild : cantBuild;
 
         //Draw visual representation of tower
         Graphics.DrawMesh(towerPrefabs[index].GetComponentInChildren<MeshFilter>().sharedMesh,
@@ -40,18 +42,16 @@ public class buildAtPos : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (TowerManager.Instance.CanBuildAt(tile.tile) == false)
+            isBuilding = false;
+            if (!canBuildTower)
             {
                 UISoundPlayer.Instance.PlayAlertSound();
                 Debug.Log("Can't build here");
                 return;
             }
             TowerManager.Instance.BuyTowerAt(tile.tile, towerPrefabs[index]);
-
             //Instantiate particle
             Instantiate(builParticle, tile.transform.position, Quaternion.identity);
-
-            isBuilding = false;
         }
     }
 
