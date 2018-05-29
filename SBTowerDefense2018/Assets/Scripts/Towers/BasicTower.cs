@@ -178,6 +178,7 @@ public class BasicTower : Tower, IReloadable
     {
         AmmoLeft = ammoCapacity;
         ammoIndicator.UpdateIndicator(AmmoLeft, ammoCapacity);
+        reloadSoundPlayer.PlayReloadingSound();
     }
 
     //Clean up
