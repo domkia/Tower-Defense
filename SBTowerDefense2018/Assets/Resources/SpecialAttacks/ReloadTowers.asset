@@ -15,3 +15,4 @@ MonoBehaviour:
   icon: {fileID: 21300006, guid: 32a6f2866f3ccdf4ca0c88eceeafb5ef, type: 3}
   description: Reloads all towers simultaneously
   cooldown: 10
+  AbilityActivatedSFX: {fileID: 8300000, guid: da42fa350b2c2924f947ea56e2af52c9, type: 3}
