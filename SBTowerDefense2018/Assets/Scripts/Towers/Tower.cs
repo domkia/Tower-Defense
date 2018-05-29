@@ -42,6 +42,8 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
 
     public abstract float InteractionDuration { get; }
 
+    protected PlayReloadingSoundEffect reloadSoundPlayer;
+
     /// <summary>
     /// Sets up the list, which holds the tiles in range for this tower.
     /// In the base class (Tower), this only adds the tile the tower is built on.
@@ -56,6 +58,7 @@ public abstract class Tower : MonoBehaviour, IDamagable<HexTile>
         CurrentHealth = Health;
         towerInteractable = GetComponentInChildren<TowerInteractable>();
         healthbar = GetComponent<Healthbar>();
+        reloadSoundPlayer = GetComponentInChildren<PlayReloadingSoundEffect>();
     }
 
     public virtual void Setup(HexTile builtOn)
