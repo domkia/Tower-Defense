@@ -1,6 +1,6 @@
 **KTU Semestro Projektas**
 
-![Ambush](https://media.giphy.com/media/8cBapieqkUWs7nMhwf/giphy.gif)
+![Ambush](https://i.imgur.com/mBSSMPp.gifv)
 
 |||
 |--|--|
